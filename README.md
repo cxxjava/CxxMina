@@ -239,7 +239,6 @@ Total Number of Cores:	2
 
 
 ####TODO
-    UDP Support;
     More peripheral module;
 
 ####Support

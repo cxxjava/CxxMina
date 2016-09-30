@@ -239,7 +239,6 @@ int main(int argc, const char **argv) {
 
 
 ####TODO
-    UDP支持；
     外围模块支持；
 
 ####Support
