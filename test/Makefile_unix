@@ -1,0 +1,175 @@
+################OPTION###################
+# release or debug
+VERTYPE=RELEASE
+
+KERNEL:=$(shell uname)
+LIBDIR = linux
+
+ARCH:=$(shell uname -m)
+RC:=$(ARCH)
+BIT32:=i686
+BIT64:=x86_64
+
+$(info KERNEL=$(KERNEL))
+$(info ARCH=$(ARCH))
+
+ifeq ($(KERNEL),Darwin)
+    LIBDIR = osx
+endif
+
+ifeq ($(RC),$(BIT32))
+	SHAREDLIB = -lefc32 -leso32 -lrt -lm -ldl -lpthread -lcrypto
+else
+	SHAREDLIB = -lefc64 -leso64 -liconv -ldl -lpthread -lcrypto
+endif
+
+ifeq ($(VERTYPE), RELEASE)
+CCOMPILEOPTION = -c -g -O2
+CPPCOMPILEOPTION = -std=c++11 -c -g -O2 -fpermissive
+TESTEIO = testeio
+else
+CCOMPILEOPTION = -c -g
+CPPCOMPILEOPTION = -std=c++11 -c -g -fpermissive -DDEBUG
+TESTEIO = testeio_r
+endif
+
+CCOMPILE = gcc
+CPPCOMPILE = g++
+INCLUDEDIR = -I../../CxxJDK/inc \
+	-I../../CxxJDK/inc/comm \
+	-I../../CxxJDK/inc/efc \
+	-I../../CxxJDK/inc/efc/concurrent \
+	-I../../CxxJDK/inc/efc/nio \
+	-I../../CxxJDK/inc/libc \
+	-I../../CxxLog4j \
+	-I../../CxxLog4j/inc \
+	-I../inc \
+	-I../ \
+
+LINK = g++
+LINKOPTION = -std=c++11 -g
+LIBDIRS = -L../../CxxJDK/lib/$(LIBDIR)
+APPENDLIB = 
+
+BASE_OBJS = main.o \
+	../../CxxLog4j/src/EAbstractAppender.o \
+	../../CxxLog4j/src/EAbstractLayout.o \
+	../../CxxLog4j/src/EAppenderFactory.o \
+	../../CxxLog4j/src/EConfiguration.o \
+	../../CxxLog4j/src/EConfigurator.o \
+	../../CxxLog4j/src/EConsoleAppender.o \
+	../../CxxLog4j/src/EDailyRollingFileAppender.o \
+	../../CxxLog4j/src/EFileAppender.o \
+	../../CxxLog4j/src/EFileLogWriter.o \
+	../../CxxLog4j/src/EHTMLLayout.o \
+	../../CxxLog4j/src/ELayoutFactory.o \
+	../../CxxLog4j/src/ELogEvent.o \
+	../../CxxLog4j/src/ELoggerConfig.o \
+	../../CxxLog4j/src/ELoggerImp.o \
+	../../CxxLog4j/src/ELoggerManager.o \
+	../../CxxLog4j/src/ELoggerManagerImp.o \
+	../../CxxLog4j/src/EMDC.o \
+	../../CxxLog4j/src/ENDC.o \
+	../../CxxLog4j/src/EOptionConverter.o \
+	../../CxxLog4j/src/EPatternLayout.o \
+	../../CxxLog4j/src/ERollingFileAppender.o \
+	../../CxxLog4j/src/ESimpleLayout.o \
+	../../CxxLog4j/src/ETTCCLayout.o \
+	../../CxxLog4j/src/ETransform.o \
+
+TESTEIO_OBJS = testeio.o \
+	../src/EAbstractAuthLogicHandler.o \
+	../src/EAbstractHttpLogicHandler.o \
+	../src/EAbstractIoAcceptor.o \
+	../src/EAbstractIoConnector.o \
+	../src/EAbstractIoService.o \
+	../src/EAbstractIoSession.o \
+	../src/EAbstractIoSessionConfig.o \
+	../src/EAbstractPollingIoProcessor.o \
+	../src/EAbstractProxyIoHandler.o \
+	../src/EAbstractProxyLogicHandler.o \
+	../src/EAbstractSocketSessionConfig.o \
+	../src/EAbstractSocksLogicHandler.o \
+	../src/EAttributeKey.o \
+	../src/EBlacklistFilter.o \
+	../src/EChainedIoHandler.o \
+	../src/ECumulativeProtocolDecoder.o \
+	../src/EDefaultCloseFuture.o \
+	../src/EDefaultConnectFuture.o \
+	../src/EDefaultExceptionMonitor.o \
+	../src/EDefaultFileRegion.o \
+	../src/EDefaultIoFilterChain.o \
+	../src/EDefaultIoFilterChainBuilder.o \
+	../src/EDefaultIoFuture.o \
+	../src/EDefaultIoSessionDataStructureFactory.o \
+	../src/EDefaultReadFuture.o \
+	../src/EDefaultSocketSessionConfig.o \
+	../src/EDefaultTransportMetadata.o \
+	../src/EDefaultWriteFuture.o \
+	../src/EDefaultWriteRequest.o \
+	../src/EExceptionMonitor.o \
+	../src/EFilenameFileRegion.o \
+	../src/EHttpAuthenticationMethods.o \
+	../src/EHttpBasicAuthLogicHandler.o \
+	../src/EHttpDigestAuthLogicHandler.o \
+	../src/EHttpNoAuthLogicHandler.o \
+	../src/EHttpProxyRequest.o \
+	../src/EHttpProxyResponse.o \
+	../src/EHttpSmartProxyHandler.o \
+	../src/EIoBuffer.o \
+	../src/EIoBufferDecoder.o \
+	../src/EIoBufferWrapper.o \
+	../src/EIoFilterAdapter.o \
+	../src/EIoFutureListener.o \
+	../src/EIoHandlerAdapter.o \
+	../src/EIoHandlerChain.o \
+	../src/EIoServiceListenerSupport.o \
+	../src/EIoServiceStatistics.o \
+	../src/EIoSessionEvent.o \
+	../src/EIoSessionEventQueue.o \
+	../src/EIoSessionInputStream.o \
+	../src/EIoSessionOutputStream.o \
+	../src/EIoUtil.o \
+	../src/ELoggingFilter.o \
+	../src/ENamePreservingRunnable.o \
+	../src/ENioProcessor.o \
+	../src/ENioSession.o \
+	../src/ENioSocketAcceptor.o \
+	../src/ENioSocketConnector.o \
+	../src/ENioSocketSession.o \
+	../src/EProfilerTimerFilter.o \
+	../src/EProtocolCodecFilter.o \
+	../src/EProtocolDecoderException.o \
+	../src/EProxyConnector.o \
+	../src/EProxyFilter.o \
+	../src/EProxyIoSession.o \
+	../src/EProxyIoSessionInitializer.o \
+	../src/ESimpleIoProcessorPool.o \
+	../src/ESocks4LogicHandler.o \
+	../src/ESocks5LogicHandler.o \
+	../src/ESocksProxyRequest.o \
+	../src/EStreamIoHandler.o \
+	../src/EStringUtilities.o \
+	../src/ESubnet.o \
+	../src/ETextLineCodecFactory.o \
+	../src/ETextLineDecoder.o \
+	../src/ETextLineEncoder.o \
+	../src/EWhitelistFilter.o \
+	../src/EWriteRequestWrapper.o \
+
+$(TESTEIO): $(BASE_OBJS) $(TESTEIO_OBJS) $(APPENDLIB)
+	$(LINK) $(LINKOPTION) -o $(TESTEIO) $(LIBDIRS) $(BASE_OBJS) $(TESTEIO_OBJS) $(SHAREDLIB) $(APPENDLIB)
+
+clean: 
+	rm -f $(BASE_OBJS) $(TESTEIO_OBJS)
+
+all: clean $(TESTEIO) clean
+.PRECIOUS:%.cpp %.c
+.SUFFIXES:
+.SUFFIXES:  .c .o .cpp
+
+.cpp.o:
+	$(CPPCOMPILE) -c -o $*.o $(CPPCOMPILEOPTION) $(INCLUDEDIR)  $*.cpp
+
+.c.o:
+	$(CCOMPILE) -c -o $*.o $(CCOMPILEOPTION) $(INCLUDEDIR) $*.c
