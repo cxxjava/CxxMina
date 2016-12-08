@@ -14,7 +14,6 @@ sp<EString> EProxyIoSession::PROXY_SESSION = new EString("ProxyConnector.ProxySe
 
 DEFINE_STATIC_INITZZ_BEGIN(EProxyIoSession)
 ESystem::_initzz_();
-printf("EProxyIoSession::initzz()\n");
 DEFINE_STATIC_INITZZ_END
 
 EProxyIoSession::~EProxyIoSession() {

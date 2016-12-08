@@ -239,7 +239,7 @@ void EAbstractIoService::setHandler(EIoHandler* handler)
 	this->handler = handler;
 }
 
-EConcurrentMap<ELLong, EIoSession>* EAbstractIoService::getManagedSessions() {
+EConcurrentMap<llong, EIoSession>* EAbstractIoService::getManagedSessions() {
 	return listeners->getManagedSessions();
 }
 

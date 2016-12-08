@@ -15,7 +15,6 @@ EIoFutureListener* EIoFutureListener::CLOSE;
 DEFINE_STATIC_INITZZ_BEGIN(EIoFutureListener)
 ESystem::_initzz_();
 CLOSE = new CloseListener();
-printf("EIoFutureListener::initzz()\n");
 DEFINE_STATIC_INITZZ_END
 
 } /* namespace eio */

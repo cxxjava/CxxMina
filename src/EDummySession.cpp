@@ -158,6 +158,7 @@ EDummySession::~EDummySession() {
 EDummySession::EDummySession(): EAbstractIoSession(&dummyIoAcceptor) {
 	this->config = &dummyIoSessionConfig;
 	this->handler = &defaultIoHandlerAdapter;
+	this->filterChain = null;
 	this->localAddress = new EInetSocketAddress(0, 0); //ANONYMOUS_ADDRESS;
 	this->remoteAddress = new EInetSocketAddress(0, 0); //ANONYMOUS_ADDRESS;
 	this->transportMetadata = dummyIoAcceptor.getTransportMetadata();

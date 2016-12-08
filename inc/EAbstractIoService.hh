@@ -78,7 +78,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EConcurrentMap<ELLong, EIoSession>* getManagedSessions();
+	virtual EConcurrentMap<llong, EIoSession>* getManagedSessions();
 
 	/**
 	 * {@inheritDoc}

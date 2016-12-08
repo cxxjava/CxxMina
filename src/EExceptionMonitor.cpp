@@ -16,7 +16,6 @@ EExceptionMonitor* EExceptionMonitor::instance = null;
 DEFINE_STATIC_INITZZ_BEGIN(EExceptionMonitor)
 ESystem::_initzz_();
 instance = new EDefaultExceptionMonitor();
-printf("EExceptionMonitor::initzz()\n");
 DEFINE_STATIC_INITZZ_END
 
 EExceptionMonitor::~EExceptionMonitor() {

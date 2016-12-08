@@ -9,11 +9,11 @@ CCOMPILE = cl.exe
 LINK = link.exe
 
 !if $(VERTYPE) == RELEASE
-COMPILEOPTION = -c /Zi /nologo /W3 /WX- /O2 /Oy- /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Gd /analyze- -D_WINDOWS -D_MBCS -D_LIB -DES_DECLARE_EXPORT
+COMPILEOPTION = -c /Zi /nologo /W3 /WX- /O2 /Oy- /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Gd /analyze- -D_WINDOWS -D_MBCS -D_LIB -DES_DECLARE_EXPORT -D__MAIN__
 TESTEIO = testeio.exe
 !else
-COMPILEOPTION = -c /Zi /nologo /W3 /WX- /O2 /Oy- /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Gd /analyze- -D_WINDOWS -D_MBCS -D_LIB -DES_DECLARE_EXPORT
-TESTEIO = testeio_r.exe
+COMPILEOPTION = -c /Zi /nologo /W3 /WX- /O2 /Oy- /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Gd /analyze- -D_WINDOWS -D_MBCS -D_LIB -DES_DECLARE_EXPORT -D__MAIN__
+TESTEIO = testeio_d.exe
 !endif
 
 LINKOPTION = /NOLOGO /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /MACHINE:X86
@@ -22,6 +22,7 @@ INCLUDEDIR = -I..\..\CxxJDK\inc \
 	-I..\..\CxxJDK\inc\comm \
 	-I..\..\CxxJDK\inc\efc \
 	-I..\..\CxxJDK\inc\efc\concurrent \
+	-I..\..\CxxJDK\inc\efc\cpp11 \
 	-I..\..\CxxJDK\inc\efc\nio \
 	-I..\..\CxxJDK\inc\libc \
 	-I..\..\CxxLog4j \
@@ -31,111 +32,123 @@ INCLUDEDIR = -I..\..\CxxJDK\inc \
 
 LIBDIRS = ..\..\CxxJDK\lib\$(LIBDIR)\eso8.lib ..\..\CxxJDK\lib\$(LIBDIR)\efc8.lib "Ws2_32.lib" "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib"
 
-BASE_OBJS = main.obj \
-	../../CxxLog4j/src/EAbstractAppender.o \
-	../../CxxLog4j/src/EAbstractLayout.o \
-	../../CxxLog4j/src/EAppenderFactory.o \
-	../../CxxLog4j/src/EConfiguration.o \
-	../../CxxLog4j/src/EConfigurator.o \
-	../../CxxLog4j/src/EConsoleAppender.o \
-	../../CxxLog4j/src/EDailyRollingFileAppender.o \
-	../../CxxLog4j/src/EFileAppender.o \
-	../../CxxLog4j/src/EFileLogWriter.o \
-	../../CxxLog4j/src/EHTMLLayout.o \
-	../../CxxLog4j/src/ELayoutFactory.o \
-	../../CxxLog4j/src/ELogEvent.o \
-	../../CxxLog4j/src/ELoggerConfig.o \
-	../../CxxLog4j/src/ELoggerImp.o \
-	../../CxxLog4j/src/ELoggerManager.o \
-	../../CxxLog4j/src/ELoggerManagerImp.o \
-	../../CxxLog4j/src/EMDC.o \
-	../../CxxLog4j/src/ENDC.o \
-	../../CxxLog4j/src/EOptionConverter.o \
-	../../CxxLog4j/src/EPatternLayout.o \
-	../../CxxLog4j/src/ERollingFileAppender.o \
-	../../CxxLog4j/src/ESimpleLayout.o \
-	../../CxxLog4j/src/ETTCCLayout.o \
-	../../CxxLog4j/src/ETransform.o \
+BASE_OBJS = \
+	..\..\CxxLog4j\src\EAbstractAppender.o \
+	..\..\CxxLog4j\src\EAbstractLayout.o \
+	..\..\CxxLog4j\src\EAppenderFactory.o \
+	..\..\CxxLog4j\src\EConfiguration.o \
+	..\..\CxxLog4j\src\EConfigurator.o \
+	..\..\CxxLog4j\src\EConsoleAppender.o \
+	..\..\CxxLog4j\src\EDailyRollingFileAppender.o \
+	..\..\CxxLog4j\src\EFileAppender.o \
+	..\..\CxxLog4j\src\EFileLogWriter.o \
+	..\..\CxxLog4j\src\EHTMLLayout.o \
+	..\..\CxxLog4j\src\ELayoutFactory.o \
+	..\..\CxxLog4j\src\ELogEvent.o \
+	..\..\CxxLog4j\src\ELoggerConfig.o \
+	..\..\CxxLog4j\src\ELoggerImp.o \
+	..\..\CxxLog4j\src\ELoggerManager.o \
+	..\..\CxxLog4j\src\ELoggerManagerImp.o \
+	..\..\CxxLog4j\src\EMDC.o \
+	..\..\CxxLog4j\src\ENDC.o \
+	..\..\CxxLog4j\src\EOptionConverter.o \
+	..\..\CxxLog4j\src\EPatternLayout.o \
+	..\..\CxxLog4j\src\ERollingFileAppender.o \
+	..\..\CxxLog4j\src\ESimpleLayout.o \
+	..\..\CxxLog4j\src\ETTCCLayout.o \
+	..\..\CxxLog4j\src\ETransform.o \
 
 TESTEIO_OBJS = testeio.o \
-	../src/EAbstractAuthLogicHandler.o \
-	../src/EAbstractHttpLogicHandler.o \
-	../src/EAbstractIoAcceptor.o \
-	../src/EAbstractIoConnector.o \
-	../src/EAbstractIoService.o \
-	../src/EAbstractIoSession.o \
-	../src/EAbstractIoSessionConfig.o \
-	../src/EAbstractPollingIoProcessor.o \
-	../src/EAbstractProxyIoHandler.o \
-	../src/EAbstractProxyLogicHandler.o \
-	../src/EAbstractSocketSessionConfig.o \
-	../src/EAbstractSocksLogicHandler.o \
-	../src/EAttributeKey.o \
-	../src/EBlacklistFilter.o \
-	../src/EChainedIoHandler.o \
-	../src/ECumulativeProtocolDecoder.o \
-	../src/EDefaultCloseFuture.o \
-	../src/EDefaultConnectFuture.o \
-	../src/EDefaultExceptionMonitor.o \
-	../src/EDefaultFileRegion.o \
-	../src/EDefaultIoFilterChain.o \
-	../src/EDefaultIoFilterChainBuilder.o \
-	../src/EDefaultIoFuture.o \
-	../src/EDefaultIoSessionDataStructureFactory.o \
-	../src/EDefaultReadFuture.o \
-	../src/EDefaultSocketSessionConfig.o \
-	../src/EDefaultTransportMetadata.o \
-	../src/EDefaultWriteFuture.o \
-	../src/EDefaultWriteRequest.o \
-	../src/EExceptionMonitor.o \
-	../src/EFilenameFileRegion.o \
-	../src/EHttpAuthenticationMethods.o \
-	../src/EHttpBasicAuthLogicHandler.o \
-	../src/EHttpDigestAuthLogicHandler.o \
-	../src/EHttpNoAuthLogicHandler.o \
-	../src/EHttpProxyRequest.o \
-	../src/EHttpProxyResponse.o \
-	../src/EHttpSmartProxyHandler.o \
-	../src/EIoBuffer.o \
-	../src/EIoBufferDecoder.o \
-	../src/EIoBufferWrapper.o \
-	../src/EIoFilterAdapter.o \
-	../src/EIoFutureListener.o \
-	../src/EIoHandlerAdapter.o \
-	../src/EIoHandlerChain.o \
-	../src/EIoServiceListenerSupport.o \
-	../src/EIoServiceStatistics.o \
-	../src/EIoSessionEvent.o \
-	../src/EIoSessionEventQueue.o \
-	../src/EIoSessionInputStream.o \
-	../src/EIoSessionOutputStream.o \
-	../src/EIoUtil.o \
-	../src/ELoggingFilter.o \
-	../src/ENamePreservingRunnable.o \
-	../src/ENioProcessor.o \
-	../src/ENioSession.o \
-	../src/ENioSocketAcceptor.o \
-	../src/ENioSocketConnector.o \
-	../src/ENioSocketSession.o \
-	../src/EProfilerTimerFilter.o \
-	../src/EProtocolCodecFilter.o \
-	../src/EProtocolDecoderException.o \
-	../src/EProxyConnector.o \
-	../src/EProxyFilter.o \
-	../src/EProxyIoSession.o \
-	../src/EProxyIoSessionInitializer.o \
-	../src/ESimpleIoProcessorPool.o \
-	../src/ESocks4LogicHandler.o \
-	../src/ESocks5LogicHandler.o \
-	../src/ESocksProxyRequest.o \
-	../src/EStreamIoHandler.o \
-	../src/EStringUtilities.o \
-	../src/ESubnet.o \
-	../src/ETextLineCodecFactory.o \
-	../src/ETextLineDecoder.o \
-	../src/ETextLineEncoder.o \
-	../src/EWhitelistFilter.o \
-	../src/EWriteRequestWrapper.o \
+	..\src\EAbstractAuthLogicHandler.o \
+	..\src\EAbstractDatagramSessionConfig.o \
+	..\src\EAbstractHttpLogicHandler.o \
+	..\src\EAbstractIoAcceptor.o \
+	..\src\EAbstractIoConnector.o \
+	..\src\EAbstractIoService.o \
+	..\src\EAbstractIoSession.o \
+	..\src\EAbstractIoSessionConfig.o \
+	..\src\EAbstractPollingIoProcessor.o \
+	..\src\EAbstractProxyIoHandler.o \
+	..\src\EAbstractProxyLogicHandler.o \
+	..\src\EAbstractSocketSessionConfig.o \
+	..\src\EAbstractSocksLogicHandler.o \
+	..\src\EAttributeKey.o \
+	..\src\EBlacklistFilter.o \
+	..\src\EChainedIoHandler.o \
+	..\src\ECumulativeProtocolDecoder.o \
+	..\src\EDefaultCloseFuture.o \
+	..\src\EDefaultConnectFuture.o \
+	..\src\EDefaultExceptionMonitor.o \
+	..\src\EDefaultFileRegion.o \
+	..\src\EDefaultIoFilterChain.o \
+	..\src\EDefaultIoFilterChainBuilder.o \
+	..\src\EDefaultIoFuture.o \
+	..\src\EDefaultIoSessionDataStructureFactory.o \
+	..\src\EDefaultReadFuture.o \
+	..\src\EDefaultSocketSessionConfig.o \
+	..\src\EDefaultTransportMetadata.o \
+	..\src\EDefaultWriteFuture.o \
+	..\src\EDefaultWriteRequest.o \
+	..\src\EDummySession.o \
+	..\src\EExecutorFilter.o \
+	..\src\EExceptionMonitor.o \
+	..\src\EFilenameFileRegion.o \
+	..\src\EHttpAuthenticationMethods.o \
+	..\src\EHttpBasicAuthLogicHandler.o \
+	..\src\EHttpDigestAuthLogicHandler.o \
+	..\src\EHttpNoAuthLogicHandler.o \
+	..\src\EHttpProxyRequest.o \
+	..\src\EHttpProxyResponse.o \
+	..\src\EHttpSmartProxyHandler.o \
+	..\src\EIoBuffer.o \
+	..\src\EIoBufferDecoder.o \
+	..\src\EIoBufferWrapper.o \
+	..\src\EIoEvent.o \
+	..\src\EIoEventType.o \
+	..\src\EIoFilterAdapter.o \
+	..\src\EIoFilterEvent.o \
+	..\src\EIoFutureListener.o \
+	..\src\EIoHandlerAdapter.o \
+	..\src\EIoHandlerChain.o \
+	..\src\EIoServiceListenerSupport.o \
+	..\src\EIoServiceStatistics.o \
+	..\src\EIoSessionEvent.o \
+	..\src\EIoSessionEventQueue.o \
+	..\src\EIoSessionInputStream.o \
+	..\src\EIoSessionOutputStream.o \
+	..\src\EIoUtil.o \
+	..\src\ELoggingFilter.o \
+	..\src\ENamePreservingRunnable.o \
+	..\src\ENioDatagramAcceptor.o \
+	..\src\ENioDatagramConnector.o \
+	..\src\ENioDatagramSession.o \
+	..\src\ENioDatagramSessionConfig.o \
+	..\src\ENioProcessor.o \
+	..\src\ENioSession.o \
+	..\src\ENioSocketAcceptor.o \
+	..\src\ENioSocketConnector.o \
+	..\src\ENioSocketSession.o \
+	..\src\EOrderedThreadPoolExecutor.o \
+	..\src\EProfilerTimerFilter.o \
+	..\src\EProtocolCodecFilter.o \
+	..\src\EProtocolDecoderException.o \
+	..\src\EProxyConnector.o \
+	..\src\EProxyFilter.o \
+	..\src\EProxyIoSession.o \
+	..\src\EProxyIoSessionInitializer.o \
+	..\src\ESimpleIoProcessorPool.o \
+	..\src\ESocks4LogicHandler.o \
+	..\src\ESocks5LogicHandler.o \
+	..\src\ESocksProxyRequest.o \
+	..\src\EStreamIoHandler.o \
+	..\src\EStringUtilities.o \
+	..\src\ESubnet.o \
+	..\src\ETextLineCodecFactory.o \
+	..\src\ETextLineDecoder.o \
+	..\src\ETextLineEncoder.o \
+	..\src\EWhitelistFilter.o \
+	..\src\EWriteRequestWrapper.o \
+	..\src\EExpiringSessionRecycler.o \
 
 $(TESTEIO): $(BASE_OBJS) $(TESTEIO_OBJS) 
 	$(LINK) $(LINKOPTION) /out:$(TESTEIO) $(LIBDIRS) $(BASE_OBJS) $(TESTEIO_OBJS)

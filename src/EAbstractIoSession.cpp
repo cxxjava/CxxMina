@@ -47,7 +47,6 @@ sp<EAttributeKey> EAbstractIoSession::WAITING_READ_FUTURES_KEY = new EAttributeK
 
 DEFINE_STATIC_INITZZ_BEGIN(EAbstractIoSession)
 ESystem::_initzz_();
-printf("EAbstractIoSession::initzz()\n");
 DEFINE_STATIC_INITZZ_END
 
 EAbstractIoSession::~EAbstractIoSession() {

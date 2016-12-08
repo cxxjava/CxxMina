@@ -4,6 +4,8 @@ VERTYPE=RELEASE
 
 KERNEL:=$(shell uname)
 LIBDIR = linux
+#CPPSTD = c++98
+CPPSTD = c++11
 
 ARCH:=$(shell uname -m)
 RC:=$(ARCH)
@@ -24,13 +26,13 @@ else
 endif
 
 ifeq ($(VERTYPE), RELEASE)
-CCOMPILEOPTION = -c -g -O2
-CPPCOMPILEOPTION = -std=c++11 -c -g -O2 -fpermissive
+CCOMPILEOPTION = -c -g -O2 -D__MAIN__
+CPPCOMPILEOPTION = -std=$(CPPSTD) -c -g -O2 -fpermissive -D__MAIN__
 TESTEIO = testeio
 else
-CCOMPILEOPTION = -c -g
-CPPCOMPILEOPTION = -std=c++11 -c -g -fpermissive -DDEBUG
-TESTEIO = testeio_r
+CCOMPILEOPTION = -c -g -D__MAIN__
+CPPCOMPILEOPTION = -std=$(CPPSTD) -c -g -fpermissive -DDEBUG -D__MAIN__
+TESTEIO = testeio_d
 endif
 
 CCOMPILE = gcc
@@ -39,6 +41,7 @@ INCLUDEDIR = -I../../CxxJDK/inc \
 	-I../../CxxJDK/inc/comm \
 	-I../../CxxJDK/inc/efc \
 	-I../../CxxJDK/inc/efc/concurrent \
+	-I../../CxxJDK/inc/efc/cpp11 \
 	-I../../CxxJDK/inc/efc/nio \
 	-I../../CxxJDK/inc/libc \
 	-I../../CxxLog4j \
@@ -47,11 +50,11 @@ INCLUDEDIR = -I../../CxxJDK/inc \
 	-I../ \
 
 LINK = g++
-LINKOPTION = -std=c++11 -g
+LINKOPTION = -std=$(CPPSTD) -g
 LIBDIRS = -L../../CxxJDK/lib/$(LIBDIR)
 APPENDLIB = 
 
-BASE_OBJS = main.o \
+BASE_OBJS = \
 	../../CxxLog4j/src/EAbstractAppender.o \
 	../../CxxLog4j/src/EAbstractLayout.o \
 	../../CxxLog4j/src/EAppenderFactory.o \
@@ -79,6 +82,7 @@ BASE_OBJS = main.o \
 
 TESTEIO_OBJS = testeio.o \
 	../src/EAbstractAuthLogicHandler.o \
+	../src/EAbstractDatagramSessionConfig.o \
 	../src/EAbstractHttpLogicHandler.o \
 	../src/EAbstractIoAcceptor.o \
 	../src/EAbstractIoConnector.o \
@@ -107,6 +111,8 @@ TESTEIO_OBJS = testeio.o \
 	../src/EDefaultTransportMetadata.o \
 	../src/EDefaultWriteFuture.o \
 	../src/EDefaultWriteRequest.o \
+	../src/EDummySession.o \
+	../src/EExecutorFilter.o \
 	../src/EExceptionMonitor.o \
 	../src/EFilenameFileRegion.o \
 	../src/EHttpAuthenticationMethods.o \
@@ -119,7 +125,10 @@ TESTEIO_OBJS = testeio.o \
 	../src/EIoBuffer.o \
 	../src/EIoBufferDecoder.o \
 	../src/EIoBufferWrapper.o \
+	../src/EIoEvent.o \
+	../src/EIoEventType.o \
 	../src/EIoFilterAdapter.o \
+	../src/EIoFilterEvent.o \
 	../src/EIoFutureListener.o \
 	../src/EIoHandlerAdapter.o \
 	../src/EIoHandlerChain.o \
@@ -132,11 +141,16 @@ TESTEIO_OBJS = testeio.o \
 	../src/EIoUtil.o \
 	../src/ELoggingFilter.o \
 	../src/ENamePreservingRunnable.o \
+	../src/ENioDatagramAcceptor.o \
+	../src/ENioDatagramConnector.o \
+	../src/ENioDatagramSession.o \
+	../src/ENioDatagramSessionConfig.o \
 	../src/ENioProcessor.o \
 	../src/ENioSession.o \
 	../src/ENioSocketAcceptor.o \
 	../src/ENioSocketConnector.o \
 	../src/ENioSocketSession.o \
+	../src/EOrderedThreadPoolExecutor.o \
 	../src/EProfilerTimerFilter.o \
 	../src/EProtocolCodecFilter.o \
 	../src/EProtocolDecoderException.o \
@@ -156,6 +170,7 @@ TESTEIO_OBJS = testeio.o \
 	../src/ETextLineEncoder.o \
 	../src/EWhitelistFilter.o \
 	../src/EWriteRequestWrapper.o \
+	../src/EExpiringSessionRecycler.o \
 
 $(TESTEIO): $(BASE_OBJS) $(TESTEIO_OBJS) $(APPENDLIB)
 	$(LINK) $(LINKOPTION) -o $(TESTEIO) $(LIBDIRS) $(BASE_OBJS) $(TESTEIO_OBJS) $(SHAREDLIB) $(APPENDLIB)

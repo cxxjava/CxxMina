@@ -52,7 +52,7 @@ public:
 	/**
 	 *
 	 */
-	EConcurrentMap<ELLong, EIoSession>* getManagedSessions();
+	EConcurrentMap<llong, EIoSession>* getManagedSessions();
 
 	/**
 	 *
@@ -115,7 +115,7 @@ private:
 	EConcurrentList<EIoServiceListener>* listeners;// = new CopyOnWriteArrayList<IoServiceListener>();
 
 	/** Tracks managed sessions. */
-	EConcurrentMap<ELLong, EIoSession>* managedSessions;// = new ConcurrentHashMap<Long, IoSession>();
+	EConcurrentMap<llong, EIoSession>* managedSessions;// = new ConcurrentHashMap<Long, IoSession>();
 	EReentrantLock managedSessionsLock; //#added by cxxjava
 
 	/**  Read only version of {@link #managedSessions}. */

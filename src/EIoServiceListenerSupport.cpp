@@ -44,7 +44,7 @@ EIoServiceListenerSupport::EIoServiceListenerSupport(EIoService* service)
 	this->service = service;
 
 	listeners = new ECopyOnWriteArrayList<EIoServiceListener>();
-	managedSessions = new EConcurrentHashMap<ELLong, EIoSession>();
+	managedSessions = new EConcurrentHashMap<llong, EIoSession>();
 	largestManagedSessionCount = 0;
 }
 
@@ -64,7 +64,7 @@ long EIoServiceListenerSupport::getActivationTime() {
 	return activationTime;
 }
 
-EConcurrentMap<ELLong, EIoSession>* EIoServiceListenerSupport::getManagedSessions() {
+EConcurrentMap<llong, EIoSession>* EIoServiceListenerSupport::getManagedSessions() {
 	//@see: return readOnlyManagedSessions;
 	return managedSessions;
 }
@@ -158,7 +158,7 @@ void EIoServiceListenerSupport::fireSessionCreated(sp<EIoSession> session) {
 	}
 
 	// If already registered, ignore.
-	if (managedSessions->putIfAbsent(new ELLong(session->getId()), session) != null) {
+	if (managedSessions->putIfAbsent(session->getId(), session) != null) {
 		return;
 	}
 
@@ -211,8 +211,7 @@ void EIoServiceListenerSupport::fireSessionCreated(sp<EIoSession> session) {
 
 void EIoServiceListenerSupport::fireSessionDestroyed(sp<EIoSession> session) {
 	// Try to remove the remaining empty session set after removal.
-	ELLong id(session->getId());  //TODO: ELLong --> llong
-	sp<EIoSession> s = managedSessions->remove(&id);
+	sp<EIoSession> s = managedSessions->remove(session->getId());
 	if (s == null) {
 		return;
 	}
@@ -320,8 +319,7 @@ void EIoServiceListenerSupport::disconnectSessions() {
 }
 
 sp<EIoSession> EIoServiceListenerSupport::getSession(sp<EIoSession> session) {
-	ELLong l(session->getId());
-	return managedSessions->get(&l);
+	return managedSessions->get(session->getId());
 }
 
 } /* namespace eio */

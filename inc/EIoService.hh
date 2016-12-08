@@ -103,7 +103,7 @@ interface EIoService : virtual public EObject {
 	 *
 	 * @return the sessions. An empty collection if there's no session.
 	 */
-	virtual EConcurrentMap<ELLong, EIoSession>* getManagedSessions() = 0;
+	virtual EConcurrentMap<llong, EIoSession>* getManagedSessions() = 0;
 
 	/**
 	 * Returns the number of all sessions which are currently managed by this
