@@ -12,7 +12,12 @@ namespace efc {
 namespace eio {
 
 sp<ELogger> EOrderedThreadPoolExecutor::LOGGER = ELoggerManager::getLogger("EOrderedThreadPoolExecutor");
-sp<EIoSession> EOrderedThreadPoolExecutor::EXIT_SIGNAL = new EDummySession();
+sp<EIoSession> EOrderedThreadPoolExecutor::EXIT_SIGNAL;
+
+DEFINE_STATIC_INITZZ_BEGIN(EOrderedThreadPoolExecutor)
+EDummySession::_initzz_();
+EXIT_SIGNAL = new EDummySession();
+DEFINE_STATIC_INITZZ_END
 
 EOrderedThreadPoolExecutor::~EOrderedThreadPoolExecutor() throw() {
 	this->shutdown();

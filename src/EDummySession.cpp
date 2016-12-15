@@ -141,10 +141,18 @@ public:
 	}
 };
 
-static DummyIoSessionConfig dummyIoSessionConfig;
-static DummyExecutor dummyExecutor;
-static DummyIoAcceptor dummyIoAcceptor(&dummyIoSessionConfig, &dummyExecutor);
-static EIoHandlerAdapter defaultIoHandlerAdapter;
+static DummyIoSessionConfig *dummyIoSessionConfig;
+static DummyExecutor *dummyExecutor;
+static DummyIoAcceptor *dummyIoAcceptor;
+static EIoHandlerAdapter *defaultIoHandlerAdapter;
+
+DEFINE_STATIC_INITZZ_BEGIN(EDummySession)
+ESystem::_initzz_();
+dummyIoSessionConfig = new DummyIoSessionConfig();
+dummyExecutor = new DummyExecutor();
+dummyIoAcceptor = new DummyIoAcceptor(dummyIoSessionConfig, dummyExecutor);
+defaultIoHandlerAdapter = new EIoHandlerAdapter();
+DEFINE_STATIC_INITZZ_END
 
 //=============================================================================
 
@@ -155,13 +163,13 @@ EDummySession::~EDummySession() {
 	delete processor;
 }
 
-EDummySession::EDummySession(): EAbstractIoSession(&dummyIoAcceptor) {
-	this->config = &dummyIoSessionConfig;
-	this->handler = &defaultIoHandlerAdapter;
+EDummySession::EDummySession(): EAbstractIoSession(dummyIoAcceptor) {
+	this->config = dummyIoSessionConfig;
+	this->handler = defaultIoHandlerAdapter;
 	this->filterChain = null;
 	this->localAddress = new EInetSocketAddress(0, 0); //ANONYMOUS_ADDRESS;
 	this->remoteAddress = new EInetSocketAddress(0, 0); //ANONYMOUS_ADDRESS;
-	this->transportMetadata = dummyIoAcceptor.getTransportMetadata();
+	this->transportMetadata = dummyIoAcceptor->getTransportMetadata();
 
 	this->processor = new DummyIoProcessor();
 	this->service = EAbstractIoSession::getService();

@@ -28,6 +28,9 @@ namespace eio {
 
 class EDummySession: public EAbstractIoSession {
 public:
+	DECLARE_STATIC_INITZZ;
+
+public:
 	virtual ~EDummySession();
 
 	/**

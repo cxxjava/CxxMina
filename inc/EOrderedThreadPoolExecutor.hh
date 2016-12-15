@@ -28,6 +28,9 @@ namespace eio {
 
 class EOrderedThreadPoolExecutor: public EThreadPoolExecutor {
 public:
+	DECLARE_STATIC_INITZZ;
+
+public:
 	virtual ~EOrderedThreadPoolExecutor() throw();
 
 	/**
