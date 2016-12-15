@@ -68,7 +68,7 @@ void EIoEvent::fire() {
 		break;
 	case SESSION_IDLE:
 	{
-		EIdleStatus stat = (EIdleStatus)dynamic_cast<EInteger*>(&obj)->intValue();
+		EIdleStatus stat = (EIdleStatus)dynamic_cast<EInteger*>(obj.get())->intValue();
 		getSession()->getFilterChain()->fireSessionIdle(stat);
 		break;
 	}
