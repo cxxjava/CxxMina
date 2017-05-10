@@ -21,7 +21,7 @@ ETextLineEncoder::ETextLineEncoder(const char* s): crlf(null) {
 
 void ETextLineEncoder::encode(sp<EIoSession>& session, sp<EObject>& message, sp<EProtocolEncoderOutput>& out) {
 	const char* value = (message == null ? "" : message->toString().c_str());
-	EIoBuffer* buf = EIoBuffer::allocate(eso_strlen(value) + 2)->setAutoExpand(true);
+	sp<EIoBuffer> buf = EIoBuffer::allocate(eso_strlen(value) + 2)->setAutoExpand(true);
 	buf->putString(value);
 
 	buf->putString(crlf);

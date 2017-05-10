@@ -15,13 +15,13 @@ namespace efc {
 namespace eio {
 
 /**
- * TODO Add documentation
+ * The Datagram transport session configuration.
  *
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
 
-class EAbstractDatagramSessionConfig: public EAbstractIoSessionConfig,
-								virtual public EDatagramSessionConfig {
+abstract class EAbstractDatagramSessionConfig: public EAbstractIoSessionConfig,
+		virtual public EDatagramSessionConfig {
 public:
 	/**
 	 * {@inheritDoc}
@@ -89,6 +89,7 @@ protected:
 private:
 	static const boolean DEFAULT_CLOSE_ON_PORT_UNREACHABLE = true;
 
+	/** Tells if we should close the session if the port is unreachable. Default to true */
 	boolean closeOnPortUnreachable;// = DEFAULT_CLOSE_ON_PORT_UNREACHABLE;
 };
 

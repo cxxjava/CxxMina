@@ -151,7 +151,7 @@ private:
 	static sp<EAttributeKey> PROCESSOR;// = new AttributeKey(SimpleIoProcessorPool.class, "processor");
 
 	/** The pool table */
-	ea<EIoProcessor>* pool;
+	EA<sp<EIoProcessor> >* pool;
 
 	/** The contained  which is passed to the IoProcessor when they are created */
 	EExecutorService* executor;

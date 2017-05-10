@@ -115,7 +115,7 @@ private:
 	sp<EIoFutureListener> firstListener;
 
 	/** All the other listeners, in case we have more than one */
-	eal<EIoFutureListener> otherListeners;
+	EArrayList<sp<EIoFutureListener> > otherListeners;
 
 	EObject* result;
 

@@ -263,7 +263,7 @@ long EAbstractIoService::getActivationTime() {
 	return listeners->getActivationTime();
 }
 
-eal<EWriteFuture> EAbstractIoService::broadcast(sp<EObject> message) {
+EArrayList<sp<EWriteFuture> > EAbstractIoService::broadcast(sp<EObject> message) {
 	/* @see:
 	// Convert to Set.  We do not return a List here because only the
 	// direct caller of MessageBroadcaster knows the order of write

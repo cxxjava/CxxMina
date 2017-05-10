@@ -32,7 +32,7 @@ interface EProtocolDecoderOutput: virtual public EObject {
 	 *
 	 * @param message the decoded message
 	 */
-	virtual void write(EObject* message) = 0;
+	virtual void write(sp<EObject> message) = 0;
 
 	/**
 	 * Flushes all messages you wrote via {@link #write(Object)} to

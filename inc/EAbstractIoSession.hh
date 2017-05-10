@@ -590,7 +590,7 @@ private:
 	friend class CloseFutureListener;
 
 	template<typename E>
-	class ConcurrentLinkedQueue: public EConcurrentLinkedQueue<E>,
+	class ConcurrentLinkedQueue: public EConcurrentLiteQueue<E>,
 			public ESynchronizeable {
 	};
 

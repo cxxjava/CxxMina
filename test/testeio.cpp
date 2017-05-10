@@ -1,5 +1,8 @@
 #include "main.hh"
 #include "Eio.hh"
+#include "EHttpServerEncoder.hh"
+#include "EHttpServerDecoder.hh"
+#include "EHttpEndOfContent.hh"
 
 #ifdef WIN32
 #define LOG ESystem::out->println
@@ -87,10 +90,34 @@ class DemoIoHandler: public EIoHandler {
 
 	void exceptionCaught(sp<EIoSession>& session, sp<EThrowableType>& cause)
 			THROWS(EException) {
-//		LOG("exceptionCaught");
+		LOG("exceptionCaught");
 		session->closeNow();
 	}
 
+#if 1
+	void messageReceived(sp<EIoSession>& session, sp<EObject>& message)
+			THROWS(EException) {
+		EHttpRequest* hr = dynamic_cast<EHttpRequest*>(message.get());
+		if (hr) {
+			LOG("%s", hr->getHeaders()->toString().c_str());
+		}
+
+		EIoBuffer* ib = dynamic_cast<EIoBuffer*>(message.get());
+		if (ib) {
+			LOG("%s", ib->getString().c_str());
+		}
+
+		EHttpEndOfContent* heoc = dynamic_cast<EHttpEndOfContent*>(message.get());
+		if (heoc) {
+			LOG("%s", heoc->toString().c_str());
+
+			EIoBuffer *out = EIoBuffer::allocate(512);
+			out->buf()->put("HTTP/1.1 200 OK\r\nContent-Length: 11\r\nContent-Type: text/html\r\n\r\nHello,world", 75);
+			out->flip();
+			session->write(out);
+		}
+	}
+#else
 	void messageReceived(sp<EIoSession>& session, sp<EObject>& message)
 			THROWS(EException) {
 //		LOG("messageReceived, sessionid=%d", session->getId());
@@ -100,9 +127,9 @@ class DemoIoHandler: public EIoHandler {
 //		cih->messageReceived(session, message);
 //
 //		//test 1.
+		EIoBuffer* in = dynamic_cast<EIoBuffer*>(message.get());
 //		EIoBuffer* in = dynamic_cast<EIoBuffer*>(message.get());
-////		session->write(in->duplicate());
-////		LOG("text line=%s", in->getString().c_str());
+//		LOG("text line=%s", in->getString().c_str());
 
 		//test 2.
 		EIoBuffer *out = EIoBuffer::allocate(512);
@@ -114,21 +141,22 @@ class DemoIoHandler: public EIoHandler {
 //		session->write((EObject*)message); //error!
 
 		//test 4.
-//		EDefaultFileRegion* dfr = new EDefaultFileRegion(EFileChannel::open("xxx.dat", true, false));
+//		EDefaultFileRegion* dfr = new EDefaultFileRegion(EFileChannel::open("/tmp/aa.cpp", true, false));
 //		session->write(dfr);
 
 		//test 5.
-//		EFileChannel* fc = EFileChannel::open("xxx.dat", true, false);
+//		EFileChannel* fc = EFileChannel::open("/tmp/aa.cpp", true, false);
 //		session->write(fc);
 
 		//test 6.
-//		EFile* file = new EFile("xxx.dat");
+//		EFile* file = new EFile("/tmp/aa.cpp");
 //		session->write(file);
 
 		//test 7.
 		session->closeOnFlush();
 //		session->closeNow();
 	}
+#endif
 
 	void messageSent(sp<EIoSession>& session, sp<EObject>& message)
 			THROWS(EException) {
@@ -218,7 +246,10 @@ static void test_niosocketacceptor() {
 	EWhitelistFilter* wf = new EWhitelistFilter();
 	EProfilerTimerFilter *ptf = new EProfilerTimerFilter();
 	ETextLineCodecFactory* tlcf = new ETextLineCodecFactory("\n");
-	EProtocolCodecFilter* pcf = new EProtocolCodecFilter(tlcf);
+	EProtocolCodecFilter* pcf1 = new EProtocolCodecFilter(tlcf);
+	EHttpServerEncoder hse;
+	EHttpServerDecoder hsd;
+	EProtocolCodecFilter* pcf2 = new EProtocolCodecFilter(&hse, &hsd);
 	DemoIoHandler* dih = new DemoIoHandler();
 	EExecutorService* pool = EExecutors::newCachedThreadPool();
 	StreamIoHandler* sih = new StreamIoHandler(pool);
@@ -229,12 +260,13 @@ static void test_niosocketacceptor() {
 //	bf->block(&ia);
 	bf->block("127.0.0.1");
 	wf->allow(&ia);
-	nsa->getFilterChain()->addLast("executor", ef);
+//	nsa->getFilterChain()->addLast("executor", ef);
 	nsa->getFilterChain()->addLast("logger", lf);
 //	nsa->getFilterChain()->addLast("black", bf);
 //	nsa->getFilterChain()->addLast("white", wf);
 	nsa->getFilterChain()->addLast("profile", ptf);
-//	nsa->getFilterChain()->addLast("codec", pcf);
+//	nsa->getFilterChain()->addLast("codec", pcf1);
+	nsa->getFilterChain()->addLast("codec", pcf2);
 	nsa->setHandler(dih);
 //	nsa->setHandler(sih);
 	nsa->bind(&isa);
@@ -273,8 +305,10 @@ static void test_niosocketacceptor() {
 	LOG("delete wf");
 	delete ptf;
 	LOG("delete ptf");
-	delete pcf;
-	LOG("delete pcf");
+	delete pcf1;
+	LOG("delete pcf1");
+	delete pcf2;
+	LOG("delete pcf2");
 	delete tlcf;
 	LOG("delete tlcf");
 

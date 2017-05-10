@@ -59,7 +59,7 @@ void EAbstractPollingIoProcessor::scheduleRemove(sp<ENioSession>& session) {
 	/* @see:
 	if (!removingSessions.contains(session)) {
 	*/
-	if (!removingSessions.contains(session.get()) && !session->isDestroyed()) {
+	if (!session->isDestroyed()) {
 		removingSessions.add(session);
 	}
 }
@@ -462,7 +462,7 @@ void EAbstractPollingIoProcessor::clearWriteRequestQueue(sp<ENioSession>& sessio
 	EWriteRequestQueue* writeRequestQueue = session->getWriteRequestQueue();
 	sp<EWriteRequest> req;
 
-	eal<EWriteRequest> failedRequests;
+	EArrayList<sp<EWriteRequest> > failedRequests;
 
 	if ((req = writeRequestQueue->poll(session)) != null) {
 		sp<EObject> message = req->getMessage();
@@ -490,10 +490,10 @@ void EAbstractPollingIoProcessor::clearWriteRequestQueue(sp<ENioSession>& sessio
 
 	// Create an exception and notify.
 	if (!failedRequests.isEmpty()) {
-		EWriteToClosedSessionException cause(__FILE__, __LINE__, failedRequests.get(0));
+		EWriteToClosedSessionException cause(__FILE__, __LINE__, failedRequests.getAt(0));
 
 		for (int i=0; i<failedRequests.size(); i++) {
-			sp<EWriteRequest> r = failedRequests.get(i);
+			sp<EWriteRequest> r = failedRequests.getAt(i);
 			session->decreaseScheduledBytesAndMessages(r);
 
 			r->getFuture()->setException(new EThrowableObject<EWriteToClosedSessionException>(cause));

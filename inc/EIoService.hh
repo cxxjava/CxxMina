@@ -161,7 +161,7 @@ interface EIoService : virtual public EObject {
 	 * @param message the message to broadcast
      * @return The set of WriteFuture associated to the message being broadcasted
 	 */
-	virtual eal<EWriteFuture> broadcast(sp<EObject> message) = 0;
+	virtual EArrayList<sp<EWriteFuture> > broadcast(sp<EObject> message) = 0;
 
 	/**
 	 * Returns the {@link IoSessionDataStructureFactory} that provides

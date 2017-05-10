@@ -32,7 +32,7 @@ interface EProtocolEncoderOutput: virtual public EObject {
 	 * @param encodedMessage the encoded message, typically an {@link IoBuffer}
 	 *                       or a {@link FileRegion}.
 	 */
-	virtual void write(EObject* encodedMessage) = 0;
+	virtual void write(sp<EObject> encodedMessage) = 0;
 
 //	/**
 //	 * Merges all buffers you wrote via {@link #write(Object)} into

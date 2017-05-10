@@ -146,7 +146,7 @@ void EDefaultIoFuture::removeListener(EIoFutureListener* listener) {
 		if (!ready) {
 			if (firstListener == listener) {
 				if (!otherListeners.isEmpty()) {
-					firstListener = otherListeners.remove(0);
+					firstListener = otherListeners.removeAt(0);
 				} else {
 					firstListener = null;
 				}
@@ -275,7 +275,7 @@ void EDefaultIoFuture::notifyListeners() {
 		firstListener = null;
 
 		if (!otherListeners.isEmpty()) {
-			sp<EConcurrentIterator<EIoFutureListener> > iter = otherListeners.iterator();
+			sp<EIterator<sp<EIoFutureListener> > > iter = otherListeners.iterator();
 			while (iter->hasNext()) {
 				sp<EIoFutureListener> listener = iter->next();
 				notifyListener(listener);

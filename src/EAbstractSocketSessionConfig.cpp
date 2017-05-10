@@ -44,16 +44,15 @@ void EAbstractSocketSessionConfig::doSetAll(EIoSessionConfig* config) {
             setTrafficClass(cfg->getTrafficClass());
         }
     } else {
-        ESocketSessionConfig* cfg = dynamic_cast<ESocketSessionConfig*>(config);
-        setKeepAlive(cfg->isKeepAlive());
-        setOobInline(cfg->isOobInline());
-        setReceiveBufferSize(cfg->getReceiveBufferSize());
-        setReuseAddress(cfg->isReuseAddress());
-        setSendBufferSize(cfg->getSendBufferSize());
-        setSoLinger(cfg->getSoLinger());
-        setTcpNoDelay(cfg->isTcpNoDelay());
-        if (getTrafficClass() != cfg->getTrafficClass()) {
-            setTrafficClass(cfg->getTrafficClass());
+        setKeepAlive(ssc->isKeepAlive());
+        setOobInline(ssc->isOobInline());
+        setReceiveBufferSize(ssc->getReceiveBufferSize());
+        setReuseAddress(ssc->isReuseAddress());
+        setSendBufferSize(ssc->getSendBufferSize());
+        setSoLinger(ssc->getSoLinger());
+        setTcpNoDelay(ssc->isTcpNoDelay());
+        if (getTrafficClass() != ssc->getTrafficClass()) {
+            setTrafficClass(ssc->getTrafficClass());
         }
     }
 }

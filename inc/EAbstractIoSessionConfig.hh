@@ -23,20 +23,31 @@ namespace eio {
 abstract class EAbstractIoSessionConfig : virtual public EIoSessionConfig
 {
 private:
+	/** The minimum size of the buffer used to read incoming data */
     int minReadBufferSize;// = 64;
 
+    /** The default size of the buffer used to read incoming data */
     int readBufferSize;// = 2048;
 
+    /** The maximum size of the buffer used to read incoming data */
     int maxReadBufferSize;// = 65536;
 
+    /** The delay before we notify a session that it has been idle on read. Default to infinite */
     int idleTimeForRead;
 
+    /** The delay before we notify a session that it has been idle on write. Default to infinite */
     int idleTimeForWrite;
 
+    /**
+	 * The delay before we notify a session that it has been idle on read and write.
+	 * Default to infinite
+	 **/
     int idleTimeForBoth;
 
+    /** The delay to wait for a write operation to complete before bailing out */
     int writeTimeout;// = 60;
 
+    /** A flag set to true when weallow the application to do a session.read(). Default to false */
     boolean useReadOperation;
 
     int throughputCalculationInterval;// = 3;

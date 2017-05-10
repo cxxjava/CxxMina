@@ -11,8 +11,8 @@
 namespace efc {
 namespace eio {
 
-eal<EWriteFuture> EIoUtil::broadcast(sp<EObject>& message, sp<EConcurrentCollection<EIoSession> > sessions) {
-	eal<EWriteFuture> answer;
+EArrayList<sp<EWriteFuture> > EIoUtil::broadcast(sp<EObject>& message, sp<EConcurrentCollection<EIoSession> > sessions) {
+	EArrayList<sp<EWriteFuture> > answer;
 
 	sp<EConcurrentIterator<EIoSession> > iter = sessions->iterator();
 	EIoBuffer* buf = dynamic_cast<EIoBuffer*>(message.get());

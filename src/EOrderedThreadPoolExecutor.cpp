@@ -218,10 +218,10 @@ void EOrderedThreadPoolExecutor::shutdown() {
     }}
 }
 
-eal<ERunnable> EOrderedThreadPoolExecutor::shutdownNow() {
+EArrayList<sp<ERunnable> > EOrderedThreadPoolExecutor::shutdownNow() {
 	shutdown();
 
-	eal<ERunnable> answer;
+	EArrayList<sp<ERunnable> > answer;
 	sp<EIoSession> session;
 
 	while ((session = waitingSessions.poll()) != null) {
@@ -316,7 +316,7 @@ llong EOrderedThreadPoolExecutor::getCompletedTaskCount() {
 	SYNCBLOCK(&mainLock) {
 		llong answer = completedTaskCount;
 		for (int i = 0; i < workers.size(); i++) {
-			answer += workers.get(i)->completedTaskCount.get();
+			answer += workers.getAt(i)->completedTaskCount.get();
 		}
 		return answer;
     }}

@@ -33,7 +33,7 @@ void ESimpleIoProcessorPool::ctor(int size) {
 	(dynamic_cast<EThreadPoolExecutor*>(this->executor))->setRejectedExecutionHandler(
 			new EThreadPoolExecutor::CallerRunsPolicy());
 
-	pool = new ea<EIoProcessor>(size);
+	pool = new EA<sp<EIoProcessor> >(size);
 
 	boolean success = false;
 	ON_FINALLY_NOTHROW(

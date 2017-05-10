@@ -32,8 +32,8 @@ public:
 	virtual void shutdown() {
 		// Do nothing
 	}
-	virtual eal<ERunnable> shutdownNow() {
-		return eal<ERunnable>();
+	virtual EArrayList<sp<ERunnable> > shutdownNow() {
+		return EArrayList<sp<ERunnable> >();
 	}
 	virtual boolean isShutdown() {
 		return false;

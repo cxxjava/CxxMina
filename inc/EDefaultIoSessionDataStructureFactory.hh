@@ -53,7 +53,7 @@ private:
 		EReentrantLock attributesLock;
 	};
 
-	class DefaultWriteRequestQueue : public EWriteRequestQueue,  public ESynchronizeable {
+	class DefaultWriteRequestQueue : public EWriteRequestQueue {
 	public:
 		/**
 		 * Default constructor
@@ -72,7 +72,7 @@ private:
 
 	private:
 		/** A queue to store incoming write requests */
-		EConcurrentLinkedQueue<EWriteRequest> q;// = new ConcurrentLinkedQueue<WriteRequest>();
+		EConcurrentLiteQueue<EWriteRequest> q;// = new ConcurrentLinkedQueue<WriteRequest>();
 	};
 };
 

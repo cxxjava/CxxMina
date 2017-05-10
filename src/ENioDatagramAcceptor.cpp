@@ -238,7 +238,7 @@ int ENioDatagramAcceptor::registerHandles() {
 
 				//@see: boundHandles.putAll(newHandles);
 				{
-					ESet<EMapEntry<EInetSocketAddress*, EDatagramChannel*>*> *set = newHandles->entrySet();
+					sp<ESet<EMapEntry<EInetSocketAddress*, EDatagramChannel*>*> > set = newHandles->entrySet();
 					sp<EIterator<EMapEntry<EInetSocketAddress*, EDatagramChannel*>*> > iter = set->iterator();
 					while(iter->hasNext()) {
 						EMapEntry<EInetSocketAddress*, EDatagramChannel*>* me = iter->next();

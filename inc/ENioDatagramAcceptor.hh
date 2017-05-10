@@ -193,11 +193,11 @@ private:
 	ESemaphore lock;// = new Semaphore(1);
 
 	/** A queue used to store the list of pending Binds */
-	EConcurrentLinkedQueue<AcceptorOperationFuture> registerQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
+	EConcurrentLiteQueue<AcceptorOperationFuture> registerQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
 
-	EConcurrentLinkedQueue<AcceptorOperationFuture> cancelQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
+	EConcurrentLiteQueue<AcceptorOperationFuture> cancelQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
 
-	EConcurrentLinkedQueue<ENioSession> flushingSessions;// = new ConcurrentLinkedQueue<NioSession>();
+	EConcurrentLiteQueue<ENioSession> flushingSessions;// = new ConcurrentLinkedQueue<NioSession>();
 
 	EMap<EInetSocketAddress*, EDatagramChannel*>* boundHandles;// = Collections.synchronizedMap(new HashMap<SocketAddress, DatagramChannel>());
 

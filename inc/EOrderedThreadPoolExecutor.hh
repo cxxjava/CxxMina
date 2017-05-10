@@ -133,7 +133,7 @@ public:
 	virtual boolean isTerminating();
 	virtual boolean isTerminated();
 	virtual void shutdown();
-	virtual eal<ERunnable> shutdownNow();
+	virtual EArrayList<sp<ERunnable> > shutdownNow();
 	virtual void execute(sp<ERunnable> command);
 	virtual int getActiveCount();
 	virtual llong getCompletedTaskCount();
@@ -172,7 +172,7 @@ private:
 		SessionTasksQueue(): processingCompleted(true){}
 
 		/**  A queue of ordered event waiting to be processed */
-		EConcurrentLinkedQueue<ERunnable> tasksQueue;// = new ConcurrentLinkedQueue<Runnable>();
+		EConcurrentLiteQueue<ERunnable> tasksQueue;// = new ConcurrentLinkedQueue<Runnable>();
 		EReentrantLock tasksQueueLock;
 
 		/** The current task state */
@@ -227,7 +227,7 @@ private:
 	ESimpleLock mainLock;
 	ECondition* termination; // = mainLock.newCondition();
 
-	eal<Worker> workers;// = new HashSet<Worker>();
+	EArrayList<sp<Worker> > workers;// = new HashSet<Worker>();
 
 	volatile int largestPoolSize;
 

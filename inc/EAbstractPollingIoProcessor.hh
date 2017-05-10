@@ -317,19 +317,19 @@ private:
 	EExecutor* executor;
 
 	/** A Session queue containing the newly created sessions */
-	EConcurrentLinkedQueue<ENioSession> newSessions;// = new ConcurrentLinkedQueue<S>();
+	EConcurrentLiteQueue<ENioSession> newSessions;// = new ConcurrentLinkedQueue<S>();
 
 	/** A queue used to store the sessions to be removed */
-	EConcurrentLinkedQueue<ENioSession> removingSessions;// = new ConcurrentLinkedQueue<S>();
+	EConcurrentLiteQueue<ENioSession> removingSessions;// = new ConcurrentLinkedQueue<S>();
 
 	/** A queue used to store the sessions to be flushed */
-	EConcurrentLinkedQueue<ENioSession> flushingSessions;// = new ConcurrentLinkedQueue<S>();
+	EConcurrentLiteQueue<ENioSession> flushingSessions;// = new ConcurrentLinkedQueue<S>();
 
 	/**
 	 * A queue used to store the sessions which have a trafficControl to be
 	 * updated
 	 */
-	EConcurrentLinkedQueue<ENioSession> trafficControllingSessions;// = new ConcurrentLinkedQueue<S>();
+	EConcurrentLiteQueue<ENioSession> trafficControllingSessions;// = new ConcurrentLinkedQueue<S>();
 
 	/** The processor thread : it handles the incoming messages */
 	EAtomicReference<Processor> processorRef;// = new AtomicReference<Processor>();

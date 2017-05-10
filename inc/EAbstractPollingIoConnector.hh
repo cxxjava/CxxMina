@@ -464,9 +464,9 @@ private:
 
 	boolean createdProcessor;
 
-	EConcurrentLinkedQueue<ConnectionRequest> connectQueue;// = new ConcurrentLinkedQueue<ConnectionRequest>();
+	EConcurrentLiteQueue<ConnectionRequest> connectQueue;// = new ConcurrentLinkedQueue<ConnectionRequest>();
 
-	EConcurrentLinkedQueue<ConnectionRequest> cancelQueue;// = new ConcurrentLinkedQueue<ConnectionRequest>();
+	EConcurrentLiteQueue<ConnectionRequest> cancelQueue;// = new ConcurrentLinkedQueue<ConnectionRequest>();
 
 	sp<ServiceOperationFuture> disposalFuture;// = new ServiceOperationFuture();
 

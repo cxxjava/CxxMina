@@ -15,7 +15,7 @@ namespace efc {
 namespace eio {
 
 /**
- * TODO Add documentation
+ * The TCP transport session configuration.
  *
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */

@@ -34,7 +34,7 @@ public:
 		return messageQueue.poll();
 	}
 
-    virtual void write(EObject* message) {
+    virtual void write(sp<EObject> message) {
         if (message == null) {
             throw EIllegalArgumentException(__FILE__, __LINE__, "message");
         }
@@ -43,7 +43,7 @@ public:
     }
 
 private:
-    ELinkedList<EObject*> messageQueue;
+    ELinkedList<sp<EObject> > messageQueue;
 };
 
 } /* namespace eio */

@@ -34,9 +34,9 @@ public:
 		return messageQueue.poll();
 	}
 
-    virtual void write(EObject* encodedMessage) {
-    	EIoBuffer* buf = dynamic_cast<EIoBuffer*>(encodedMessage);
-        if (buf) {
+    virtual void write(sp<EObject> encodedMessage) {
+    	sp<EIoBuffer> buf = dynamic_pointer_cast<EIoBuffer>(encodedMessage);
+        if (buf != null) {
             if (buf->hasRemaining()) {
                 messageQueue.offer(buf);
             } else {
@@ -48,7 +48,7 @@ public:
     }
 
 private:
-    EConcurrentLinkedQueue<EObject> messageQueue;
+    EConcurrentLiteQueue<EObject> messageQueue;
 };
 
 } /* namespace eio */

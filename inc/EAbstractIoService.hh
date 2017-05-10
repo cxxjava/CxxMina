@@ -108,7 +108,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual eal<EWriteFuture> broadcast(sp<EObject> message);
+	virtual EArrayList<sp<EWriteFuture> > broadcast(sp<EObject> message);
 
 	/**
 	 * {@inheritDoc}

@@ -486,9 +486,9 @@ private:
 
 	boolean createdProcessor;
 
-	EConcurrentLinkedQueue<AcceptorOperationFuture> registerQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
+	EConcurrentLiteQueue<AcceptorOperationFuture> registerQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
 
-	EConcurrentLinkedQueue<AcceptorOperationFuture> cancelQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
+	EConcurrentLiteQueue<AcceptorOperationFuture> cancelQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
 
 	EMap<EInetSocketAddress*, H>* boundHandles;// = Collections.synchronizedMap(new HashMap<SocketAddress, H>());
 
@@ -655,7 +655,7 @@ private:
 					// all the bound sockets.
 					{
 						//@see: boundHandles->putAll(newHandles);
-						ESet<EMapEntry<EInetSocketAddress*, H>*> *set = newHandles->entrySet();
+						sp<ESet<EMapEntry<EInetSocketAddress*, H>*> > set = newHandles->entrySet();
 						sp<EIterator<EMapEntry<EInetSocketAddress*, H>*> > iter = set->iterator();
 						while(iter->hasNext()) {
 							EMapEntry<EInetSocketAddress*, H>* me = iter->next();

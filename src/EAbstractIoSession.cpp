@@ -195,14 +195,20 @@ sp<ECloseFuture> EAbstractIoSession::closeNow() {
 
 		closing = true;
 
-		//@see: mina-2.0.14/src/mina-core/src/main/java/org/apache/mina/core/session/AbstractIoSession.java#L349
+		//@see: mina-2.0.16/src/mina-core/src/main/java/org/apache/mina/core/session/AbstractIoSession.java#L365
 		try {
 			if (writeRequestQueue != null) {
 				sp<EIoSession> session = shared_from_this();
 				while (!writeRequestQueue->isEmpty(session)) {
 					sp<EWriteRequest> writeRequest = writeRequestQueue->poll(session);
 					if (writeRequest != null) {
-						writeRequest->getFuture()->setWritten();
+						sp<EWriteFuture> writeFuture = writeRequest->getFuture();
+
+						// The WriteRequest may not always have a future : The CLOSE_REQUEST
+						// and MESSAGE_SENT_REQUEST don't.
+						if (writeFuture != null) {
+							writeFuture->setWritten();
+						}
 					}
 				}
 			}

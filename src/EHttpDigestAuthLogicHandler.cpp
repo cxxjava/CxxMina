@@ -11,6 +11,7 @@
 #include "EAuthenticationException.hh"
 #include "EStringUtilities.hh"
 #include "EProxyIoSession.hh"
+#include "eso_md5.h"
 
 #include <iconv.h> //iconv_xxx
 
@@ -142,7 +143,7 @@ public:
         sp<EA<byte> > hA1(new EA<byte>(ES_MD5_DIGEST_LEN));
         EString sb;
         boolean isMD5Sess = EStringUtilities::getDirectiveValue(map, "algorithm", false).equalsIgnoreCase("md5-sess");
-        MD5_CTX c;
+        es_md5_ctx_t c;
 
         if (!isMD5Sess || (session->getAttribute(SESSION_HA1.get()) == null)) {
             // Build A1
@@ -166,9 +167,9 @@ public:
                     prehA1 = md5.digest(sb.toString().getBytes(charsetName));
                 }
                 */
-                MD5_Init(&c);
-                MD5_Update(&c, (const unsigned char *)sb.c_str(), sb.length());
-				MD5_Final((es_uint8_t*)prehA1, &c);
+                eso_md5_init(&c);
+                eso_md5_update(&c, (const unsigned char *)sb.c_str(), sb.length());
+				eso_md5_final((es_uint8_t*)prehA1, &c);
 
                 sb.setLength(0);// = new StringBuilder();
                 sb.append(EString::toHexString(prehA1, sizeof(prehA1))); //sb.append(ByteUtilities.asHex(prehA1));
@@ -183,9 +184,9 @@ public:
                     hA1 = md5.digest(sb.toString().getBytes(charsetName));
                 }
                 */
-                MD5_Init(&c);
-				MD5_Update(&c, (const unsigned char *)sb.c_str(), sb.length());
-				MD5_Final((es_uint8_t*)hA1->address(), &c);
+                eso_md5_init(&c);
+				eso_md5_update(&c, (const unsigned char *)sb.c_str(), sb.length());
+				eso_md5_final((es_uint8_t*)hA1->address(), &c);
 
                 session->setAttribute(DigestUtilities::SESSION_HA1, hA1);
             } else {
@@ -195,9 +196,9 @@ public:
                     hA1 = md5.digest(sb.toString().getBytes(charsetName));
                 }
                 */
-            	MD5_Init(&c);
-				MD5_Update(&c, (const unsigned char *)sb.c_str(), sb.length());
-				MD5_Final((es_uint8_t*)hA1->address(), &c);
+            	eso_md5_init(&c);
+				eso_md5_update(&c, (const unsigned char *)sb.c_str(), sb.length());
+				eso_md5_final((es_uint8_t*)hA1->address(), &c);
             }
         } else {
             hA1 = dynamic_pointer_cast<EA<byte> >(session->getAttribute(SESSION_HA1.get()));
@@ -219,9 +220,9 @@ public:
                 hEntity = md5.digest(body.getBytes(proxyIoSession.getCharsetName()));
             }
             */
-            MD5_Init(&c);
-			MD5_Update(&c, (const unsigned char *)body, eso_strlen(body));
-			MD5_Final((es_uint8_t*)hEntity, &c);
+            eso_md5_init(&c);
+			eso_md5_update(&c, (const unsigned char *)body, eso_strlen(body));
+			eso_md5_final((es_uint8_t*)hEntity, &c);
 
 			sb.append(EString::toHexString(hEntity, sizeof(hEntity))); //sb.append(':').append(hEntity); //bug?
         }
@@ -233,9 +234,9 @@ public:
             hA2 = md5.digest(sb.toString().getBytes(charsetName));
         }
         */
-        MD5_Init(&c);
-		MD5_Update(&c, (const unsigned char *)sb.c_str(), sb.length());
-		MD5_Final((es_uint8_t*)hA2, &c);
+        eso_md5_init(&c);
+		eso_md5_update(&c, (const unsigned char *)sb.c_str(), sb.length());
+		eso_md5_final((es_uint8_t*)hA2, &c);
 
         sb.setLength(0);// = new StringBuilder();
         sb.append(EString::toHexString(hA1->address(), hA1->length()));
@@ -254,9 +255,9 @@ public:
             hFinal = md5.digest(sb.toString().getBytes(charsetName));
         }
         */
-        MD5_Init(&c);
-		MD5_Update(&c, (const unsigned char *)sb.c_str(), sb.length());
-		MD5_Final((es_uint8_t*)hFinal, &c);
+        eso_md5_init(&c);
+		eso_md5_update(&c, (const unsigned char *)sb.c_str(), sb.length());
+		eso_md5_final((es_uint8_t*)hFinal, &c);
 
         return EString::toHexString(hFinal, sizeof(hFinal)); //ByteUtilities.asHex(hFinal);
     }

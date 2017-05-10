@@ -126,38 +126,32 @@ EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::DefaultWriteReq
 
 sp<EWriteRequest> EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::poll(
 		sp<EIoSession> session) {
-	SYNCHRONIZED(this) {
-		sp<EWriteRequest> answer = q.poll();
+	sp<EWriteRequest> answer = q.poll();
 
-		if (answer == EAbstractIoSession::CLOSE_REQUEST) {
-			session->closeNow();
-			dispose(session);
-			answer = null;
-		}
+	if (answer == EAbstractIoSession::CLOSE_REQUEST) {
+		session->closeNow();
+		dispose(session);
+		answer = null;
+	}
 
-		return answer;
-    }}
+	return answer;
 }
 
 void EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::offer(
 		sp<EIoSession> session, EWriteRequest* writeRequest) {
-	SYNCHRONIZED(this) {
-		q.offer(writeRequest);
-    }}
+	q.offer(writeRequest);
 }
 
 void EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::offer(
 		sp<EIoSession> session, sp<EWriteRequest> writeRequest) {
-	SYNCHRONIZED(this) {
+//	SYNCHRONIZED(this) {
 		q.offer(writeRequest);
-    }}
+//    }}
 }
 
 boolean EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::isEmpty(
 		sp<EIoSession> session) {
-	SYNCHRONIZED(this) {
-		return q.isEmpty();
-    }}
+	return q.isEmpty();
 }
 
 void EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::clear(

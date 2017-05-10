@@ -21,6 +21,11 @@ public:
 	 */
 	EDefaultSocketSessionConfig();
 
+	/**
+	 * Initialize this configuration.
+	 *
+	 * @param parent The parent IoService.
+	 */
 	void init(EIoService* parent);
 
 	virtual boolean isReuseAddress();

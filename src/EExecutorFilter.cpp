@@ -283,7 +283,7 @@ void EExecutorFilter::filterClose(EIoFilter::NextFilter* nextFilter,
 
 void EExecutorFilter::filterWrite(EIoFilter::NextFilter* nextFilter,
 		sp<EIoSession>& session, sp<EWriteRequest>& writeRequest) {
-if ((eventTypeSet & EIoEventType::WRITE) == EIoEventType::WRITE) {
+	if ((eventTypeSet & EIoEventType::WRITE) == EIoEventType::WRITE) {
 		EIoFilterEvent* event = new EIoFilterEvent(nextFilter, EIoEventType::WRITE, session, writeRequest);
 		fireEvent(event);
 	} else {
