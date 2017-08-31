@@ -9,7 +9,7 @@
 #define EIOBUFFERDECODER_HH_
 
 #include "Efc.hh"
-#include "EIoBuffer.hh"
+#include "./EIoBuffer.hh"
 
 namespace efc {
 namespace eio {

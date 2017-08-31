@@ -8,7 +8,7 @@
 #ifndef EIOFILTERADAPTER_HH_
 #define EIOFILTERADAPTER_HH_
 
-#include "EIoFilter.hh"
+#include "./EIoFilter.hh"
 
 namespace efc {
 namespace eio {

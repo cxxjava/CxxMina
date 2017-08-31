@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ELoggingFilter.hh"
-#include "EIoFilterChain.hh"
+#include "../inc/ELoggingFilter.hh"
+#include "../inc/EIoFilterChain.hh"
 
 namespace efc {
 namespace eio {

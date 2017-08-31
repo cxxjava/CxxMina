@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EWhitelistFilter.hh"
+#include "../inc/EWhitelistFilter.hh"
 
 namespace efc {
 namespace eio {

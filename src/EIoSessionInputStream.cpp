@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoSessionInputStream.hh"
+#include "../inc/EIoSessionInputStream.hh"
 
 namespace efc {
 namespace eio {

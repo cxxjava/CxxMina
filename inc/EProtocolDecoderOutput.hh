@@ -8,8 +8,8 @@
 #ifndef EPROTOCOLDECODEROUTPUT_HH_
 #define EPROTOCOLDECODEROUTPUT_HH_
 
-#include "EIoSession.hh"
-#include "EIoFilter.hh"
+#include "./EIoSession.hh"
+#include "./EIoFilter.hh"
 
 namespace efc {
 namespace eio {

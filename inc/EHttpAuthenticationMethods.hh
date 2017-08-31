@@ -9,7 +9,7 @@
 #define EHTTPAUTHENTICATIONMETHODS_HH_
 
 #include "Efc.hh"
-#include "EProxyAuthException.hh"
+#include "./EProxyAuthException.hh"
 
 namespace efc {
 namespace eio {

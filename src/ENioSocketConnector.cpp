@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ENioSocketConnector.hh"
-#include "ENioSocketSession.hh"
+#include "../inc/ENioSocketConnector.hh"
+#include "../inc/ENioSocketSession.hh"
 
 namespace efc {
 namespace eio {

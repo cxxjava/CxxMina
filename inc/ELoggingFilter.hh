@@ -8,7 +8,7 @@
 #ifndef ELOGGINGFILTER_HH_
 #define ELOGGINGFILTER_HH_
 
-#include "EIoFilterAdapter.hh"
+#include "./EIoFilterAdapter.hh"
 #include "ELog.hh"
 
 namespace efc {

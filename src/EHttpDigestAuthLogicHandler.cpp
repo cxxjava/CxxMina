@@ -5,12 +5,12 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EHttpDigestAuthLogicHandler.hh"
-#include "EHttpProxyConstants.hh"
+#include "../inc/EHttpDigestAuthLogicHandler.hh"
+#include "../inc/EHttpProxyConstants.hh"
+#include "../inc/EStringUtilities.hh"
+#include "../inc/EProxyIoSession.hh"
 #include "ERuntimeException.hh"
 #include "EAuthenticationException.hh"
-#include "EStringUtilities.hh"
-#include "EProxyIoSession.hh"
 #include "eso_md5.h"
 
 #include <iconv.h> //iconv_xxx

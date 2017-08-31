@@ -8,7 +8,7 @@
 #ifndef EHTTPBASICAUTHLOGICHANDLER_HH_
 #define EHTTPBASICAUTHLOGICHANDLER_HH_
 
-#include "EAbstractAuthLogicHandler.hh"
+#include "./EAbstractAuthLogicHandler.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef ESOCKETACCEPTOR_HH_
 #define ESOCKETACCEPTOR_HH_
 
-#include "EIoAcceptor.hh"
+#include "./EIoAcceptor.hh"
 
 namespace efc {
 namespace eio {

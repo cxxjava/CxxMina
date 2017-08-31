@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EProfilerTimerFilter.hh"
-#include "EIoFilterChain.hh"
+#include "../inc/EProfilerTimerFilter.hh"
+#include "../inc/EIoFilterChain.hh"
 
 namespace efc {
 namespace eio {

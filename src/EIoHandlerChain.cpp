@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoHandlerChain.hh"
+#include "../inc/EIoHandlerChain.hh"
 
 namespace efc {
 namespace eio {

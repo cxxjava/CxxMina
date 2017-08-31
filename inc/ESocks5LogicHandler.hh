@@ -8,8 +8,8 @@
 #ifndef ESOCKS5LOGICHANDLER_HH_
 #define ESOCKS5LOGICHANDLER_HH_
 
-#include "EAbstractSocksLogicHandler.hh"
-#include "ESocksProxyRequest.hh"
+#include "./EAbstractSocksLogicHandler.hh"
+#include "./ESocksProxyRequest.hh"
 #include "ELog.hh"
 
 namespace efc {

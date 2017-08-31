@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EOrderedThreadPoolExecutor.hh"
-#include "EDummySession.hh"
+#include "../inc/EOrderedThreadPoolExecutor.hh"
+#include "../inc/EDummySession.hh"
 
 namespace efc {
 namespace eio {

@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoEventType.hh"
+#include "../inc/EIoEventType.hh"
 
 namespace efc {
 namespace eio {

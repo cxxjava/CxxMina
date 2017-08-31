@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EDefaultIoSessionDataStructureFactory.hh"
-#include "EAbstractIoSession.hh"
+#include "../inc/EDefaultIoSessionDataStructureFactory.hh"
+#include "../inc/EAbstractIoSession.hh"
 
 namespace efc {
 namespace eio {

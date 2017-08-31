@@ -8,8 +8,8 @@
 #ifndef EIOSESSIONINITIALIZER_HH_
 #define EIOSESSIONINITIALIZER_HH_
 
-#include "EIoSession.hh"
-#include "EIoFuture.hh"
+#include "./EIoSession.hh"
+#include "./EIoFuture.hh"
 
 namespace efc {
 namespace eio {

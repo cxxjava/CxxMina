@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EStringUtilities.hh"
+#include "../inc/EStringUtilities.hh"
 
 namespace efc {
 namespace eio {

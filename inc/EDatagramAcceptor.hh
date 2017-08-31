@@ -8,9 +8,9 @@
 #ifndef EDATAGRAMACCEPTOR_HH_
 #define EDATAGRAMACCEPTOR_HH_
 
-#include "EIoAcceptor.hh"
-#include "EIoSessionRecycler.hh"
-#include "EDatagramSessionConfig.hh"
+#include "./EIoAcceptor.hh"
+#include "./EIoSessionRecycler.hh"
+#include "./EDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

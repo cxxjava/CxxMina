@@ -8,8 +8,8 @@
 #ifndef EIOSESSIONDATASTRUCTUREFACTORY_HH_
 #define EIOSESSIONDATASTRUCTUREFACTORY_HH_
 
-#include "EIoSession.hh"
-#include "EIoSessionAttributeMap.hh"
+#include "./EIoSession.hh"
+#include "./EIoSessionAttributeMap.hh"
 
 namespace efc {
 namespace eio {

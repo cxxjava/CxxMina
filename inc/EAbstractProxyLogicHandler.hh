@@ -8,8 +8,8 @@
 #ifndef EABSTRACTPROXYLOGICHANDLER_HH_
 #define EABSTRACTPROXYLOGICHANDLER_HH_
 
-#include "EProxyLogicHandler.hh"
-#include "EProxyIoSession.hh"
+#include "./EProxyLogicHandler.hh"
+#include "./EProxyIoSession.hh"
 #include "ELog.hh"
 
 namespace efc {

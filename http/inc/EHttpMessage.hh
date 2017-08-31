@@ -8,7 +8,7 @@
 #ifndef EHTTPMESSAGE_HH_
 #define EHTTPMESSAGE_HH_
 
-#include "EHttpVersion.hh"
+#include "./EHttpVersion.hh"
 
 namespace efc {
 namespace eio {

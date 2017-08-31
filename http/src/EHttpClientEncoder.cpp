@@ -5,10 +5,10 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EHttpClientEncoder.hh"
-#include "EHttpRequest.hh"
-#include "EHttpEndOfContent.hh"
-#include "EIoBuffer.hh"
+#include "../inc/EHttpClientEncoder.hh"
+#include "../inc/EHttpRequest.hh"
+#include "../inc/EHttpEndOfContent.hh"
+#include "../../inc/EIoBuffer.hh"
 
 namespace efc {
 namespace eio {

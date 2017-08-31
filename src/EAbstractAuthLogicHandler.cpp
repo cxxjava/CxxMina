@@ -5,10 +5,10 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EAbstractAuthLogicHandler.hh"
-#include "EAbstractHttpLogicHandler.hh"
-#include "EHttpProxyConstants.hh"
-#include "EProxyIoSession.hh"
+#include "../inc/EAbstractAuthLogicHandler.hh"
+#include "../inc/EAbstractHttpLogicHandler.hh"
+#include "../inc/EHttpProxyConstants.hh"
+#include "../inc/EProxyIoSession.hh"
 
 namespace efc {
 namespace eio {

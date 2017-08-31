@@ -8,8 +8,8 @@
 #ifndef ENIOSOCKETSESSION_HH_
 #define ENIOSOCKETSESSION_HH_
 
-#include "ENioSession.hh"
-#include "ESocketSessionConfig.hh"
+#include "./ENioSession.hh"
+#include "./ESocketSessionConfig.hh"
 
 namespace efc {
 namespace eio {

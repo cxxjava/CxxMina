@@ -8,7 +8,7 @@
 #ifndef EPROTOCOLDECODERADAPTER_HH_
 #define EPROTOCOLDECODERADAPTER_HH_
 
-#include "EProtocolDecoder.hh"
+#include "./EProtocolDecoder.hh"
 
 namespace efc {
 namespace eio {

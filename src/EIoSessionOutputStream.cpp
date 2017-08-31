@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoSessionOutputStream.hh"
-#include "ECloseFuture.hh"
+#include "../inc/EIoSessionOutputStream.hh"
+#include "../inc/ECloseFuture.hh"
 
 namespace efc {
 namespace eio {

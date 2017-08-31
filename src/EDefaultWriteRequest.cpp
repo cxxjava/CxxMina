@@ -5,9 +5,9 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EDefaultWriteRequest.hh"
-#include "EIoFutureListener.hh"
-#include "EWriteFuture.hh"
+#include "../inc/EDefaultWriteRequest.hh"
+#include "../inc/EIoFutureListener.hh"
+#include "../inc/EWriteFuture.hh"
 
 namespace efc {
 namespace eio {

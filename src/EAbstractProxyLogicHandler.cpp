@@ -5,10 +5,10 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EAbstractProxyLogicHandler.hh"
-#include "EProxyHandshakeIoBuffer.hh"
-#include "EDefaultWriteFuture.hh"
-#include "EDefaultWriteRequest.hh"
+#include "../inc/EAbstractProxyLogicHandler.hh"
+#include "../inc/EProxyHandshakeIoBuffer.hh"
+#include "../inc/EDefaultWriteFuture.hh"
+#include "../inc/EDefaultWriteRequest.hh"
 
 namespace efc {
 namespace eio {

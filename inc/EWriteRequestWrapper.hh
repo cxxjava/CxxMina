@@ -8,7 +8,7 @@
 #ifndef EWRITEREQUESTWRAPPER_HH_
 #define EWRITEREQUESTWRAPPER_HH_
 
-#include "EWriteRequest.hh"
+#include "./EWriteRequest.hh"
 
 namespace efc {
 namespace eio {

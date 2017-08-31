@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ECumulativeProtocolDecoder.hh"
+#include "../inc/ECumulativeProtocolDecoder.hh"
 
 namespace efc {
 namespace eio {

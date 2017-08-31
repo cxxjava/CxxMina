@@ -8,7 +8,7 @@
 #ifndef EHTTPCLIENTCODEC_HH_
 #define EHTTPCLIENTCODEC_HH_
 
-#include "EProtocolCodecFilter.hh"
+#include "../../inc/EProtocolCodecFilter.hh"
 
 namespace efc {
 namespace eio {

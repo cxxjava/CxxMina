@@ -5,9 +5,9 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EStreamIoHandler.hh"
-#include "EIoSessionInputStream.hh"
-#include "EIoSessionOutputStream.hh"
+#include "../inc/EStreamIoHandler.hh"
+#include "../inc/EIoSessionInputStream.hh"
+#include "../inc/EIoSessionOutputStream.hh"
 
 namespace efc {
 namespace eio {

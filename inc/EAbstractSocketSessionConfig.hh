@@ -8,8 +8,8 @@
 #ifndef EABSTRACTSOCKETSESSIONCONFIG_HH_
 #define EABSTRACTSOCKETSESSIONCONFIG_HH_
 
-#include "EAbstractIoSessionConfig.hh"
-#include "ESocketSessionConfig.hh"
+#include "./EAbstractIoSessionConfig.hh"
+#include "./ESocketSessionConfig.hh"
 
 namespace efc {
 namespace eio {

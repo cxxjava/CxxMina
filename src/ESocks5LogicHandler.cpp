@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ESocks5LogicHandler.hh"
+#include "../inc/ESocks5LogicHandler.hh"
 
 namespace efc {
 namespace eio {

@@ -8,8 +8,8 @@
 #ifndef EIOFILTEREVENT_HH_
 #define EIOFILTEREVENT_HH_
 
-#include "EIoEvent.hh"
-#include "EIoFilter.hh"
+#include "./EIoEvent.hh"
+#include "./EIoFilter.hh"
 #include "ELog.hh"
 
 namespace efc {

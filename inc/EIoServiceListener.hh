@@ -9,8 +9,8 @@
 #define EIOSERVICELISTENER_HH_
 
 #include "EException.hh"
-#include "EIdleStatus.hh"
-#include "EIoSession.hh"
+#include "./EIdleStatus.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

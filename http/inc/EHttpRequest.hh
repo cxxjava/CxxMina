@@ -8,8 +8,8 @@
 #ifndef EHTTPREQUEST_HH_
 #define EHTTPREQUEST_HH_
 
-#include "EHttpMessage.hh"
-#include "EHttpMethod.hh"
+#include "./EHttpMessage.hh"
+#include "./EHttpMethod.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef EPROTOCOLDECODEREXCEPTION_HH_
 #define EPROTOCOLDECODEREXCEPTION_HH_
 
-#include "EProtocolCodecException.hh"
+#include "./EProtocolCodecException.hh"
 
 namespace efc {
 namespace eio {

@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ENioProcessor.hh"
-#include "ERuntimeIoException.hh"
+#include "../inc/ENioProcessor.hh"
+#include "../inc/ERuntimeIoException.hh"
 
 namespace efc {
 namespace eio {

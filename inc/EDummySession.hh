@@ -8,7 +8,7 @@
 #ifndef EDUMMYSESSION_HH_
 #define EDUMMYSESSION_HH_
 
-#include "EAbstractIoSession.hh"
+#include "./EAbstractIoSession.hh"
 
 namespace efc {
 namespace eio {

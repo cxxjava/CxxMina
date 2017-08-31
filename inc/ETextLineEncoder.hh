@@ -8,7 +8,7 @@
 #ifndef ETEXTLINEENCODER_HH_
 #define ETEXTLINEENCODER_HH_
 
-#include "EProtocolEncoderAdapter.hh"
+#include "./EProtocolEncoderAdapter.hh"
 
 namespace efc {
 namespace eio {

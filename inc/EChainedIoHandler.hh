@@ -8,8 +8,8 @@
 #ifndef ECHAINEDIOHANDLER_HH_
 #define ECHAINEDIOHANDLER_HH_
 
-#include "EIoHandlerAdapter.hh"
-#include "EIoHandlerChain.hh"
+#include "./EIoHandlerAdapter.hh"
+#include "./EIoHandlerChain.hh"
 
 namespace efc {
 namespace eio {

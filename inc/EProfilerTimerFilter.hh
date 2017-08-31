@@ -8,8 +8,8 @@
 #ifndef EPROFILERTIMERFILTER_HH_
 #define EPROFILERTIMERFILTER_HH_
 
-#include "EIoFilterAdapter.hh"
-#include "EIoEventType.hh"
+#include "./EIoFilterAdapter.hh"
+#include "./EIoEventType.hh"
 
 namespace efc {
 namespace eio {

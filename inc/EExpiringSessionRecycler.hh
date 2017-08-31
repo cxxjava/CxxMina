@@ -8,8 +8,8 @@
 #ifndef EEXPIRINGSESSIONRECYCLER_HH_
 #define EEXPIRINGSESSIONRECYCLER_HH_
 
-#include "EIoSessionRecycler.hh"
-#include "EExpiringMap.hh"
+#include "./EIoSessionRecycler.hh"
+#include "./EExpiringMap.hh"
 
 namespace efc {
 namespace eio {

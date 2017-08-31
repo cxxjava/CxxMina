@@ -8,8 +8,8 @@
 #ifndef EWHITELISTFILTER_HH_
 #define EWHITELISTFILTER_HH_
 
-#include "EIoFilterAdapter.hh"
-#include "ESubnet.hh"
+#include "./EIoFilterAdapter.hh"
+#include "./ESubnet.hh"
 #include "ELog.hh"
 
 namespace efc {

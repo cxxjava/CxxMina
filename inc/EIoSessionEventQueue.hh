@@ -8,7 +8,7 @@
 #ifndef EIOSESSIONEVENTQUEUE_HH_
 #define EIOSESSIONEVENTQUEUE_HH_
 
-#include "EIoSessionEvent.hh"
+#include "./EIoSessionEvent.hh"
 #include "ELog.hh"
 
 namespace efc {

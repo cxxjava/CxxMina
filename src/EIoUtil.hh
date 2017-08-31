@@ -8,8 +8,8 @@
 #ifndef EIOUTIL_HH_
 #define EIOUTIL_HH_
 
-#include "EIoSession.hh"
-#include "EWriteFuture.hh"
+#include "../inc/EIoSession.hh"
+#include "../inc/EWriteFuture.hh"
 
 namespace efc {
 namespace eio {

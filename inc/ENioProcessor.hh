@@ -8,7 +8,7 @@
 #ifndef ENIOPROCESSOR_HH_
 #define ENIOPROCESSOR_HH_
 
-#include "EAbstractPollingIoProcessor.hh"
+#include "./EAbstractPollingIoProcessor.hh"
 
 namespace efc {
 namespace eio {

@@ -8,8 +8,8 @@
 #ifndef ECUMULATIVEPROTOCOLDECODER_HH_
 #define ECUMULATIVEPROTOCOLDECODER_HH_
 
-#include "EProtocolDecoderAdapter.hh"
-#include "EAttributeKey.hh"
+#include "./EProtocolDecoderAdapter.hh"
+#include "./EAttributeKey.hh"
 
 namespace efc {
 namespace eio {

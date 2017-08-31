@@ -8,7 +8,7 @@
 #ifndef ESOCKSPROXYREQUEST_HH_
 #define ESOCKSPROXYREQUEST_HH_
 
-#include "EProxyRequest.hh"
+#include "./EProxyRequest.hh"
 
 namespace efc {
 namespace eio {

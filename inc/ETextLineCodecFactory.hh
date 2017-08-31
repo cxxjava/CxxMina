@@ -8,9 +8,9 @@
 #ifndef ETEXTLINECODECFACTORY_HH_
 #define ETEXTLINECODECFACTORY_HH_
 
-#include "EProtocolCodecFactory.hh"
-#include "ETextLineEncoder.hh"
-#include "ETextLineDecoder.hh"
+#include "./EProtocolCodecFactory.hh"
+#include "./ETextLineEncoder.hh"
+#include "./ETextLineDecoder.hh"
 
 namespace efc {
 namespace eio {

@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ETextLineEncoder.hh"
-#include "EIoBuffer.hh"
+#include "../inc/ETextLineEncoder.hh"
+#include "../inc/EIoBuffer.hh"
 
 namespace efc {
 namespace eio {

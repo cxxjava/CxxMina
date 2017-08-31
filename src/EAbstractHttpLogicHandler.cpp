@@ -5,11 +5,11 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EAbstractHttpLogicHandler.hh"
-#include "EIoBufferDecoder.hh"
-#include "EStringUtilities.hh"
-#include "EHttpProxyConstants.hh"
-#include "EAbstractAuthLogicHandler.hh"
+#include "../inc/EAbstractHttpLogicHandler.hh"
+#include "../inc/EIoBufferDecoder.hh"
+#include "../inc/EStringUtilities.hh"
+#include "../inc/EHttpProxyConstants.hh"
+#include "../inc/EAbstractAuthLogicHandler.hh"
 
 namespace efc {
 namespace eio {

@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EAttributeKey.hh"
+#include "../inc/EAttributeKey.hh"
 #include "EInteger.hh"
 
 namespace efc {

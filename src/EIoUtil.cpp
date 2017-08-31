@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoUtil.hh"
-#include "EIoBuffer.hh"
+#include "./EIoUtil.hh"
+#include "../inc/EIoBuffer.hh"
 
 namespace efc {
 namespace eio {

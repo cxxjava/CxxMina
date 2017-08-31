@@ -8,7 +8,7 @@
 #ifndef EIOFILTERCHAINBUILDER_HH_
 #define EIOFILTERCHAINBUILDER_HH_
 
-#include "EIoFilterChain.hh"
+#include "./EIoFilterChain.hh"
 #include "Efc.hh"
 
 namespace efc {

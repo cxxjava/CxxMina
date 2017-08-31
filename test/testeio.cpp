@@ -1,14 +1,10 @@
-#include "main.hh"
+#include "es_main.h"
 #include "Eio.hh"
-#include "EHttpServerEncoder.hh"
-#include "EHttpServerDecoder.hh"
-#include "EHttpEndOfContent.hh"
+#include "../http/inc/EHttpServerEncoder.hh"
+#include "../http/inc/EHttpServerDecoder.hh"
+#include "../http/inc/EHttpEndOfContent.hh"
 
-#ifdef WIN32
-#define LOG ESystem::out->println
-#else
 #define LOG(fmt,...) ESystem::out->println(fmt, ##__VA_ARGS__)
-#endif
 
 class ErrHandler: public EThread::UncaughtExceptionHandler {
 public:
@@ -126,9 +122,9 @@ class DemoIoHandler: public EIoHandler {
 //		sp<ChainedIoHandler> cih = dynamic_pointer_cast<ChainedIoHandler>(session->getAttribute(&id));
 //		cih->messageReceived(session, message);
 //
-//		//test 1.
+		//test 1.
 		EIoBuffer* in = dynamic_cast<EIoBuffer*>(message.get());
-//		EIoBuffer* in = dynamic_cast<EIoBuffer*>(message.get());
+//		session->write(in->duplicate());
 //		LOG("text line=%s", in->getString().c_str());
 
 		//test 2.
@@ -617,11 +613,11 @@ static void test_niodatagramclient() {
 
 static void test_multi_niodatagramclient() {
 	int size = 50;
-	EArray<EThreadX*> threads;
-	EThreadX* tx;
+	EArray<sp<EThread> > threads;
+	sp<EThread> tx;
 
 	for (int i=0; i<size; i++) {
-		tx = EThreadX::execute([&](){
+		tx = EThread::executeX([&](){
 			for (int j=0; j<5000; j++) {
 				test_niodatagramclient();
 			}
@@ -645,12 +641,12 @@ MAIN_IMPL(testeio) {
 		do {
 			LOG("===========begin=============");
 
-			test_niosocketacceptor();
+//			test_niosocketacceptor();
 //			test_niosocketconnector();
 //			test_proxy();
-
-//			EThread::sleep(100);
-
+//			test_niodatagramserver();
+//			test_niodatagramclient();
+			test_multi_niodatagramclient();
 
 //			EThread::sleep(100);
 

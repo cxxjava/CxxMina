@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EAbstractSocketSessionConfig.hh"
+#include "../inc/EAbstractSocketSessionConfig.hh"
 
 namespace efc {
 namespace eio {

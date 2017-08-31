@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EProtocolDecoderException.hh"
+#include "../inc/EProtocolDecoderException.hh"
 
 namespace efc {
 namespace eio {

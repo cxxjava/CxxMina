@@ -8,7 +8,7 @@
 #ifndef EWRITEREQUESTQUEUE_HH_
 #define EWRITEREQUESTQUEUE_HH_
 
-#include "EIoSession.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

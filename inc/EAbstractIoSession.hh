@@ -8,13 +8,13 @@
 #ifndef EABSTRACTIOSESSION_HH_
 #define EABSTRACTIOSESSION_HH_
 
-#include "EIoSession.hh"
-#include "EIoProcessor.hh"
-#include "EIdleStatus.hh"
-#include "ECloseFuture.hh"
-#include "EAttributeKey.hh"
-#include "EWriteRequestQueue.hh"
-#include "EIoSessionAttributeMap.hh"
+#include "./EIoSession.hh"
+#include "./EIoProcessor.hh"
+#include "./EIdleStatus.hh"
+#include "./ECloseFuture.hh"
+#include "./EAttributeKey.hh"
+#include "./EWriteRequestQueue.hh"
+#include "./EIoSessionAttributeMap.hh"
 
 namespace efc {
 namespace eio {

@@ -8,8 +8,8 @@
 #ifndef ESTREAMIOHANDLER_HH_
 #define ESTREAMIOHANDLER_HH_
 
-#include "EIoHandlerAdapter.hh"
-#include "EAttributeKey.hh"
+#include "./EIoHandlerAdapter.hh"
+#include "./EAttributeKey.hh"
 #include "ELog.hh"
 
 namespace efc {

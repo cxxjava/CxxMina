@@ -8,8 +8,8 @@
 #ifndef EDEFAULTSOCKETSESSIONCONFIG_HH_
 #define EDEFAULTSOCKETSESSIONCONFIG_HH_
 
-#include "EAbstractSocketSessionConfig.hh"
-#include "EIoService.hh"
+#include "./EAbstractSocketSessionConfig.hh"
+#include "./EIoService.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef EDEFAULTTRANSPORTMETADATA_HH_
 #define EDEFAULTTRANSPORTMETADATA_HH_
 
-#include "ETransportMetadata.hh"
+#include "./ETransportMetadata.hh"
 
 namespace efc {
 namespace eio {

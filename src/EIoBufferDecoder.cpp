@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoBufferDecoder.hh"
+#include "../inc/EIoBufferDecoder.hh"
 
 namespace efc {
 namespace eio {

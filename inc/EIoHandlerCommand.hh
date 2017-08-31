@@ -8,7 +8,7 @@
 #ifndef EIOHANDLERCOMMAND_HH_
 #define EIOHANDLERCOMMAND_HH_
 
-#include "EIoSession.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

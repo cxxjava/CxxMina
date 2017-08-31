@@ -8,7 +8,7 @@
 #ifndef EIOBUFFERWRAPPER_HH_
 #define EIOBUFFERWRAPPER_HH_
 
-#include "EIoBuffer.hh"
+#include "./EIoBuffer.hh"
 
 namespace efc {
 namespace eio {

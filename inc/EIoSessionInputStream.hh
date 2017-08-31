@@ -8,7 +8,7 @@
 #ifndef EIOSESSIONINPUTSTREAM_HH_
 #define EIOSESSIONINPUTSTREAM_HH_
 
-#include "EIoBuffer.hh"
+#include "./EIoBuffer.hh"
 
 namespace efc {
 namespace eio {

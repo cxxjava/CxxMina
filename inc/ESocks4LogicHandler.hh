@@ -8,7 +8,7 @@
 #ifndef ESOCKS4LOGICHANDLER_HH_
 #define ESOCKS4LOGICHANDLER_HH_
 
-#include "EAbstractSocksLogicHandler.hh"
+#include "./EAbstractSocksLogicHandler.hh"
 #include "ELog.hh"
 
 namespace efc {

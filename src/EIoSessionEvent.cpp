@@ -5,7 +5,7 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EIoSessionEvent.hh"
+#include "../inc/EIoSessionEvent.hh"
 
 namespace efc {
 namespace eio {

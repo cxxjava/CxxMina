@@ -8,7 +8,7 @@
 #ifndef EDEFAULTIOFILTERCHAINBUILDER_HH_
 #define EDEFAULTIOFILTERCHAINBUILDER_HH_
 
-#include "EIoFilterChainBuilder.hh"
+#include "./EIoFilterChainBuilder.hh"
 #include "ELog.hh"
 
 namespace efc {

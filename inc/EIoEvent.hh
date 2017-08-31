@@ -8,8 +8,8 @@
 #ifndef EIOEVENT_HH_
 #define EIOEVENT_HH_
 
-#include "EIoEventType.hh"
-#include "EIoSession.hh"
+#include "./EIoEventType.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

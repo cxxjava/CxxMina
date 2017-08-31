@@ -8,12 +8,12 @@
 #ifndef ENIODATAGRAMCONNECTOR_HH_
 #define ENIODATAGRAMCONNECTOR_HH_
 
-#include "EAbstractPollingIoConnector.hh"
 #include "EDatagramChannel.hh"
 #include "EDatagramConnector.hh"
-#include "ETransportMetadata.hh"
-#include "EDefaultDatagramSessionConfig.hh"
-#include "EDatagramSessionConfig.hh"
+#include "./EAbstractPollingIoConnector.hh"
+#include "./ETransportMetadata.hh"
+#include "./EDefaultDatagramSessionConfig.hh"
+#include "./EDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

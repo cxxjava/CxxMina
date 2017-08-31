@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EHttpSmartProxyHandler.hh"
-#include "EAbstractAuthLogicHandler.hh"
+#include "../inc/EHttpSmartProxyHandler.hh"
+#include "../inc/EAbstractAuthLogicHandler.hh"
 
 namespace efc {
 namespace eio {

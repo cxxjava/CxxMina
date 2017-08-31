@@ -5,9 +5,9 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EHttpServerCodec.hh"
-#include "EHttpServerEncoder.hh"
-#include "EHttpServerDecoder.hh"
+#include "../inc/EHttpServerCodec.hh"
+#include "../inc/EHttpServerEncoder.hh"
+#include "../inc/EHttpServerDecoder.hh"
 
 namespace efc {
 namespace eio {

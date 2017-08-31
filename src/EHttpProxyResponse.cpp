@@ -5,7 +5,7 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EHttpProxyResponse.hh"
+#include "../inc/EHttpProxyResponse.hh"
 
 namespace efc {
 namespace eio {

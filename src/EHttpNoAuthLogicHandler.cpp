@@ -5,9 +5,9 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EHttpNoAuthLogicHandler.hh"
-#include "EHttpProxyConstants.hh"
-#include "EProxyAuthException.hh"
+#include "../inc/EHttpNoAuthLogicHandler.hh"
+#include "../inc/EHttpProxyConstants.hh"
+#include "../inc/EProxyAuthException.hh"
 
 namespace efc {
 namespace eio {

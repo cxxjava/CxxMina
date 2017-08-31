@@ -8,9 +8,9 @@
 #ifndef EPROXYLOGICHANDLER_HH_
 #define EPROXYLOGICHANDLER_HH_
 
-#include "EIoBuffer.hh"
-#include "EIoFilter.hh"
-#include "EProxyAuthException.hh"
+#include "./EIoBuffer.hh"
+#include "./EIoFilter.hh"
+#include "./EProxyAuthException.hh"
 
 namespace efc {
 namespace eio {

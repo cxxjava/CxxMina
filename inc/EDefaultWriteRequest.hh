@@ -8,7 +8,7 @@
 #ifndef EDEFAULTWRITEREQUEST_HH_
 #define EDEFAULTWRITEREQUEST_HH_
 
-#include "EWriteRequest.hh"
+#include "./EWriteRequest.hh"
 
 namespace efc {
 namespace eio {

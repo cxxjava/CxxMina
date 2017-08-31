@@ -8,7 +8,7 @@
 #ifndef ENOTHINGWRITTENEXCEPTION_HH_
 #define ENOTHINGWRITTENEXCEPTION_HH_
 
-#include "EWriteException.hh"
+#include "./EWriteException.hh"
 
 namespace efc {
 namespace eio {

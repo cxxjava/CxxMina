@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EHttpRequestImpl.hh"
+#include "../inc/EHttpRequestImpl.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef EIOSESSIONATTRIBUTEMAP_HH_
 #define EIOSESSIONATTRIBUTEMAP_HH_
 
-#include "EIoSession.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

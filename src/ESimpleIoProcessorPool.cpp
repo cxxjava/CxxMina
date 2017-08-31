@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ESimpleIoProcessorPool.hh"
-#include "ENioProcessor.hh"
+#include "../inc/ESimpleIoProcessorPool.hh"
+#include "../inc/ENioProcessor.hh"
 
 namespace efc {
 namespace eio {
@@ -94,7 +94,7 @@ void ESimpleIoProcessorPool::dispose() {
 				try {
 					ioProcessor->dispose();
 				} catch (EException& e) {
-						LOGGER->warn(__FILE__, __LINE__,
+                    LOGGER->warn(__FILE__, __LINE__,
 								EString::formatOf(
 										"Failed to dispose the %s IoProcessor.",
 										typeid(ioProcessor.get()).name()).c_str(),

@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ENioDatagramSessionConfig.hh"
-#include "ERuntimeIoException.hh"
+#include "../inc/ENioDatagramSessionConfig.hh"
+#include "../inc/ERuntimeIoException.hh"
 
 namespace efc {
 namespace eio {

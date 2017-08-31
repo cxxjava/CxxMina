@@ -8,8 +8,8 @@
 #ifndef ESOCKETCONNECTOR_HH_
 #define ESOCKETCONNECTOR_HH_
 
-#include "EIoConnector.hh"
-#include "ESocketSessionConfig.hh"
+#include "./EIoConnector.hh"
+#include "./ESocketSessionConfig.hh"
 
 namespace efc {
 namespace eio {

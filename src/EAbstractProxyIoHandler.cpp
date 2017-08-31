@@ -5,9 +5,9 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EAbstractProxyIoHandler.hh"
-#include "EProxyIoSession.hh"
-#include "ESocksProxyRequest.hh"
+#include "../inc/EAbstractProxyIoHandler.hh"
+#include "../inc/EProxyIoSession.hh"
+#include "../inc/ESocksProxyRequest.hh"
 
 namespace efc {
 namespace eio {

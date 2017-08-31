@@ -8,7 +8,7 @@
 #ifndef EDATAGRAMSESSIONCONFIG_HH_
 #define EDATAGRAMSESSIONCONFIG_HH_
 
-#include "EIoSessionConfig.hh"
+#include "./EIoSessionConfig.hh"
 
 namespace efc {
 namespace eio {

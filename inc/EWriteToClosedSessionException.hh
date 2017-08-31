@@ -8,7 +8,7 @@
 #ifndef EWRITETOCLOSEDSESSIONEXCEPTION_HH_
 #define EWRITETOCLOSEDSESSIONEXCEPTION_HH_
 
-#include "EWriteException.hh"
+#include "./EWriteException.hh"
 
 namespace efc {
 namespace eio {

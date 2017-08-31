@@ -8,9 +8,9 @@
 #ifndef EPROTOCOLDECODER_HH_
 #define EPROTOCOLDECODER_HH_
 
-#include "EIoSession.hh"
-#include "EIoBuffer.hh"
-#include "EProtocolDecoderOutput.hh"
+#include "./EIoSession.hh"
+#include "./EIoBuffer.hh"
+#include "./EProtocolDecoderOutput.hh"
 
 namespace efc {
 namespace eio {

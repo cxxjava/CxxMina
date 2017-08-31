@@ -8,8 +8,8 @@
 #ifndef EHTTPSERVERDECODER_HH_
 #define EHTTPSERVERDECODER_HH_
 
-#include "EProtocolDecoder.hh"
-#include "EHttpRequestImpl.hh"
+#include "../../inc/EProtocolDecoder.hh"
+#include "./EHttpRequestImpl.hh"
 #include "ELog.hh"
 
 namespace efc {

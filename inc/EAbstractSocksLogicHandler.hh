@@ -8,8 +8,8 @@
 #ifndef EABSTRACTSOCKSLOGICHANDLER_HH_
 #define EABSTRACTSOCKSLOGICHANDLER_HH_
 
-#include "EAbstractProxyLogicHandler.hh"
-#include "ESocksProxyRequest.hh"
+#include "./EAbstractProxyLogicHandler.hh"
+#include "./ESocksProxyRequest.hh"
 
 namespace efc {
 namespace eio {

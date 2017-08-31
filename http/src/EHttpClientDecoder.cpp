@@ -5,11 +5,11 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EHttpClientDecoder.hh"
-#include "EHttpEndOfContent.hh"
-#include "EDecoderState.hh"
-#include "EHttpStatus.hh"
-#include "EHttpException.hh"
+#include "../inc/EHttpClientDecoder.hh"
+#include "../inc/EHttpEndOfContent.hh"
+#include "../inc/EDecoderState.hh"
+#include "../inc/EHttpStatus.hh"
+#include "../inc/EHttpException.hh"
 
 namespace efc {
 namespace eio {

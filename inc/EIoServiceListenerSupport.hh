@@ -8,7 +8,7 @@
 #ifndef EIOSERVICELISTENERSUPPORT_HH_
 #define EIOSERVICELISTENERSUPPORT_HH_
 
-#include "EIoService.hh"
+#include "./EIoService.hh"
 
 namespace efc {
 namespace eio {

@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EAbstractDatagramSessionConfig.hh"
+#include "../inc/EAbstractDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

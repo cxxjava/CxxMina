@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EProxyIoSessionInitializer.hh"
+#include "../inc/EProxyIoSessionInitializer.hh"
 
 namespace efc {
 namespace eio {

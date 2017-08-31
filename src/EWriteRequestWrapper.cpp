@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EWriteRequestWrapper.hh"
+#include "../inc/EWriteRequestWrapper.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef EIOHANDLERADAPTER_HH_
 #define EIOHANDLERADAPTER_HH_
 
-#include "EIoHandler.hh"
+#include "./EIoHandler.hh"
 #include "ELog.hh"
 
 namespace efc {

@@ -5,13 +5,13 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EHttpAuthenticationMethods.hh"
-#include "EAbstractAuthLogicHandler.hh"
-#include "EProxyIoSession.hh"
-#include "EHttpBasicAuthLogicHandler.hh"
-#include "EHttpDigestAuthLogicHandler.hh"
-//#include "EHttpNTLMAuthLogicHandler.hh"
-#include "EHttpNoAuthLogicHandler.hh"
+#include "../inc/EHttpAuthenticationMethods.hh"
+#include "../inc/EAbstractAuthLogicHandler.hh"
+#include "../inc/EProxyIoSession.hh"
+#include "../inc/EHttpBasicAuthLogicHandler.hh"
+#include "../inc/EHttpDigestAuthLogicHandler.hh"
+//#include "../inc/EHttpNTLMAuthLogicHandler.hh"
+#include "../inc/EHttpNoAuthLogicHandler.hh"
 
 namespace efc {
 namespace eio {

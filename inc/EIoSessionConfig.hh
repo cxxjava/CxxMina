@@ -8,7 +8,7 @@
 #ifndef EIOSESSIONCONFIG_HH_
 #define EIOSESSIONCONFIG_HH_
 
-#include "EIdleStatus.hh"
+#include "./EIdleStatus.hh"
 #include "Efc.hh"
 
 namespace efc {

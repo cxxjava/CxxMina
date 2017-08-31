@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EHttpProxyRequest.hh"
-#include "EHttpProxyConstants.hh"
+#include "../inc/EHttpProxyRequest.hh"
+#include "../inc/EHttpProxyConstants.hh"
 
 namespace efc {
 namespace eio {

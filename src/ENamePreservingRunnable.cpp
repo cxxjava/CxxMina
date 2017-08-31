@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ENamePreservingRunnable.hh"
+#include "../inc/ENamePreservingRunnable.hh"
 
 namespace efc {
 namespace eio {

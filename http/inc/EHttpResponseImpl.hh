@@ -8,8 +8,8 @@
 #ifndef EHTTPRESPONSEIMPL_HH_
 #define EHTTPRESPONSEIMPL_HH_
 
-#include "EHttpResponse.hh"
-#include "EHttpVersion.hh"
+#include "./EHttpResponse.hh"
+#include "./EHttpVersion.hh"
 
 namespace efc {
 namespace eio {

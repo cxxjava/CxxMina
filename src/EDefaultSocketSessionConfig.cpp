@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EDefaultSocketSessionConfig.hh"
-#include "ESocketAcceptor.hh"
+#include "../inc/EDefaultSocketSessionConfig.hh"
+#include "../inc/ESocketAcceptor.hh"
 
 namespace efc {
 namespace eio {

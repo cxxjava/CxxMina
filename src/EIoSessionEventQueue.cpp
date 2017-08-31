@@ -5,10 +5,10 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EIoSessionEventQueue.hh"
-#include "EIoSessionEventType.hh"
-#include "ESocksProxyRequest.hh"
-#include "EProxyIoSession.hh"
+#include "../inc/EIoSessionEventQueue.hh"
+#include "../inc/EIoSessionEventType.hh"
+#include "../inc/ESocksProxyRequest.hh"
+#include "../inc/EProxyIoSession.hh"
 
 namespace efc {
 namespace eio {

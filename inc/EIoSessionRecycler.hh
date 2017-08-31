@@ -8,7 +8,7 @@
 #ifndef EIOSESSIONRECYCLER_HH_
 #define EIOSESSIONRECYCLER_HH_
 
-#include "EIoSession.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

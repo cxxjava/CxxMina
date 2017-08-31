@@ -8,7 +8,7 @@
 #ifndef EHTTPREQUESTIMPL_HH_
 #define EHTTPREQUESTIMPL_HH_
 
-#include "EHttpRequest.hh"
+#include "./EHttpRequest.hh"
 
 namespace efc {
 namespace eio {

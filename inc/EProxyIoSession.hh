@@ -8,13 +8,13 @@
 #ifndef EPROXYIOSESSION_HH_
 #define EPROXYIOSESSION_HH_
 
-#include "EIoSession.hh"
-#include "EProxyRequest.hh"
-#include "EProxyFilter.hh"
-#include "EProxyConnector.hh"
-#include "EProxyLogicHandler.hh"
-#include "EIoSessionEventQueue.hh"
-#include "EHttpAuthenticationMethods.hh"
+#include "./EIoSession.hh"
+#include "./EProxyRequest.hh"
+#include "./EProxyFilter.hh"
+#include "./EProxyConnector.hh"
+#include "./EProxyLogicHandler.hh"
+#include "./EIoSessionEventQueue.hh"
+#include "./EHttpAuthenticationMethods.hh"
 
 namespace efc {
 namespace eio {

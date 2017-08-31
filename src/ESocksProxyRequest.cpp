@@ -5,8 +5,8 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "ESocksProxyRequest.hh"
-#include "ESocksProxyConstants.hh"
+#include "../inc/ESocksProxyRequest.hh"
+#include "../inc/ESocksProxyConstants.hh"
 
 namespace efc {
 namespace eio {

@@ -5,13 +5,13 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EProxyFilter.hh"
-#include "EProxyLogicHandler.hh"
-#include "ESocksProxyConstants.hh"
-#include "ESocks4LogicHandler.hh"
-#include "ESocks5LogicHandler.hh"
-#include "EHttpSmartProxyHandler.hh"
-#include "EProxyHandshakeIoBuffer.hh"
+#include "../inc/EProxyFilter.hh"
+#include "../inc/EProxyLogicHandler.hh"
+#include "../inc/ESocksProxyConstants.hh"
+#include "../inc/ESocks4LogicHandler.hh"
+#include "../inc/ESocks5LogicHandler.hh"
+#include "../inc/EHttpSmartProxyHandler.hh"
+#include "../inc/EProxyHandshakeIoBuffer.hh"
 
 namespace efc {
 namespace eio {

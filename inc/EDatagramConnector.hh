@@ -8,8 +8,8 @@
 #ifndef EDATAGRAMCONNECTOR_HH_
 #define EDATAGRAMCONNECTOR_HH_
 
-#include "EIoConnector.hh"
-#include "EDatagramSessionConfig.hh"
+#include "./EIoConnector.hh"
+#include "./EDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

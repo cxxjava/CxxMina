@@ -8,8 +8,8 @@
 #ifndef EIOPROCESSOR_HH_
 #define EIOPROCESSOR_HH_
 
-#include "EIoSession.hh"
-#include "EWriteRequest.hh"
+#include "./EIoSession.hh"
+#include "./EWriteRequest.hh"
 
 namespace efc {
 namespace eio {

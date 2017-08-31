@@ -8,10 +8,10 @@
 #ifndef ENIOSOCKETCONNECTOR_HH_
 #define ENIOSOCKETCONNECTOR_HH_
 
-#include "EAbstractPollingIoConnector.hh"
-#include "ESocketConnector.hh"
-#include "ESocketSessionConfig.hh"
-#include "EDefaultSocketSessionConfig.hh"
+#include "./EAbstractPollingIoConnector.hh"
+#include "./ESocketConnector.hh"
+#include "./ESocketSessionConfig.hh"
+#include "./EDefaultSocketSessionConfig.hh"
 
 namespace efc {
 namespace eio {

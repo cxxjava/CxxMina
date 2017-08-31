@@ -8,8 +8,8 @@
 #ifndef EHTTPPROXYREQUEST_HH_
 #define EHTTPPROXYREQUEST_HH_
 
-#include "EProxyRequest.hh"
-#include "EProxyAuthException.hh"
+#include "./EProxyRequest.hh"
+#include "./EProxyAuthException.hh"
 #include "ELog.hh"
 
 namespace efc {

@@ -5,7 +5,7 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EAbstractSocksLogicHandler.hh"
+#include "../inc/EAbstractSocksLogicHandler.hh"
 
 namespace efc {
 namespace eio {

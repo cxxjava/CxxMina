@@ -8,10 +8,10 @@
 #ifndef EIOCONNECTOR_HH_
 #define EIOCONNECTOR_HH_
 
-#include "EIoService.hh"
-#include "EConnectFuture.hh"
+#include "./EIoService.hh"
+#include "./EConnectFuture.hh"
+#include "./EIoSessionInitializer.hh"
 #include "EInetSocketAddress.hh"
-#include "EIoSessionInitializer.hh"
 
 namespace efc {
 namespace eio {

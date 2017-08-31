@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoFilterAdapter.hh"
-#include "EIoFilterChain.hh"
+#include "../inc/EIoFilterAdapter.hh"
+#include "../inc/EIoFilterChain.hh"
 
 namespace efc {
 namespace eio {

@@ -8,8 +8,8 @@
 #ifndef EABSTRACTIOSESSIONCONFIG_HH_
 #define EABSTRACTIOSESSIONCONFIG_HH_
 
-#include "EIoSessionConfig.hh"
-#include "EIdleStatus.hh"
+#include "./EIoSessionConfig.hh"
+#include "./EIdleStatus.hh"
 #include "Efc.hh"
 
 namespace efc {

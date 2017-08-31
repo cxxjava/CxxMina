@@ -8,7 +8,7 @@
 #ifndef EHTTPSERVERCODEC_HH_
 #define EHTTPSERVERCODEC_HH_
 
-#include "EProtocolCodecFilter.hh"
+#include "../../inc/EProtocolCodecFilter.hh"
 
 namespace efc {
 namespace eio {

@@ -8,8 +8,8 @@
 #ifndef ENIODATAGRAMSESSION_HH_
 #define ENIODATAGRAMSESSION_HH_
 
-#include "ENioSession.hh"
-#include "EDatagramSessionConfig.hh"
+#include "./ENioSession.hh"
+#include "./EDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

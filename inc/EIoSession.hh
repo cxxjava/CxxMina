@@ -8,11 +8,11 @@
 #ifndef EIOSESSION_HH_
 #define EIOSESSION_HH_
 
-#include "EIoSessionConfig.hh"
+#include "./EIoSessionConfig.hh"
+#include "./EIdleStatus.hh"
+#include "./EThrowableObject.hh"
+#include "./ETransportMetadata.hh"
 #include "EInetSocketAddress.hh"
-#include "EIdleStatus.hh"
-#include "EThrowableObject.hh"
-#include "ETransportMetadata.hh"
 
 namespace efc {
 namespace eio {

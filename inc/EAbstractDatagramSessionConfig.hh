@@ -8,8 +8,8 @@
 #ifndef EABSTRACTDATAGRAMSESSIONCONFIG_HH_
 #define EABSTRACTDATAGRAMSESSIONCONFIG_HH_
 
-#include "EAbstractIoSessionConfig.hh"
-#include "EDatagramSessionConfig.hh"
+#include "./EAbstractIoSessionConfig.hh"
+#include "./EDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

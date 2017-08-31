@@ -5,9 +5,9 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EHttpBasicAuthLogicHandler.hh"
-#include "EHttpProxyConstants.hh"
-#include "EStringUtilities.hh"
+#include "../inc/EHttpBasicAuthLogicHandler.hh"
+#include "../inc/EHttpProxyConstants.hh"
+#include "../inc/EStringUtilities.hh"
 
 namespace efc {
 namespace eio {

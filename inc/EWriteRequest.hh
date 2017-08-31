@@ -8,7 +8,7 @@
 #ifndef EWRITEREQUEST_HH_
 #define EWRITEREQUEST_HH_
 
-#include "EIoSession.hh"
+#include "./EIoSession.hh"
 
 namespace efc {
 namespace eio {

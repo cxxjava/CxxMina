@@ -8,7 +8,7 @@
 #ifndef EABSTRACTPROXYIOHANDLER_HH_
 #define EABSTRACTPROXYIOHANDLER_HH_
 
-#include "EIoHandlerAdapter.hh"
+#include "./EIoHandlerAdapter.hh"
 #include "ELog.hh"
 
 namespace efc {

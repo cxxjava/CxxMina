@@ -8,7 +8,7 @@
 #ifndef EDEFAULTFILEREGION_HH_
 #define EDEFAULTFILEREGION_HH_
 
-#include "EFileRegion.hh"
+#include "./EFileRegion.hh"
 
 namespace efc {
 namespace eio {

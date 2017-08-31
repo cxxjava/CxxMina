@@ -8,7 +8,7 @@
 #ifndef ENIODATAGRAMSESSIONCONFIG_HH_
 #define ENIODATAGRAMSESSIONCONFIG_HH_
 
-#include "EAbstractDatagramSessionConfig.hh"
+#include "./EAbstractDatagramSessionConfig.hh"
 
 namespace efc {
 namespace eio {

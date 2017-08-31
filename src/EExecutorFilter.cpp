@@ -5,9 +5,9 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EExecutorFilter.hh"
-#include "EIoFilterChain.hh"
-#include "EOrderedThreadPoolExecutor.hh"
+#include "../inc/EExecutorFilter.hh"
+#include "../inc/EIoFilterChain.hh"
+#include "../inc/EOrderedThreadPoolExecutor.hh"
 
 namespace efc {
 namespace eio {

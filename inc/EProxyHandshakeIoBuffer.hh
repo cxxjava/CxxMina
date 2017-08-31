@@ -8,7 +8,7 @@
 #ifndef EPROXYHANDSHAKEIOBUFFER_HH_
 #define EPROXYHANDSHAKEIOBUFFER_HH_
 
-#include "EIoBufferWrapper.hh"
+#include "./EIoBufferWrapper.hh"
 
 namespace efc {
 namespace eio {

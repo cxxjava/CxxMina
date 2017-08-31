@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EIoHandlerAdapter.hh"
+#include "../inc/EIoHandlerAdapter.hh"
 
 namespace efc {
 namespace eio {

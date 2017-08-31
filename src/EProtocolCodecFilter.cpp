@@ -5,11 +5,11 @@
  *      Author: cxxjava@163.com
  */
 
-#include "EProtocolCodecFilter.hh"
-#include "EFileRegion.hh"
-#include "EProtocolEncoderException.hh"
-#include "EProtocolDecoderException.hh"
-#include "ERecoverableProtocolDecoderException.hh"
+#include "../inc/EProtocolCodecFilter.hh"
+#include "../inc/EFileRegion.hh"
+#include "../inc/EProtocolEncoderException.hh"
+#include "../inc/EProtocolDecoderException.hh"
+#include "../inc/ERecoverableProtocolDecoderException.hh"
 
 namespace efc {
 namespace eio {

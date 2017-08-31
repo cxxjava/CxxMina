@@ -8,7 +8,7 @@
 #ifndef EPROTOCOLENCODEROUTPUT_HH_
 #define EPROTOCOLENCODEROUTPUT_HH_
 
-#include "EWriteFuture.hh"
+#include "./EWriteFuture.hh"
 
 namespace efc {
 namespace eio {

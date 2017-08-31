@@ -8,8 +8,8 @@
 #ifndef EPROXYIOSESSIONINITIALIZER_HH_
 #define EPROXYIOSESSIONINITIALIZER_HH_
 
-#include "EIoSessionInitializer.hh"
-#include "EProxyIoSession.hh"
+#include "./EIoSessionInitializer.hh"
+#include "./EProxyIoSession.hh"
 
 namespace efc {
 namespace eio {

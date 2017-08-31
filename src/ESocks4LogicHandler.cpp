@@ -5,8 +5,8 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ESocks4LogicHandler.hh"
-#include "ESocksProxyConstants.hh"
+#include "../inc/ESocks4LogicHandler.hh"
+#include "../inc/ESocksProxyConstants.hh"
 
 namespace efc {
 namespace eio {

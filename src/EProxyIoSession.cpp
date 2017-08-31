@@ -5,7 +5,7 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EProxyIoSession.hh"
+#include "../inc/EProxyIoSession.hh"
 
 namespace efc {
 namespace eio {

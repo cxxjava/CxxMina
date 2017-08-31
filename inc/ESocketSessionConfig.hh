@@ -8,7 +8,7 @@
 #ifndef ESOCKETSESSIONCONFIG_HH_
 #define ESOCKETSESSIONCONFIG_HH_
 
-#include "EIoSessionConfig.hh"
+#include "./EIoSessionConfig.hh"
 
 namespace efc {
 namespace eio {

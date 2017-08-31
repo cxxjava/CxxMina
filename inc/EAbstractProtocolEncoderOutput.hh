@@ -8,7 +8,7 @@
 #ifndef EABSTRACTPROTOCOLENCODEROUTPUT_HH_
 #define EABSTRACTPROTOCOLENCODEROUTPUT_HH_
 
-#include "EProtocolEncoderOutput.hh"
+#include "./EProtocolEncoderOutput.hh"
 
 namespace efc {
 namespace eio {

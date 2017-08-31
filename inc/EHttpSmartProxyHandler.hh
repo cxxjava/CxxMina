@@ -8,7 +8,7 @@
 #ifndef EHTTPSMARTPROXYHANDLER_HH_
 #define EHTTPSMARTPROXYHANDLER_HH_
 
-#include "EAbstractHttpLogicHandler.hh"
+#include "./EAbstractHttpLogicHandler.hh"
 #include "ELog.hh"
 
 namespace efc {

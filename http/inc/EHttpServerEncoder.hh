@@ -8,7 +8,7 @@
 #ifndef EHTTPSERVERENCODER_HH_
 #define EHTTPSERVERENCODER_HH_
 
-#include "EProtocolEncoder.hh"
+#include "../../inc/EProtocolEncoder.hh"
 #include "ELog.hh"
 
 namespace efc {

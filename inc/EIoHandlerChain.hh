@@ -8,7 +8,7 @@
 #ifndef EIOHANDLERCHAIN_HH_
 #define EIOHANDLERCHAIN_HH_
 
-#include "EIoHandlerCommand.hh"
+#include "./EIoHandlerCommand.hh"
 
 namespace efc {
 namespace eio {

@@ -5,7 +5,7 @@
  *      Author: cxxjava@163.com
  */
 
-#include "ETextLineDecoder.hh"
+#include "../inc/ETextLineDecoder.hh"
 
 namespace efc {
 namespace eio {

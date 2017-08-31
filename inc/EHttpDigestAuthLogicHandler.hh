@@ -8,7 +8,7 @@
 #ifndef EHTTPDIGESTAUTHLOGICHANDLER_HH_
 #define EHTTPDIGESTAUTHLOGICHANDLER_HH_
 
-#include "EAbstractAuthLogicHandler.hh"
+#include "./EAbstractAuthLogicHandler.hh"
 
 namespace efc {
 namespace eio {

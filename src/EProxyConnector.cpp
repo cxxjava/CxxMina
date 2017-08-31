@@ -5,11 +5,11 @@
  *      Author: cxxjava@lotuseed.com
  */
 
-#include "EProxyConnector.hh"
-#include "ESocksProxyRequest.hh"
-#include "EAbstractProxyIoHandler.hh"
-#include "EProxyIoSessionInitializer.hh"
-#include "EDefaultSocketSessionConfig.hh"
+#include "../inc/EProxyConnector.hh"
+#include "../inc/ESocksProxyRequest.hh"
+#include "../inc/EAbstractProxyIoHandler.hh"
+#include "../inc/EProxyIoSessionInitializer.hh"
+#include "../inc/EDefaultSocketSessionConfig.hh"
 
 namespace efc {
 namespace eio {
