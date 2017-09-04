@@ -1,25 +1,28 @@
 # CxxMina
 
-##山寨Mina2.0实现的C++强大NIO网络开发框架.
+## 山寨Mina2.0实现的C++强大NIO网络开发框架.
 
-<br/>
-*英文版本: [English](README.md)*
+
+
+英文版本: [English](README.md)
+
+
 
 ### 目录
-  * [特点](#特点)
-  * [示例](#示例)
-  * [性能](#性能)
-  * [依赖](#依赖)
-  * [TODO](#todo)
-  * [Support](#support)
-  
-####特点
+* [特点](#特点)
+* [示例](#示例)
+* [性能](#性能)
+* [依赖](#依赖)
+* [TODO](#todo)
+* [Support](#support)
+
+#### 特点
 * 跨平台：同时支持Linux32/64、OSX64、Win64等平台；
 * 高性能：同时具备C/C++和Java并发库的优点，性能爆棚；
 * 易开发：先java开发，再使用cxxjdk进行翻译，So easy!
 * 强山寨：Mina核心功能有的我都有，Mina没有的我也可以有!
 
-####示例
+#### 示例
 `java:`
 
 ```
@@ -210,7 +213,7 @@ int main(int argc, const char **argv) {
   
 ```
 
-####性能
+#### 性能
 
 `软件环境:`
 
@@ -234,13 +237,12 @@ int main(int argc, const char **argv) {
 ![test_acceptor](img/test_acceptor.gif)
 
 
-####依赖
+#### 依赖
 `CxxMina`基于[CxxJDK](https://github.com/cxxjava/cxxjdk) && [CxxLog4j](https://github.com/cxxjava/cxxlog4j)开发.  
 
 
-####TODO
+#### TODO
     外围模块支持；
 
-####Support
+#### Support
 Email: [cxxjava@163.com](mailto:cxxjava@163.com)
-

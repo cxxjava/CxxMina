@@ -1,25 +1,28 @@
 # CxxMina
 
-##C++ network application framework like Mina2.0
+## C++ network application framework like Mina2.0
 
-<br/>
-*chinese version: [简体中文](README.zh_cn.md)*
+
+
+chinese version: [简体中文](README.zh_cn.md)
+
+
 
 ### Table of Contents
-  - [Characteristics](#characteristics)
-  - [Example](#xxample)
-  - [Performance](#performance)
-  - [Dependency](#dependency)
-  - [TODO](#todo)
-  - [Support](#support)
+- [Characteristics](#characteristics)
+- [Example](#xxample)
+- [Performance](#performance)
+- [Dependency](#dependency)
+- [TODO](#todo)
+- [Support](#support)
 
-####Characteristics
+#### Characteristics
 * Cross platform: support Linux32/64, OSX64, Win64 platforms;
 * High performance: with the advantages of C/C++ and Java concurrent Libraries tegother, bursting performance;
 * Easy to develop: first, use the java development, and then use the `CxxJDK` for translation, So easy!
 * Perfect copycat: Mina core got CxxMina also have, MINA core is no CxxMina also have!
 
-####Example
+#### Example
 `java:`
 
 ```
@@ -210,7 +213,7 @@ int main(int argc, const char **argv) {
   
 ```
 
-####Performance
+#### Performance
 
 `software environment:`
 
@@ -234,13 +237,12 @@ Total Number of Cores:	2
 ![test_acceptor](img/test_acceptor.gif)
 
 
-####Dependency
+#### Dependency
 `CxxMina` is based on [CxxJDK](https://github.com/cxxjava/cxxjdk) && [CxxLog4j](https://github.com/cxxjava/cxxlog4j).
 
 
-####TODO
+#### TODO
     More peripheral module;
 
-####Support
+#### Support
 Email: [cxxjava@163.com](mailto:cxxjava@163.com)
-
