@@ -8,7 +8,7 @@
 #ifndef EATTRIBUTEKEY_HH_
 #define EATTRIBUTEKEY_HH_
 
-#include "EString.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

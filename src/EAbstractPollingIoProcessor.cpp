@@ -13,7 +13,6 @@
 #include "../inc/EAbstractIoService.hh"
 #include "../inc/EWriteFuture.hh"
 #include "../inc/EWriteToClosedSessionException.hh"
-#include "EIllegalStateException.hh"
 
 namespace efc {
 namespace eio {

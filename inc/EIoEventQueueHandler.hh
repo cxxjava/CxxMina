@@ -8,7 +8,6 @@
 #ifndef EIOEVENTQUEUEHANDLER_HH_
 #define EIOEVENTQUEUEHANDLER_HH_
 
-#include "EEventListener.hh"
 #include "./EIoEvent.hh"
 
 namespace efc {

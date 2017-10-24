@@ -7,7 +7,6 @@
 
 #include "../inc/EAbstractIoConnector.hh"
 #include "../inc/EIoHandler.hh"
-#include "EIllegalArgumentException.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef EIOSESSIONINITIALIZATIONEXCEPTION_H_
 #define EIOSESSIONINITIALIZATIONEXCEPTION_H_
 
-#include "ERuntimeException.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef EIO_HH_
 #define EIO_HH_
 
-#define EIO_VERSION "0.2.2"
+#define EIO_VERSION "0.2.3"
 
 #include "Efc.hh"
 #include "ELog.hh"

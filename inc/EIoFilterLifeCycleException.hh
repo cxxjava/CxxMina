@@ -8,7 +8,7 @@
 #ifndef EIOFILTERLIFECYCLEEXCEPTION_HH_
 #define EIOFILTERLIFECYCLEEXCEPTION_HH_
 
-#include "ERuntimeException.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

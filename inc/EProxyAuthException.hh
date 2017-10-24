@@ -8,7 +8,7 @@
 #ifndef EPROXYAUTHEXCEPTION_HH_
 #define EPROXYAUTHEXCEPTION_HH_
 
-#include "ESaslException.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

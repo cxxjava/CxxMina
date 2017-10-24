@@ -11,7 +11,6 @@
 #include "./EIoFuture.hh"
 #include "./EIoSession.hh"
 #include "./EIoFutureListener.hh"
-#include "EInterruptedException.hh"
 
 namespace efc {
 namespace eio {

@@ -8,7 +8,7 @@
 #ifndef ERUNTIMEIOEXCEPTION_H_
 #define ERUNTIMEIOEXCEPTION_H_
 
-#include "ERuntimeException.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

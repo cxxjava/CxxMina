@@ -11,7 +11,6 @@
 #include "./EIoService.hh"
 #include "./EConnectFuture.hh"
 #include "./EIoSessionInitializer.hh"
-#include "EInetSocketAddress.hh"
 
 namespace efc {
 namespace eio {

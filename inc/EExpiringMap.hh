@@ -8,7 +8,7 @@
 #ifndef EEXPIRINGMAP_HH_
 #define EEXPIRINGMAP_HH_
 
-#include "EConcurrentMap.hh"
+#include "Efc.hh"
 #include "./EExpirationListener.hh"
 
 namespace efc {

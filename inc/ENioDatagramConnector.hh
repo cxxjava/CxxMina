@@ -8,8 +8,8 @@
 #ifndef ENIODATAGRAMCONNECTOR_HH_
 #define ENIODATAGRAMCONNECTOR_HH_
 
-#include "EDatagramChannel.hh"
-#include "EDatagramConnector.hh"
+#include "Efc.hh"
+#include "./EDatagramConnector.hh"
 #include "./EAbstractPollingIoConnector.hh"
 #include "./ETransportMetadata.hh"
 #include "./EDefaultDatagramSessionConfig.hh"

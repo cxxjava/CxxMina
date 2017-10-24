@@ -6,7 +6,6 @@
  */
 
 #include "../inc/EDefaultWriteFuture.hh"
-#include "EIllegalArgumentException.hh"
 
 namespace efc {
 namespace eio {

@@ -10,7 +10,7 @@
 
 #include "./EIoFuture.hh"
 #include "./EIoFutureListener.hh"
-#include "EInterruptedException.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

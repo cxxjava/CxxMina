@@ -6,7 +6,6 @@
  */
 
 #include "../inc/EAttributeKey.hh"
-#include "EInteger.hh"
 
 namespace efc {
 namespace eio {

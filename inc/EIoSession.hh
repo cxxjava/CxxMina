@@ -12,7 +12,7 @@
 #include "./EIdleStatus.hh"
 #include "./EThrowableObject.hh"
 #include "./ETransportMetadata.hh"
-#include "EInetSocketAddress.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

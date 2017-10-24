@@ -9,9 +9,6 @@
 #include "../inc/EHttpProxyConstants.hh"
 #include "../inc/EStringUtilities.hh"
 #include "../inc/EProxyIoSession.hh"
-#include "ERuntimeException.hh"
-#include "EAuthenticationException.hh"
-#include "eso_md5.h"
 
 #include <iconv.h> //iconv_xxx
 

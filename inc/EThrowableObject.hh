@@ -8,8 +8,7 @@
 #ifndef ETHROWABLEOBJECT_HH_
 #define ETHROWABLEOBJECT_HH_
 
-#include "EObject.hh"
-#include "EThrowable.hh"
+#include "Efc.hh"
 
 namespace efc {
 namespace eio {

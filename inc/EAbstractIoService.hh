@@ -17,7 +17,6 @@
 #include "./EDefaultIoFuture.hh"
 #include "./EAbstractIoSession.hh"
 #include "./EWriteFuture.hh"
-#include "EInterruptedException.hh"
 #include "ELog.hh"
 
 namespace efc {

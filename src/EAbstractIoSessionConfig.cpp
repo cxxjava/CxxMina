@@ -6,7 +6,6 @@
  */
 
 #include "../inc/EAbstractIoSessionConfig.hh"
-#include "EIllegalArgumentException.hh"
 
 namespace efc {
 namespace eio {
