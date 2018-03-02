@@ -234,7 +234,7 @@ EArrayList<sp<ERunnable> > EOrderedThreadPoolExecutor::shutdownNow() {
 		sp<SessionTasksQueue> sessionTasksQueue = dynamic_pointer_cast<SessionTasksQueue>(session->getAttribute(TASKS_QUEUE.get()));
 
 		SYNCBLOCK(&sessionTasksQueue->tasksQueueLock) {
-			sp<EConcurrentIterator<ERunnable> > iter = sessionTasksQueue->tasksQueue.iterator();
+			sp<EIterator<sp<ERunnable> > > iter = sessionTasksQueue->tasksQueue.iterator();
 			while (iter->hasNext()) {
 				sp<ERunnable> task = iter->next();
 				getQueueHandler()->polled(this, dynamic_cast<EIoEvent*>(task.get()));

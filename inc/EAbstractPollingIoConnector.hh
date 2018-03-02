@@ -44,6 +44,7 @@ public:
 		if (createdProcessor) {
 			delete processor;
 		}
+        connectorRef.set(null); //!!!
 	}
 
 	class ConnectionRequest : public EDefaultConnectFuture {
@@ -471,7 +472,7 @@ private:
 	sp<ServiceOperationFuture> disposalFuture;// = new ServiceOperationFuture();
 
 	/** The connector thread */
-	EAtomicReference<Connector> connectorRef;// = new AtomicReference<Connector>();
+	EAtomicReference<Connector*> connectorRef;// = new AtomicReference<Connector>();
 
 	/**
 	 * Constructor for {@link AbstractPollingIoAcceptor}. You need to provide a

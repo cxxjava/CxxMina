@@ -109,7 +109,7 @@ boolean EDefaultIoSessionDataStructureFactory::DefaultIoSessionAttributeMap::con
 	return attributes.containsKey(key);
 }
 
-sp<EConcurrentSet<EObject> > EDefaultIoSessionDataStructureFactory::DefaultIoSessionAttributeMap::getAttributeKeys(
+ESet<sp<EObject> >* EDefaultIoSessionDataStructureFactory::DefaultIoSessionAttributeMap::getAttributeKeys(
 		EIoSession* session) {
 	SYNCBLOCK(&attributesLock) {
 		return attributes.keySet();
@@ -168,7 +168,7 @@ int EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::size() {
 	return q.size();
 }
 
-EStringBase EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::toString() {
+EString EDefaultIoSessionDataStructureFactory::DefaultWriteRequestQueue::toString() {
 	return q.toString();
 }
 

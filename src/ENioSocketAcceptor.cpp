@@ -15,10 +15,10 @@ namespace eio {
  * Defines an iterator for the selected-key Set returned by the
  * selector.selectedKeys(). It replaces the SelectionKey operator.
  */
-class ServerSocketChannelIterator : public EIterator<EServerSocketChannel*> {
+class ServerSocketChannelIterator : public EIterator<sp<EServerSocketChannel> > {
 private:
 	/** The selected-key iterator */
-	sp<EIterator<ESelectionKey*> > iterator;
+	sp<EIterator<sp<ESelectionKey> > > iterator;
 
 public:
 	virtual ~ServerSocketChannelIterator() {
@@ -31,7 +31,7 @@ public:
 	 *
 	 * @param selectedKeys The selector selected-key set
 	 */
-	ServerSocketChannelIterator(ECollection<ESelectionKey*>* selectedKeys) {
+	ServerSocketChannelIterator(ECollection<sp<ESelectionKey> >* selectedKeys) {
 		iterator = selectedKeys->iterator();
 	}
 
@@ -50,11 +50,11 @@ public:
 	 *
 	 * @return The next SocketChannel in the iterator
 	 */
-	EServerSocketChannel* next() {
-		ESelectionKey* key = iterator->next();
+	sp<EServerSocketChannel> next() {
+		sp<ESelectionKey> key = iterator->next();
 
 		if (key->isValid() && key->isAcceptable()) {
-			return (EServerSocketChannel*) key->channel();
+			return dynamic_pointer_cast<EServerSocketChannel>(key->channel());
 		}
 
 		return null;
@@ -67,9 +67,9 @@ public:
 		iterator->remove();
 	}
 
-	EServerSocketChannel* moveOut() {
-		ESelectionKey* key = iterator->moveOut();
-		EServerSocketChannel* channel = (EServerSocketChannel*) key->channel();
+	sp<EServerSocketChannel> moveOut() {
+		sp<ESelectionKey> key = iterator->moveOut();
+		sp<EServerSocketChannel> channel = dynamic_pointer_cast<EServerSocketChannel>(key->channel());
 		return channel;
 	}
 };
@@ -79,26 +79,26 @@ ENioSocketAcceptor::~ENioSocketAcceptor() {
 	delete selector;
 }
 
-ENioSocketAcceptor::ENioSocketAcceptor() : EAbstractPollingIoAcceptor<EServerSocketChannel*>(dssc = new EDefaultSocketSessionConfig()) {
+ENioSocketAcceptor::ENioSocketAcceptor() : EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >(dssc = new EDefaultSocketSessionConfig()) {
 	this->init();
 	dssc->init(this);
 }
 
 ENioSocketAcceptor::ENioSocketAcceptor(int processorCount) :
-		EAbstractPollingIoAcceptor<EServerSocketChannel*>(dssc = new EDefaultSocketSessionConfig(), processorCount) {
+		EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >(dssc = new EDefaultSocketSessionConfig(), processorCount) {
 	this->init();
 	dssc->init(this);
 }
 
 ENioSocketAcceptor::ENioSocketAcceptor(EIoProcessor* processor) :
-		EAbstractPollingIoAcceptor<EServerSocketChannel*>(dssc = new EDefaultSocketSessionConfig(), processor) {
+		EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >(dssc = new EDefaultSocketSessionConfig(), processor) {
 	this->init();
 	dssc->init(this);
 }
 
 ENioSocketAcceptor::ENioSocketAcceptor(EExecutorService* executor,
 		EIoProcessor* processor) :
-		EAbstractPollingIoAcceptor<EServerSocketChannel*>(dssc = new EDefaultSocketSessionConfig(), executor, processor) {
+		EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >(dssc = new EDefaultSocketSessionConfig(), executor, processor) {
 	this->init();
 	dssc->init(this);
 }
@@ -144,15 +144,15 @@ void ENioSocketAcceptor::wakeup() {
 	selector->wakeup();
 }
 
-sp<EIterator<EServerSocketChannel*> > ENioSocketAcceptor::selectedHandles() {
+sp<EIterator<sp<EServerSocketChannel> > > ENioSocketAcceptor::selectedHandles() {
 	return new ServerSocketChannelIterator(selector->selectedKeys());
 }
 
-EServerSocketChannel* ENioSocketAcceptor::open(
+sp<EServerSocketChannel> ENioSocketAcceptor::open(
 		EInetSocketAddress* localAddress) {
 	// Creates the listening ServerSocket
 
-	EServerSocketChannel* channel = EServerSocketChannel::open();
+	sp<EServerSocketChannel> channel = EServerSocketChannel::open();
 
 	boolean success = false;
 
@@ -198,13 +198,13 @@ EServerSocketChannel* ENioSocketAcceptor::open(
 }
 
 EInetSocketAddress* ENioSocketAcceptor::localAddress(
-		EServerSocketChannel* handle) {
+		sp<EServerSocketChannel> handle) {
 	return handle->socket()->getLocalSocketAddress();
 }
 
 sp<EIoSession> ENioSocketAcceptor::accept(EIoProcessor* processor,
-		EServerSocketChannel* handle) {
-	ESelectionKey* key = null;
+		sp<EServerSocketChannel> handle) {
+	sp<ESelectionKey> key = null;
 
 	if (handle != null) {
 		key = handle->keyFor(selector);
@@ -225,8 +225,8 @@ sp<EIoSession> ENioSocketAcceptor::accept(EIoProcessor* processor,
 	return sp<EIoSession>(new ENioSocketSession(this, processor, ch));
 }
 
-void ENioSocketAcceptor::close(EServerSocketChannel* handle) {
-	ESelectionKey* key = handle->keyFor(selector);
+void ENioSocketAcceptor::close(sp<EServerSocketChannel> handle) {
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if (key != null) {
 		key->cancel();
@@ -240,31 +240,31 @@ ETransportMetadata* ENioSocketAcceptor::getTransportMetadata() {
 }
 
 EInetSocketAddress* ENioSocketAcceptor::getLocalAddress() {
-	return EAbstractPollingIoAcceptor<EServerSocketChannel*>::getLocalAddress();
+	return EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::getLocalAddress();
 }
 
 EInetSocketAddress* ENioSocketAcceptor::getDefaultLocalAddress() {
-	return EAbstractPollingIoAcceptor<EServerSocketChannel*>::getDefaultLocalAddress();
+	return EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::getDefaultLocalAddress();
 }
 
 void ENioSocketAcceptor::setDefaultLocalAddress(EInetSocketAddress* localAddress) {
-	EAbstractPollingIoAcceptor<EServerSocketChannel*>::setDefaultLocalAddress(localAddress);
+	EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::setDefaultLocalAddress(localAddress);
 }
 
 boolean ENioSocketAcceptor::isReuseAddress() {
-	return EAbstractPollingIoAcceptor<EServerSocketChannel*>::isReuseAddress();
+	return EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::isReuseAddress();
 }
 
 void ENioSocketAcceptor::setReuseAddress(boolean reuseAddress) {
-	EAbstractPollingIoAcceptor<EServerSocketChannel*>::setReuseAddress(reuseAddress);
+	EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::setReuseAddress(reuseAddress);
 }
 
 int ENioSocketAcceptor::getBacklog() {
-	return EAbstractPollingIoAcceptor<EServerSocketChannel*>::getBacklog();
+	return EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::getBacklog();
 }
 
 void ENioSocketAcceptor::setBacklog(int backlog) {
-	EAbstractPollingIoAcceptor<EServerSocketChannel*>::setBacklog(backlog);
+	EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >::setBacklog(backlog);
 }
 
 } /* namespace eio */

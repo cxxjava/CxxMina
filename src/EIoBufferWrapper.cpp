@@ -187,7 +187,7 @@ int EIoBufferWrapper::compareTo(EIoBuffer* that) {
 	return buf_->compareTo(that);
 }
 
-EStringBase EIoBufferWrapper::toString() {
+EString EIoBufferWrapper::toString() {
 	return buf_->toString();
 }
 

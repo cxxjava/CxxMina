@@ -42,6 +42,7 @@ INCLUDEDIR = \
 	-I../../elog \
 	-I../../CxxJDK/efc \
 	-I../../CxxLog4j \
+	-I../http/inc \
 	-I../inc \
 	-I../ \
 	-I/usr/local/Cellar/openssl/1.0.2g/include \
@@ -54,7 +55,7 @@ APPENDLIB =
 BASE_SRC   += $(sort $(wildcard ../../elog/src/*.cpp ../../CxxLog4j/src/*.cpp))
 BASE_OBJS   += $(patsubst %.cpp,%.o, $(patsubst %.c,%.o, $(BASE_SRC)))
 
-TESTEIO_SRC   += $(sort $(wildcard ../src/*.cpp))
+TESTEIO_SRC   += $(sort $(wildcard ../src/*.cpp ../http/src/*.cpp))
 TESTEIO_OBJS   += $(patsubst %.cpp,%.o, $(patsubst %.c,%.o, $(TESTEIO_SRC)))
 
 TESTEIO_OBJS += testeio.o

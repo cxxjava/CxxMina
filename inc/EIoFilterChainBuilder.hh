@@ -57,7 +57,7 @@ public:
 	DummyIoFilterChainBuilder(EIoFilterChain* chain) {
     }
 
-    virtual EStringBase toString() {
+    virtual EString toString() {
         return "NOOP";
     }
 };

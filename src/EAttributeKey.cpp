@@ -14,7 +14,7 @@ EAttributeKey::EAttributeKey(const char* source, const char* name) {
 	this->name << source << '.' << name << '@' << EInteger::toHexString(this->hashCode());
 }
 
-EStringBase EAttributeKey::toString() {
+EString EAttributeKey::toString() {
 	return name;
 }
 

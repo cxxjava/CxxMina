@@ -112,7 +112,7 @@ private:
 	EIoService* service;
 
 	/** A list of {@link IoServiceListener}s. */
-	EConcurrentList<EIoServiceListener>* listeners;// = new CopyOnWriteArrayList<IoServiceListener>();
+	EList<sp<EIoServiceListener> >* listeners;// = new CopyOnWriteArrayList<IoServiceListener>();
 
 	/** Tracks managed sessions. */
 	EConcurrentMap<llong, EIoSession>* managedSessions;// = new ConcurrentHashMap<Long, IoSession>();

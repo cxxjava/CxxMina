@@ -83,7 +83,7 @@ void EIoFilterAdapter::filterWrite(EIoFilter::NextFilter* nextFilter,
 	nextFilter->filterWrite(session, writeRequest);
 }
 
-EStringBase EIoFilterAdapter::toString() {
+EString EIoFilterAdapter::toString() {
 	return "EIoFilterAdapter";
 }
 

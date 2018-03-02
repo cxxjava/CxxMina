@@ -266,10 +266,10 @@ void EAbstractIoAcceptor::unbind(EIterable<EInetSocketAddress*> *localAddresses)
 	}
 }
 
-EStringBase EAbstractIoAcceptor::toString() {
+EString EAbstractIoAcceptor::toString() {
 	ETransportMetadata* m = getTransportMetadata();
-	EStringBase str;
-	str += isActive() ? EStringBase::formatOf("(%s %s acceptor: localAddress(es): %s, managedSessionCount: %d)",
+	EString str;
+	str += isActive() ? EString::formatOf("(%s %s acceptor: localAddress(es): %s, managedSessionCount: %d)",
 			m->getProviderName(), m->getName(),
 			getLocalAddresses()->toString().c_str(),  getManagedSessionCount()).c_str() : "not bound)";
 	return str;

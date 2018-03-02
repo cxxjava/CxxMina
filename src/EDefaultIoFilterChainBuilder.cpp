@@ -49,8 +49,8 @@ public:
 		throw EIllegalStateException(__FILE__, __LINE__);
 	}
 
-	virtual EStringBase toString() {
-		return EStringBase::formatOf("(%s:%s)", name.c_str(), filter->toString().c_str());
+	virtual EString toString() {
+		return EString::formatOf("(%s:%s)", name.c_str(), filter->toString().c_str());
 	}
 
 	void addAfter(const char* name, EIoFilter* filter) {
@@ -87,7 +87,7 @@ EDefaultIoFilterChainBuilder::EDefaultIoFilterChainBuilder(
 
 sp<EIoFilterChain::Entry> EDefaultIoFilterChainBuilder::getEntry(
 		const char* name) {
-	sp<EConcurrentIterator<EIoFilterChain::Entry> > citer = entries->iterator();
+	sp<EIterator<sp<EIoFilterChain::Entry> > > citer = entries->iterator();
 	while (citer->hasNext()) {
 		sp<EIoFilterChain::Entry> e = citer->next();
         EString n(e->getName());
@@ -101,7 +101,7 @@ sp<EIoFilterChain::Entry> EDefaultIoFilterChainBuilder::getEntry(
 
 sp<EIoFilterChain::Entry> EDefaultIoFilterChainBuilder::getEntry(
 		EIoFilter* filter) {
-	sp<EConcurrentIterator<EIoFilterChain::Entry> > citer = entries->iterator();
+	sp<EIterator<sp<EIoFilterChain::Entry> > > citer = entries->iterator();
 	while (citer->hasNext()) {
 		sp<EIoFilterChain::Entry> e = citer->next();
 		if (e->getFilter() == filter) {
@@ -148,7 +148,7 @@ void EDefaultIoFilterChainBuilder::addBefore(const char* baseName,
 	SYNCHRONIZED(this) {
 		checkBaseName(baseName);
 
-		for (sp<EConcurrentListIterator<EIoFilterChain::Entry> > i = entries->listIterator(); i->hasNext();) {
+		for (sp<EListIterator<sp<EIoFilterChain::Entry> > > i = entries->listIterator(); i->hasNext();) {
 			sp<EIoFilterChain::Entry> base = i->next();
 			if (eso_strcmp(base->getName(), baseName) == 0) {
 				register_(i->previousIndex(), new EntryImpl(name, filter, this));
@@ -163,7 +163,7 @@ void EDefaultIoFilterChainBuilder::addAfter(const char* baseName,
 	SYNCHRONIZED(this) {
 		checkBaseName(baseName);
 
-		for (sp<EConcurrentListIterator<EIoFilterChain::Entry> > i = entries->listIterator(); i->hasNext();) {
+		for (sp<EListIterator<sp<EIoFilterChain::Entry> > > i = entries->listIterator(); i->hasNext();) {
 			sp<EIoFilterChain::Entry> base = i->next();
 			if (eso_strcmp(base->getName(), baseName) == 0) {
 				register_(i->nextIndex(), new EntryImpl(name, filter, this));
@@ -179,7 +179,7 @@ EIoFilter* EDefaultIoFilterChainBuilder::remove(const char* name) {
 			throw EIllegalArgumentException(__FILE__, __LINE__, "name");
 		}
 
-		for (sp<EConcurrentListIterator<EIoFilterChain::Entry> > i = entries->listIterator(); i->hasNext();) {
+		for (sp<EListIterator<sp<EIoFilterChain::Entry> > > i = entries->listIterator(); i->hasNext();) {
 			sp<EIoFilterChain::Entry> e = i->next();
 			if (eso_strcmp(e->getName(), name) == 0) {
 				entries->removeAt(i->previousIndex());
@@ -199,7 +199,7 @@ EIoFilter* EDefaultIoFilterChainBuilder::remove(EIoFilter* filter) {
 			throw EIllegalArgumentException(__FILE__, __LINE__, "filter");
 		}
 
-		for (sp<EConcurrentListIterator<EIoFilterChain::Entry> > i = entries->listIterator(); i->hasNext();) {
+		for (sp<EListIterator<sp<EIoFilterChain::Entry> > > i = entries->listIterator(); i->hasNext();) {
 			sp<EIoFilterChain::Entry> e = i->next();
 			if (e->getFilter() == filter) {
 				entries->removeAt(i->previousIndex());
@@ -228,7 +228,7 @@ EIoFilter* EDefaultIoFilterChainBuilder::replace(const char* name,
 void EDefaultIoFilterChainBuilder::replace(EIoFilter* oldFilter,
 		EIoFilter* newFilter) {
 	SYNCHRONIZED(this) {
-		sp<EConcurrentIterator<EIoFilterChain::Entry> > citer = entries->iterator();
+		sp<EIterator<sp<EIoFilterChain::Entry> > > citer = entries->iterator();
 		while (citer->hasNext()) {
 			sp<EIoFilterChain::Entry> e = citer->next();
 			if (e->getFilter() == oldFilter) {
@@ -250,19 +250,19 @@ void EDefaultIoFilterChainBuilder::clear() {
 }
 
 void EDefaultIoFilterChainBuilder::buildFilterChain(EIoFilterChain* chain) {
-	sp<EConcurrentIterator<EIoFilterChain::Entry> > citer = entries->iterator();
+	sp<EIterator<sp<EIoFilterChain::Entry> > > citer = entries->iterator();
 	while (citer->hasNext()) {
 		sp<EIoFilterChain::Entry> e = citer->next();
 		chain->addLast(e->getName(), e->getFilter());
 	}
 }
 
-EStringBase EDefaultIoFilterChainBuilder::toString() {
-	EStringBase buf("{ ");
+EString EDefaultIoFilterChainBuilder::toString() {
+	EString buf("{ ");
 
 	boolean empty = true;
 
-	sp<EConcurrentIterator<EIoFilterChain::Entry> > citer = entries->iterator();
+	sp<EIterator<sp<EIoFilterChain::Entry> > > citer = entries->iterator();
 	while (citer->hasNext()) {
 		sp<EIoFilterChain::Entry> e = citer->next();
 		if (!empty) {
@@ -308,7 +308,7 @@ void EDefaultIoFilterChainBuilder::checkBaseName(const char* baseName) {
 }
 
 void EDefaultIoFilterChainBuilder::destroy() {
-	sp<EConcurrentIterator<EIoFilterChain::Entry> > citer = entries->iterator();
+	sp<EIterator<sp<EIoFilterChain::Entry> > > citer = entries->iterator();
 	while (citer->hasNext()) {
 		sp<EIoFilterChain::Entry> e = citer->next();
 		e->getFilter()->destroy();

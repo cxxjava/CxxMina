@@ -103,7 +103,7 @@ void EIoServiceListenerSupport::fireServiceActivated() {
 		}
 	}
 	*/
-	sp<EConcurrentIterator<EIoServiceListener> > iter = listeners->iterator();
+	sp<EIterator<sp<EIoServiceListener> > > iter = listeners->iterator();
 	while (iter->hasNext()) {
 		sp<EIoServiceListener> listener = iter->next();
 		try {
@@ -131,7 +131,7 @@ void EIoServiceListenerSupport::fireServiceDeactivated() {
 			}
 		}
 		*/
-		sp<EConcurrentIterator<EIoServiceListener> > iter = listeners->iterator();
+		sp<EIterator<sp<EIoServiceListener> > > iter = listeners->iterator();
 		while (iter->hasNext()) {
 			sp<EIoServiceListener> listener = iter->next();
 			try {
@@ -198,7 +198,7 @@ void EIoServiceListenerSupport::fireSessionCreated(sp<EIoSession> session) {
 		}
 	}
 	*/
-	sp<EConcurrentIterator<EIoServiceListener> > iter = listeners->iterator();
+	sp<EIterator<sp<EIoServiceListener> > > iter = listeners->iterator();
 	while (iter->hasNext()) {
 		sp<EIoServiceListener> listener = iter->next();
 		try {
@@ -230,7 +230,7 @@ void EIoServiceListenerSupport::fireSessionDestroyed(sp<EIoSession> session) {
 			}
 		}
 		*/
-		sp<EConcurrentIterator<EIoServiceListener> > iter = listeners->iterator();
+		sp<EIterator<sp<EIoServiceListener> > > iter = listeners->iterator();
 		while (iter->hasNext()) {
 			sp<EIoServiceListener> listener = iter->next();
 			try {
@@ -302,7 +302,7 @@ void EIoServiceListenerSupport::disconnectSessions() {
 	*/
 	sp<LockNotifyingListener> listener = new LockNotifyingListener();
 
-	sp<EConcurrentIterator<EIoSession> > iter = managedSessions->values()->iterator();
+	sp<EIterator<sp<EIoSession> > > iter = managedSessions->values()->iterator();
 	while (iter->hasNext()) {
 		sp<EIoSession> s = iter->next();
 		s->closeNow()->addListener(listener);

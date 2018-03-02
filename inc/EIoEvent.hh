@@ -33,7 +33,7 @@ public:
 
 	virtual void run();
 	virtual void fire();
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
 	EIoEventType type;

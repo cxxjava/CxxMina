@@ -128,12 +128,12 @@ public:
 
 protected:
 
-	sp<EIoSession> newSession(EIoProcessor* processor, EDatagramChannel* handle,
+	sp<EIoSession> newSession(EIoProcessor* processor, sp<EDatagramChannel> handle,
 	            EInetSocketAddress* remoteAddress);
 
-	sp<EInetSocketAddress> localAddress(EDatagramChannel* handle) THROWS(EException);
+	sp<EInetSocketAddress> localAddress(sp<EDatagramChannel> handle) THROWS(EException);
 
-	EDatagramChannel* open(EInetSocketAddress* localAddress) THROWS(EException);
+	sp<EDatagramChannel> open(EInetSocketAddress* localAddress) THROWS(EException);
 
 	void destroy() THROWS(EException);
 
@@ -141,19 +141,19 @@ protected:
 
 	virtual void wakeup();
 
-	virtual void close(EDatagramChannel* handle) THROWS(EException);
+	virtual void close(sp<EDatagramChannel> handle) THROWS(EException);
 
 	virtual void dispose0() THROWS(EException);
 
 	virtual int select(llong timeout) THROWS(EException);
 	virtual int select() THROWS(EException);
 
-	virtual boolean isReadable(EDatagramChannel* handle);
-	virtual boolean isWritable(EDatagramChannel* handle);
+	virtual boolean isReadable(sp<EDatagramChannel> handle);
+	virtual boolean isWritable(sp<EDatagramChannel> handle);
 
-	virtual ESet<ESelectionKey*>* selectedHandles();
+	virtual ESet<sp<ESelectionKey> >* selectedHandles();
 
-	virtual sp<EInetSocketAddress> receive(EDatagramChannel* handle, EIoBuffer* buffer) THROWS(EException);
+	virtual sp<EInetSocketAddress> receive(sp<EDatagramChannel> handle, EIoBuffer* buffer) THROWS(EException);
 	virtual int send(sp<ENioSession>& session, EIoBuffer* buffer, EInetSocketAddress* remoteAddress) THROWS(EException);
 
 	virtual void setInterestedInWrite(sp<ENioSession>& session, boolean isInterested) THROWS(EException);
@@ -199,7 +199,7 @@ private:
 
 	EConcurrentLiteQueue<ENioSession> flushingSessions;// = new ConcurrentLinkedQueue<NioSession>();
 
-	EMap<EInetSocketAddress*, EDatagramChannel*>* boundHandles;// = Collections.synchronizedMap(new HashMap<SocketAddress, DatagramChannel>());
+	EMap<sp<EInetSocketAddress>, sp<EDatagramChannel> >* boundHandles;// = Collections.synchronizedMap(new HashMap<SocketAddress, DatagramChannel>());
 
 	EIoSessionRecycler* sessionRecycler;// = DEFAULT_RECYCLER;
 
@@ -228,7 +228,7 @@ private:
 
 	int unregisterHandles();
 
-	void processReadySessions(ESet<ESelectionKey*>* handles);
+	void processReadySessions(ESet<sp<ESelectionKey> >* handles);
 
 	void flushSessions(llong currentTime);
 
@@ -236,7 +236,7 @@ private:
 
 	boolean scheduleFlush(sp<EIoSession>& session);
 
-	void readHandle(EDatagramChannel* handle) THROWS(EException);
+	void readHandle(sp<EDatagramChannel> handle) THROWS(EException);
 
 	boolean flush(sp<ENioSession>& session, llong currentTime) THROWS(EException);
 

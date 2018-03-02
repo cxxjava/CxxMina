@@ -41,8 +41,8 @@ sp<EWriteRequest> EWriteRequestWrapper::getParentRequest() {
 	return parentRequest;
 }
 
-EStringBase EWriteRequestWrapper::toString() {
-	return EStringBase("WR Wrapper") + parentRequest->toString();
+EString EWriteRequestWrapper::toString() {
+	return EString("WR Wrapper") + parentRequest->toString();
 }
 
 boolean EWriteRequestWrapper::isEncoded() {

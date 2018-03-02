@@ -121,8 +121,8 @@ private:
 			return EMPTY_BUFFER;
 		}
 
-		virtual EStringBase toString() {
-			return EStringBase("MessageWriteRequest, parent : ") + EWriteRequestWrapper::toString();
+		virtual EString toString() {
+			return EString("MessageWriteRequest, parent : ") + EWriteRequestWrapper::toString();
 		}
 	};
 

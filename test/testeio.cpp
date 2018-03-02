@@ -4,7 +4,7 @@
 #include "../http/inc/EHttpServerDecoder.hh"
 #include "../http/inc/EHttpEndOfContent.hh"
 
-#define LOG(fmt,...) ESystem::out->println(fmt, ##__VA_ARGS__)
+#define LOG(fmt,...) ESystem::out->printfln(fmt, ##__VA_ARGS__)
 
 class ErrHandler: public EThread::UncaughtExceptionHandler {
 public:
@@ -563,8 +563,6 @@ static void test_niodatagramserver() {
 }
 
 static void test_niodatagramclient() {
-	sp<EThread> cxxthread = EThread::c_init();
-
 	class IoFutureListener: public EIoFutureListener {
 	public:
 		virtual void operationComplete(EIoFuture* future) {
@@ -602,9 +600,9 @@ static void test_niodatagramclient() {
 	connFuture->addListener(new IoFutureListener());
 	connFuture->await();
 
-	while (!connFuture->getSession()->isDestroyed()) {
-		EThread::sleep(500);
-	}
+//	while (!connFuture->getSession()->isDestroyed()) {
+//		EThread::sleep(500);
+//	}
 
 	connector.dispose();
 
@@ -657,7 +655,7 @@ MAIN_IMPL(testeio) {
 		e.printStackTrace();
 	}
 	catch (EException& e) {
-		ESystem::out->println("e=%s", e.toString().c_str());
+		ESystem::out->printfln("e=%s", e.toString().c_str());
 		e.printStackTrace();
 	}
 	catch (EThrowable& e) {

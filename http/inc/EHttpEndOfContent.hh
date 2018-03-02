@@ -15,7 +15,7 @@ namespace eio {
 
 class EHttpEndOfContent: public EObject {
 public:
-	virtual EStringBase toString() {
+	virtual EString toString() {
         return "HttpEndOfContent";
     }
 };

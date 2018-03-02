@@ -243,7 +243,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<EConcurrentSet<EObject> > getAttributeKeys();
+	virtual ESet<sp<EObject> >* getAttributeKeys();
 
 	/**
 	 * @return The map of attributes associated with the session
@@ -535,7 +535,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 
 	/**
 	 * @return The associated IoProcessor for this session

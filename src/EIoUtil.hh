@@ -28,7 +28,7 @@ public:
 	 * If the specified {@code message} is an {@link IoBuffer}, the buffer is
 	 * automatically duplicated using {@link IoBuffer#duplicate()}.
 	 */
-	static EArrayList<sp<EWriteFuture> > broadcast(sp<EObject>& message, sp<EConcurrentCollection<EIoSession> > sessions);
+	static EArrayList<sp<EWriteFuture> > broadcast(sp<EObject>& message, sp<ECollection<sp<EIoSession> > > sessions);
 
 private:
 	EIoUtil() {

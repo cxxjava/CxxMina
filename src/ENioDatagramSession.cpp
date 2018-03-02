@@ -19,7 +19,7 @@ ENioDatagramSession::~ENioDatagramSession() {
 	delete localAddress;
 }
 
-ENioDatagramSession::ENioDatagramSession(EIoService* service, EIoProcessor* processor, EDatagramChannel* channel,
+ENioDatagramSession::ENioDatagramSession(EIoService* service, EIoProcessor* processor, sp<EDatagramChannel> channel,
 		EInetSocketAddress* remoteAddress): ENioSession(processor, service, channel) {
 	config = new ENioDatagramSessionConfig(channel);
 	config->setAll(service->getSessionConfig());
@@ -29,7 +29,7 @@ ENioDatagramSession::ENioDatagramSession(EIoService* service, EIoProcessor* proc
 	this->localAddress = (l != null) ? new EInetSocketAddress(*l) : null;
 }
 
-ENioDatagramSession::ENioDatagramSession(EIoService* service, EIoProcessor* processor, EDatagramChannel* channel):
+ENioDatagramSession::ENioDatagramSession(EIoService* service, EIoProcessor* processor, sp<EDatagramChannel> channel):
 	ENioSession(processor, service, channel)  {
 	config = new ENioDatagramSessionConfig(channel);
 	config->setAll(service->getSessionConfig());
@@ -44,8 +44,8 @@ EDatagramSessionConfig* ENioDatagramSession::getConfig() {
 	return dynamic_cast<EDatagramSessionConfig*>(config);
 }
 
-EDatagramChannel* ENioDatagramSession::getChannel() {
-	return dynamic_cast<EDatagramChannel*>(channel);
+sp<EByteChannel> ENioDatagramSession::getChannel() {
+	return channel;
 }
 
 ETransportMetadata* ENioDatagramSession::METADATA() {

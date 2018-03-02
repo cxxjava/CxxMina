@@ -46,7 +46,7 @@ EString EStringUtilities::copyDirective(sp<EHashMap<EString*, EString*> >& direc
 	return EString(directiveValue);
 }
 
-void EStringUtilities::extractDirective(sp<EHashMap<EString*, EString*> >& map, EStringBase key, EStringBase value) THROWS(ESaslException) {
+void EStringUtilities::extractDirective(sp<EHashMap<EString*, EString*> >& map, EString key, EString value) THROWS(ESaslException) {
 	EString* skey = new EString(key);
 	if (map->get(skey) != null) {
 		delete skey; //!

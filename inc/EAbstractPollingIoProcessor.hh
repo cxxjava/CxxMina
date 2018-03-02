@@ -332,7 +332,7 @@ private:
 	EConcurrentLiteQueue<ENioSession> trafficControllingSessions;// = new ConcurrentLinkedQueue<S>();
 
 	/** The processor thread : it handles the incoming messages */
-	EAtomicReference<Processor> processorRef;// = new AtomicReference<Processor>();
+	EAtomicReference<Processor*> processorRef;// = new AtomicReference<Processor>();
 
 	llong lastIdleCheckTime;
 

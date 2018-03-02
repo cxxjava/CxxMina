@@ -412,7 +412,7 @@ boolean EAbstractIoSession::containsAttribute(EObject* key) {
 	return attributes->containsAttribute(this, key);
 }
 
-sp<EConcurrentSet<EObject> > EAbstractIoSession::getAttributeKeys() {
+ESet<sp<EObject> >* EAbstractIoSession::getAttributeKeys() {
 	return attributes->getAttributeKeys(this);
 }
 
@@ -857,7 +857,7 @@ ELock* EAbstractIoSession::getLock() {
 	return &lock;
 }
 
-EStringBase EAbstractIoSession::toString() {
+EString EAbstractIoSession::toString() {
 	if (isConnected() || isClosing()) {
 		EString remote;
 		EString local;
@@ -876,17 +876,17 @@ EStringBase EAbstractIoSession::toString() {
 
 		EIoAcceptor* ia = dynamic_cast<EIoAcceptor*>(getService());
 		if (ia) {
-			return EStringBase::formatOf("(%s: %s, server, %s => %s)",
+			return EString::formatOf("(%s: %s, server, %s => %s)",
 					getIdAsString().c_str(), getServiceName().c_str(),
 					remote.c_str(), local.c_str());
 		}
 
-		return EStringBase::formatOf("(%s: %s, client, %s => %s)",
+		return EString::formatOf("(%s: %s, client, %s => %s)",
 				getIdAsString().c_str(), getServiceName().c_str(),
 				local.c_str(), remote.c_str());
 	}
 
-	return EStringBase::formatOf("(%s) Session disconnected ...", getIdAsString().c_str());
+	return EString::formatOf("(%s) Session disconnected ...", getIdAsString().c_str());
 }
 
 void EAbstractIoSession::notifyIdleness(sp<EIterator<sp<EAbstractIoSession> > >& sessions, llong currentTime) {

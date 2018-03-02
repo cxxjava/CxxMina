@@ -11,7 +11,7 @@
 namespace efc {
 namespace eio {
 
-ENioDatagramSessionConfig::ENioDatagramSessionConfig(EDatagramChannel* channel) {
+ENioDatagramSessionConfig::ENioDatagramSessionConfig(sp<EDatagramChannel> channel) {
 	this->channel = channel;
 }
 

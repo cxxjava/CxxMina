@@ -196,7 +196,7 @@ boolean EBlacklistFilter::isBlocked(sp<EIoSession>& session) {
 		EInetAddress* address = remoteAddress->getAddress();
 
 		// check all subnets
-		sp<EConcurrentIterator<ESubnet> > iter = blacklist.iterator();
+		sp<EIterator<sp<ESubnet> > > iter = blacklist.iterator();
 		while (iter->hasNext()) {
 			sp<ESubnet> subnet = iter->next();
 			if (subnet->inSubnet(address)) {

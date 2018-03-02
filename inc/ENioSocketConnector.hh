@@ -22,7 +22,7 @@ namespace eio {
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
 
-class ENioSocketConnector: public EAbstractPollingIoConnector<ESocketChannel*>,
+class ENioSocketConnector: public EAbstractPollingIoConnector<sp<ESocketChannel> >,
 	virtual public ESocketConnector {
 public:
 	virtual ~ENioSocketConnector();
@@ -85,27 +85,27 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual ESocketChannel* newHandle(EInetSocketAddress* localAddress) THROWS(EException);
+	virtual sp<ESocketChannel> newHandle(EInetSocketAddress* localAddress) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual boolean connect(ESocketChannel* handle, EInetSocketAddress* remoteAddress) THROWS(EException);
+	virtual boolean connect(sp<ESocketChannel> handle, EInetSocketAddress* remoteAddress) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual boolean finishConnect(ESocketChannel* handle) THROWS(EException);
+	virtual boolean finishConnect(sp<ESocketChannel> handle) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<EIoSession> newSession(EIoProcessor* processor, ESocketChannel* handle) THROWS(EException);
+	virtual sp<EIoSession> newSession(EIoProcessor* processor, sp<ESocketChannel> handle) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void close(ESocketChannel* handle) THROWS(EException);
+	virtual void close(sp<ESocketChannel> handle) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
@@ -120,22 +120,22 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<EIterator<ESocketChannel*> > selectedHandles();
+	virtual sp<EIterator<sp<ESocketChannel> > > selectedHandles();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<EIterator<ESocketChannel*> > allHandles();
+	virtual sp<EIterator<sp<ESocketChannel> > > allHandles();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void register_(ESocketChannel* handle, sp<ConnectionRequest> request) THROWS(EException);
+	virtual void register_(sp<ESocketChannel> handle, sp<ConnectionRequest> request) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<ConnectionRequest> getConnectionRequest(ESocketChannel* handle);
+	virtual sp<ConnectionRequest> getConnectionRequest(sp<ESocketChannel> handle);
 
 	/**
 	 * {@inheritDoc}

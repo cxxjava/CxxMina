@@ -338,7 +338,7 @@ interface EIoSession : virtual public EObject {
 	/**
 	 * @return the set of keys of all user-defined attributes.
 	 */
-	virtual sp<EConcurrentSet<EObject> > getAttributeKeys() = 0;
+	virtual ESet<sp<EObject> >* getAttributeKeys() = 0;
 
 	/**
 	 * @return <code>true</code> if this session is connected with remote peer.

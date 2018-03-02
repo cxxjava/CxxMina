@@ -159,8 +159,8 @@ void EIoHandlerChain::execute(sp<EIoHandlerCommand::NextCommand>& next, sp<EIoSe
     }}
 }
 
-EStringBase EIoHandlerChain::toString() {
-	EStringBase buf("{ ");
+EString EIoHandlerChain::toString() {
+	EString buf("{ ");
 
 	boolean empty = true;
 

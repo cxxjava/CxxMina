@@ -45,6 +45,7 @@ public:
 		}
 		delete boundHandles;
 		delete disposalFuture;
+        acceptorRef.set(null); //!!!
 	}
 
 	/**
@@ -490,12 +491,12 @@ private:
 
 	EConcurrentLiteQueue<AcceptorOperationFuture> cancelQueue;// = new ConcurrentLinkedQueue<AcceptorOperationFuture>();
 
-	EMap<EInetSocketAddress*, H>* boundHandles;// = Collections.synchronizedMap(new HashMap<SocketAddress, H>());
+	EMap<sp<EInetSocketAddress>, H>* boundHandles;// = Collections.synchronizedMap(new HashMap<SocketAddress, H>());
 
 	ServiceOperationFuture* disposalFuture;// = new ServiceOperationFuture();
 
 	/** The thread responsible of accepting incoming requests */
-	EAtomicReference<Acceptor> acceptorRef;// = new AtomicReference<Acceptor>();
+	EAtomicReference<Acceptor*> acceptorRef;// = new AtomicReference<Acceptor>();
 
 	/**
 	 * Constructor for {@link AbstractPollingIoAcceptor}. You need to provide a
@@ -528,7 +529,7 @@ private:
 		this->processor = processor;
 		this->createdProcessor = createdProcessor;
 
-		this->boundHandles = ECollections::synchronizedMap(new EHashMap<EInetSocketAddress*, H>());
+		this->boundHandles = ECollections::synchronizedMap(new EHashMap<sp<EInetSocketAddress>, H>());
 		this->disposalFuture = new ServiceOperationFuture();
 
 		/* moved to ENioSocketAcceptor::init()
@@ -613,7 +614,7 @@ private:
 			// We create a temporary map to store the bound handles,
 			// as we may have to remove them all if there is an exception
 			// during the sockets opening.
-			sp<EHashMap<EInetSocketAddress*, H> > newHandles = new EHashMap<EInetSocketAddress*, H>();
+			sp<EHashMap<sp<EInetSocketAddress>, H> > newHandles = new EHashMap<sp<EInetSocketAddress>, H>();
 			EList<EInetSocketAddress*>* localAddresses = future->getLocalAddresses();
 
 			{
@@ -655,14 +656,13 @@ private:
 					// all the bound sockets.
 					{
 						//@see: boundHandles->putAll(newHandles);
-						sp<ESet<EMapEntry<EInetSocketAddress*, H>*> > set = newHandles->entrySet();
-						sp<EIterator<EMapEntry<EInetSocketAddress*, H>*> > iter = set->iterator();
+						auto set = newHandles->entrySet();
+						auto iter = set->iterator();
 						while(iter->hasNext()) {
-							EMapEntry<EInetSocketAddress*, H>* me = iter->next();
+							auto me = iter->next();
 							boundHandles->put(me->getKey(), me->getValue(), null);
 						}
 					}
-					newHandles->setAutoFree(false, false);
 
 					// and notify.
 					future->setDone();

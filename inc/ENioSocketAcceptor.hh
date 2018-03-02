@@ -23,7 +23,7 @@ namespace eio {
  *
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
-class ENioSocketAcceptor : public EAbstractPollingIoAcceptor<EServerSocketChannel*>,
+class ENioSocketAcceptor : public EAbstractPollingIoAcceptor<sp<EServerSocketChannel> >,
 		virtual public ESocketAcceptor {
 public:
 	virtual ~ENioSocketAcceptor();
@@ -121,27 +121,27 @@ protected:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<EIterator<EServerSocketChannel*> > selectedHandles();
+	virtual sp<EIterator<sp<EServerSocketChannel> > > selectedHandles();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EServerSocketChannel* open(EInetSocketAddress* localAddress) THROWS(EException);
+	virtual sp<EServerSocketChannel> open(EInetSocketAddress* localAddress) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EInetSocketAddress* localAddress(EServerSocketChannel* handle) THROWS(EException);
+	virtual EInetSocketAddress* localAddress(sp<EServerSocketChannel> handle) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual sp<EIoSession> accept(EIoProcessor* processor, EServerSocketChannel* handle) THROWS(EException);
+	virtual sp<EIoSession> accept(EIoProcessor* processor, sp<EServerSocketChannel> handle) THROWS(EException);
 
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void close(EServerSocketChannel* handle) THROWS(EException);
+	virtual void close(sp<EServerSocketChannel> handle) THROWS(EException);
 
 private:
 	ESelector* volatile selector;

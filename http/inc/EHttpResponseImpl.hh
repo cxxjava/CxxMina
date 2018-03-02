@@ -40,7 +40,7 @@ public:
 
 	virtual int getStatus();
 
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
 	EString version;

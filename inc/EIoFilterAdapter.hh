@@ -106,7 +106,7 @@ public:
 	/**
 	 *
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 };
 
 } /* namespace eio */

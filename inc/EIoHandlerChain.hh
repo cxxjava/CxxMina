@@ -132,7 +132,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
 	static volatile int nextId;// = 0;

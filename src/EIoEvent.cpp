@@ -89,12 +89,12 @@ void EIoEvent::fire() {
 	}
 }
 
-EStringBase EIoEvent::toString() {
+EString EIoEvent::toString() {
 	if (parameter == null) {
-		return EStringBase() + "[" + getSession()->toString() + "] " + GetIoEventTypeName(getType());
+		return EString() + "[" + getSession()->toString() + "] " + GetIoEventTypeName(getType());
 	}
 
-	return EStringBase() + "[" + getSession()->toString() + "] " + GetIoEventTypeName(getType()) + ": " + getParameter()->toString();
+	return EString() + "[" + getSession()->toString() + "] " + GetIoEventTypeName(getType()) + ": " + getParameter()->toString();
 }
 
 } /* namespace eio */

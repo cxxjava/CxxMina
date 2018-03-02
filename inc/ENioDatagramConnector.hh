@@ -18,7 +18,7 @@
 namespace efc {
 namespace eio {
 
-class ENioDatagramConnector: public EAbstractPollingIoConnector<EDatagramChannel*>,
+class ENioDatagramConnector: public EAbstractPollingIoConnector<sp<EDatagramChannel> >,
 	virtual public EDatagramConnector {
 public:
 	virtual ~ENioDatagramConnector();
@@ -63,17 +63,17 @@ protected:
 
 	virtual void init() THROWS(EException);
 	virtual void destroy() THROWS(EException);
-	virtual EDatagramChannel* newHandle(EInetSocketAddress* localAddress) THROWS(EException);
-	virtual boolean connect(EDatagramChannel* handle, EInetSocketAddress* remoteAddress) THROWS(EException);
-	virtual sp<EIoSession> newSession(EIoProcessor* processor, EDatagramChannel* handle) THROWS(EException);
-	virtual void close(EDatagramChannel* handle) THROWS(EException);
-	virtual sp<ConnectionRequest> getConnectionRequest(EDatagramChannel* handle);
-	virtual boolean finishConnect(EDatagramChannel* handle) THROWS(EException);
-	virtual void register_(EDatagramChannel* handle, sp<ConnectionRequest> request) THROWS(EException);
+	virtual sp<EDatagramChannel> newHandle(EInetSocketAddress* localAddress) THROWS(EException);
+	virtual boolean connect(sp<EDatagramChannel> handle, EInetSocketAddress* remoteAddress) THROWS(EException);
+	virtual sp<EIoSession> newSession(EIoProcessor* processor, sp<EDatagramChannel> handle) THROWS(EException);
+	virtual void close(sp<EDatagramChannel> handle) THROWS(EException);
+	virtual sp<ConnectionRequest> getConnectionRequest(sp<EDatagramChannel> handle);
+	virtual boolean finishConnect(sp<EDatagramChannel> handle) THROWS(EException);
+	virtual void register_(sp<EDatagramChannel> handle, sp<ConnectionRequest> request) THROWS(EException);
 	virtual int select(int timeout) THROWS(EException);
 	virtual void wakeup();
-	virtual sp<EIterator<EDatagramChannel*> > selectedHandles();
-	virtual sp<EIterator<EDatagramChannel*> > allHandles();
+	virtual sp<EIterator<sp<EDatagramChannel>> > selectedHandles();
+	virtual sp<EIterator<sp<EDatagramChannel>> > allHandles();
 };
 
 } /* namespace eio */

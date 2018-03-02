@@ -21,6 +21,7 @@ sp<ELogger> EAbstractPollingIoProcessor::LOG = ELoggerManager::getLogger("EAbstr
 
 EAbstractPollingIoProcessor::~EAbstractPollingIoProcessor() {
 	delete disposalFuture;
+    processorRef.set(null); //!!!
 }
 
 EAbstractPollingIoProcessor::EAbstractPollingIoProcessor(EExecutor* exec) :

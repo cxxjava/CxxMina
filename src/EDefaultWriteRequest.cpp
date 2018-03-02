@@ -136,8 +136,8 @@ boolean EDefaultWriteRequest::isEncoded() {
 	return false;
 }
 
-EStringBase EDefaultWriteRequest::toString() {
-	EStringBase sb("WriteRequest: ");
+EString EDefaultWriteRequest::toString() {
+	EString sb("WriteRequest: ");
 
 	// Special case for the CLOSE_REQUEST writeRequest : it just
 	// carries a native Object instance

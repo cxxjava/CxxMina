@@ -161,10 +161,10 @@ public:
 
 	virtual void destroy() THROWS(EException);
 
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
-	EConcurrentList<EIoFilterChain::Entry>* entries;
+	EList<sp<EIoFilterChain::Entry> >* entries;
 
 	static sp<ELogger> LOGGER;// = LoggerFactory.getLogger(DefaultIoFilterChainBuilder.class);
 

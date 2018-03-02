@@ -11,16 +11,16 @@
 namespace efc {
 namespace eio {
 
-class SocketChannelIterator : public EIterator<ESocketChannel*> {
+class SocketChannelIterator : public EIterator<sp<ESocketChannel> > {
 private:
-	sp<EIterator<ESelectionKey*> > i;
+	sp<EIterator<sp<ESelectionKey> > > i;
 
 public:
 	virtual ~SocketChannelIterator() {
 		//
 	}
 
-	SocketChannelIterator(ECollection<ESelectionKey*>* selectedKeys) {
+	SocketChannelIterator(ECollection<sp<ESelectionKey> >* selectedKeys) {
 		this->i = selectedKeys->iterator();
 	}
 
@@ -34,9 +34,9 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual ESocketChannel* next() {
-		ESelectionKey* key = i->next();
-		return (ESocketChannel*) key->channel();
+	virtual sp<ESocketChannel> next() {
+		sp<ESelectionKey> key = i->next();
+		return dynamic_pointer_cast<ESocketChannel>(key->channel());
 	}
 
 	/**
@@ -46,9 +46,9 @@ public:
 		i->remove();
 	}
 
-	ESocketChannel* moveOut() {
-		ESelectionKey* key = i->moveOut();
-		ESocketChannel* channel = (ESocketChannel*) key->channel();
+	sp<ESocketChannel> moveOut() {
+		sp<ESelectionKey> key = i->moveOut();
+		sp<ESocketChannel> channel = dynamic_pointer_cast<ESocketChannel>(key->channel());
 		return channel;
 	}
 };
@@ -59,26 +59,26 @@ ENioSocketConnector::~ENioSocketConnector() {
 }
 
 ENioSocketConnector::ENioSocketConnector():
-		EAbstractPollingIoConnector<ESocketChannel*>(dssc = new EDefaultSocketSessionConfig()) {
+		EAbstractPollingIoConnector<sp<ESocketChannel> >(dssc = new EDefaultSocketSessionConfig()) {
 	this->init();
 	dssc->init(this);
 }
 
 ENioSocketConnector::ENioSocketConnector(int processorCount):
-		EAbstractPollingIoConnector<ESocketChannel*>(dssc = new EDefaultSocketSessionConfig(), processorCount) {
+		EAbstractPollingIoConnector<sp<ESocketChannel> >(dssc = new EDefaultSocketSessionConfig(), processorCount) {
 	this->init();
 	dssc->init(this);
 }
 
 ENioSocketConnector::ENioSocketConnector(EIoProcessor* processor):
-		EAbstractPollingIoConnector<ESocketChannel*>(dssc = new EDefaultSocketSessionConfig(), processor) {
+		EAbstractPollingIoConnector<sp<ESocketChannel> >(dssc = new EDefaultSocketSessionConfig(), processor) {
 	this->init();
 	dssc->init(this);
 }
 
 ENioSocketConnector::ENioSocketConnector(EExecutorService* executor,
 		EIoProcessor* processor) :
-		EAbstractPollingIoConnector<ESocketChannel*>(
+		EAbstractPollingIoConnector<sp<ESocketChannel> >(
 				new EDefaultSocketSessionConfig(), executor, processor) {
 	this->init();
 	EDefaultSocketSessionConfig* dssc = dynamic_cast<EDefaultSocketSessionConfig*>(getSessionConfig());
@@ -130,9 +130,9 @@ void ENioSocketConnector::setDefaultRemoteAddress(EInetSocketAddress* defaultRem
 	EAbstractIoConnector::setDefaultRemoteAddress(defaultRemoteAddress);
 }
 
-ESocketChannel* ENioSocketConnector::newHandle(
+sp<ESocketChannel> ENioSocketConnector::newHandle(
 		EInetSocketAddress* localAddress) {
-	ESocketChannel* ch = ESocketChannel::open();
+	sp<ESocketChannel> ch = ESocketChannel::open();
 
 	int receiveBufferSize = getSessionConfig()->getReceiveBufferSize();
 
@@ -161,24 +161,17 @@ ESocketChannel* ENioSocketConnector::newHandle(
 	return ch;
 }
 
-boolean ENioSocketConnector::connect(ESocketChannel* handle,
+boolean ENioSocketConnector::connect(sp<ESocketChannel> handle,
 		EInetSocketAddress* remoteAddress) {
 	return handle->connect(remoteAddress);
 }
 
-boolean ENioSocketConnector::finishConnect(ESocketChannel* handle) {
+boolean ENioSocketConnector::finishConnect(sp<ESocketChannel> handle) {
 	if (handle->finishConnect()) {
-		ESelectionKey* key = handle->keyFor(selector);
+		sp<ESelectionKey> key = handle->keyFor(selector);
 
 		if (key != null) {
 			key->cancel();
-
-			sp<ConnectionRequest>* r = null;
-			SYNCHRONIZED(key) { //!
-				r = (sp<ConnectionRequest>*)(key->attachment());
-				key->attach(null);
-            }}
-			delete r;
 		}
 		return true;
 	}
@@ -186,23 +179,16 @@ boolean ENioSocketConnector::finishConnect(ESocketChannel* handle) {
 }
 
 sp<EIoSession> ENioSocketConnector::newSession(EIoProcessor* processor,
-		ESocketChannel* handle) {
+		sp<ESocketChannel> handle) {
 	return sp<EIoSession>(new ENioSocketSession(this, processor, handle));
 }
 
-void ENioSocketConnector::close(ESocketChannel* handle) {
-	ESelectionKey* key = handle->keyFor(selector);
+void ENioSocketConnector::close(sp<ESocketChannel> handle) {
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if (key != null) {
-		//@see: key->cancel();
-
-		sp<ConnectionRequest>* r = null;
-		SYNCHRONIZED(key) { //!
-			r = (sp<ConnectionRequest>*)(key->attachment());
-        	key->attach(null);
-        }}
-		delete r;
-	}
+		key->cancel();
+    }
 
 	handle->close();
 }
@@ -215,30 +201,28 @@ int ENioSocketConnector::select(int timeout) {
 	return selector->select(timeout);
 }
 
-sp<EIterator<ESocketChannel*> > ENioSocketConnector::selectedHandles() {
+sp<EIterator<sp<ESocketChannel> > > ENioSocketConnector::selectedHandles() {
 	return new SocketChannelIterator(selector->selectedKeys());
 }
 
-sp<EIterator<ESocketChannel*> > ENioSocketConnector::allHandles() {
+sp<EIterator<sp<ESocketChannel> > > ENioSocketConnector::allHandles() {
 	return new SocketChannelIterator(selector->keys());
 }
 
-void ENioSocketConnector::register_(ESocketChannel* handle, sp<ConnectionRequest> request) {
-	handle->register_(selector, ESelectionKey::OP_CONNECT, new sp<ConnectionRequest>(request));
+void ENioSocketConnector::register_(sp<ESocketChannel> handle, sp<ConnectionRequest> request) {
+	handle->register_(selector, ESelectionKey::OP_CONNECT, new wp<ConnectionRequest>(request));
 }
 
-sp<EAbstractPollingIoConnector<ESocketChannel*>::ConnectionRequest> ENioSocketConnector::getConnectionRequest(
-		ESocketChannel* handle) {
-	ESelectionKey* key = handle->keyFor(selector);
+sp<EAbstractPollingIoConnector<sp<ESocketChannel> >::ConnectionRequest> ENioSocketConnector::getConnectionRequest(
+		sp<ESocketChannel> handle) {
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if ((key == null) || (!key->isValid())) {
 		return null;
 	}
 
-	SYNCHRONIZED(key) { //!
-		sp<ConnectionRequest>* cr = (sp<ConnectionRequest>*)(key->attachment());
-		return cr ? (*cr) : null;
-    }}
+	wp<ConnectionRequest>* cr = (wp<ConnectionRequest>*)(key->attachment());
+	return cr ? (*cr).lock() : null;
 }
 
 ESocketSessionConfig* ENioSocketConnector::getSessionConfig() {

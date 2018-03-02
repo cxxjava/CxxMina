@@ -34,7 +34,7 @@ public:
 	virtual const char* getMethod();
 	virtual sp<EString> getRequestPath();
 
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
 	EString version;

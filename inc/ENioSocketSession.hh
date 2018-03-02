@@ -29,7 +29,7 @@ public:
 	 * @param processor the associated IoProcessor
 	 * @param ch the used channel
 	 */
-	ENioSocketSession(EIoService* service, EIoProcessor* processor, ESocketChannel* channel);
+	ENioSocketSession(EIoService* service, EIoProcessor* processor, sp<ESocketChannel> channel);
 
 	/**
 	 * {@inheritDoc}
@@ -44,7 +44,7 @@ public:
 	/*
 	 * @Override
 	 */
-	virtual EByteChannel* getChannel();
+	virtual sp<EByteChannel> getChannel();
 
 	/**
 	 * {@inheritDoc}

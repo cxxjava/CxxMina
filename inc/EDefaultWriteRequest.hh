@@ -60,7 +60,7 @@ public:
 
 	virtual boolean isEncoded();
 
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
 	sp<EObject> message;

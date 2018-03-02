@@ -248,11 +248,6 @@ public:
 		return null;
 	}
 
-	virtual sp<V> put(K* key, V* value) {
-		sp<K> k(key);
-		sp<V> v(value);
-		return put(k, v);
-	}
 	virtual sp<V> put(sp<K> key, sp<V> value) {
 		sp<ExpiringObject> answer = delegate.put(key, new ExpiringObject(key, value, ESystem::currentTimeMillis()));
 
@@ -276,22 +271,18 @@ public:
 		delegate.clear();
 	}
 
-	virtual sp<EConcurrentSet<K> > keySet() {
+	virtual ESet<sp<K> >* keySet() {
 		return delegate.keySet();
 	}
 
-	virtual sp<EConcurrentCollection<V> > values() {
+	virtual ECollection<sp<V> >* values() {
 		throw EUnsupportedOperationException(__FILE__, __LINE__);
 	}
 
-	virtual sp<EConcurrentSet<EConcurrentMapEntry<K,V> > > entrySet() {
+	virtual ESet<sp<EConcurrentMapEntry<K,V> > >* entrySet() {
 		throw EUnsupportedOperationException(__FILE__, __LINE__);
 	}
 
-	virtual sp<V> putIfAbsent(K* key, V* value) {
-		throw EUnsupportedOperationException(__FILE__, __LINE__);
-
-	}
 	virtual sp<V> putIfAbsent(sp<K> key, sp<V> value) {
 		throw EUnsupportedOperationException(__FILE__, __LINE__);
 	}
@@ -300,16 +291,10 @@ public:
 		throw EUnsupportedOperationException(__FILE__, __LINE__);
 	}
 
-	virtual boolean replace(K* key, V* oldValue, V* newValue) {
-		throw EUnsupportedOperationException(__FILE__, __LINE__);
-	}
 	virtual boolean replace(K* key, V* oldValue, sp<V> newValue) {
 		throw EUnsupportedOperationException(__FILE__, __LINE__);
 	}
 
-	virtual sp<V> replace(K* key, V* value) {
-		throw EUnsupportedOperationException(__FILE__, __LINE__);
-	}
 	virtual sp<V> replace(K* key, sp<V> value) {
 		throw EUnsupportedOperationException(__FILE__, __LINE__);
 	}
@@ -377,7 +362,7 @@ private:
 	void processExpires(llong timeToLiveMillis) {
 		llong timeNow = ESystem::currentTimeMillis();
 
-		sp<EConcurrentIterator<ExpiringObject> > iter = delegate.values()->iterator();
+		sp<EIterator<sp<ExpiringObject> > > iter = delegate.values()->iterator();
 		while (iter->hasNext()) {
 			sp<ExpiringObject> o = iter->next();
 
@@ -390,7 +375,7 @@ private:
 			if (timeIdle >= timeToLiveMillis) {
 				delegate.remove(o->getKey().get());
 
-				sp<EConcurrentIterator<EExpirationListener<V> > > iter2 = expirationListeners.iterator();
+				sp<EIterator<sp<EExpirationListener<V> > > > iter2 = expirationListeners.iterator();
 				while (iter2->hasNext()) {
 					sp<EExpirationListener<V> > listener = iter2->next();
 					listener->expired(o->getValue());

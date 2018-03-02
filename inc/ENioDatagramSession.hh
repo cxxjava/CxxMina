@@ -30,20 +30,20 @@ public:
 	/**
 	 * Creates a new acceptor-side session instance.
 	 */
-	ENioDatagramSession(EIoService* service, EIoProcessor* processor, EDatagramChannel* channel,
+	ENioDatagramSession(EIoService* service, EIoProcessor* processor, sp<EDatagramChannel> channel,
 			EInetSocketAddress* remoteAddress);
 
 	/**
 	 * Creates a new connector-side session instance.
 	 */
-	ENioDatagramSession(EIoService* service, EIoProcessor* processor, EDatagramChannel* channel);
+	ENioDatagramSession(EIoService* service, EIoProcessor* processor, sp<EDatagramChannel> channel);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	virtual EDatagramSessionConfig* getConfig();
 
-	virtual EDatagramChannel* getChannel();
+	virtual sp<EByteChannel> getChannel();
 
 	virtual ETransportMetadata* getTransportMetadata();
 

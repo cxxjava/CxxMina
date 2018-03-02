@@ -45,7 +45,7 @@ private:
 		boolean removeAttribute(EIoSession* session, EObject* key, EObject* value);
 		boolean replaceAttribute(EIoSession* session, EObject* key, EObject* oldValue, sp<EObject> newValue);
 		boolean containsAttribute(EIoSession* session, EObject* key);
-		sp<EConcurrentSet<EObject> > getAttributeKeys(EIoSession* session);
+		ESet<sp<EObject> >* getAttributeKeys(EIoSession* session);
 		void dispose(sp<EIoSession> session) THROWS(EException);
 
 	private:
@@ -68,7 +68,7 @@ private:
 		void dispose(sp<EIoSession> session);
 		int size();
 
-		virtual EStringBase toString();
+		virtual EString toString();
 
 	private:
 		/** A queue to store incoming write requests */

@@ -11,10 +11,10 @@
 namespace efc {
 namespace eio {
 
-EArrayList<sp<EWriteFuture> > EIoUtil::broadcast(sp<EObject>& message, sp<EConcurrentCollection<EIoSession> > sessions) {
+EArrayList<sp<EWriteFuture> > EIoUtil::broadcast(sp<EObject>& message, sp<ECollection<sp<EIoSession> > > sessions) {
 	EArrayList<sp<EWriteFuture> > answer;
 
-	sp<EConcurrentIterator<EIoSession> > iter = sessions->iterator();
+	sp<EIterator<sp<EIoSession> > > iter = sessions->iterator();
 	EIoBuffer* buf = dynamic_cast<EIoBuffer*>(message.get());
 	if (buf) {
 		while (iter->hasNext()) {

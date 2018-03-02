@@ -44,8 +44,8 @@ public:
 		/**
 		 * @see Object#toString()
 		 */
-		virtual EStringBase toString() {
-			EStringBase sb("Acceptor operation : ");
+		virtual EString toString() {
+			EString sb("Acceptor operation : ");
 
 			if (localAddresses != null) {
 				boolean isFirst = true;
@@ -147,7 +147,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 
 protected:
 	/**

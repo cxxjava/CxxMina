@@ -31,8 +31,8 @@ void EIoSessionEvent::deliverEvent() {
 	deliverEvent(this->nextFilter, this->session, this->type, this->status);
 }
 
-EStringBase EIoSessionEvent::toString() {
-	EStringBase sb("EIoSessionEvent");
+EString EIoSessionEvent::toString() {
+	EString sb("EIoSessionEvent");
 	sb.append('@');
 	sb.append(EInteger::toHexString(hashCode()));
 	sb.append(" - [ ").append(session->toString());

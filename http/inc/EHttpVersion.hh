@@ -46,7 +46,7 @@ public:
 	/**
 	 * @return A String representation of this version
 	 */
-	virtual EStringBase toString() {
+	virtual EString toString() {
 		return value;
 	}
 

@@ -103,7 +103,7 @@ sp<EString> EHttpRequestImpl::getRequestPath() {
 }
 
 
-EStringBase EHttpRequestImpl::toString() {
+EString EHttpRequestImpl::toString() {
 	EString sb;
 	sb.append("HTTP REQUEST METHOD: ").append(method).append('\n');
 	sb.append("VERSION: ").append(version).append('\n');

@@ -17,7 +17,7 @@ ENioSession::~ENioSession() {
 }
 
 ENioSession::ENioSession(EIoProcessor* processor,
-		EIoService* service, EByteChannel* channel) :
+		EIoService* service, sp<EByteChannel> channel) :
 		EAbstractIoSession(service) {
 	this->channel = channel;
 	this->processor = processor;
@@ -30,12 +30,12 @@ void ENioSession::init() {
 	filterChain = new EDefaultIoFilterChain(shared_from_this());
 }
 
-ESelectionKey* ENioSession::getSelectionKey() {
-	return key;
+sp<ESelectionKey> ENioSession::getSelectionKey() {
+	return atomic_load(&key);
 }
 
-void ENioSession::setSelectionKey(ESelectionKey* key) {
-	this->key = key;
+void ENioSession::setSelectionKey(sp<ESelectionKey> key) {
+	atomic_store(&this->key, key);
 }
 
 EIoFilterChain* ENioSession::getFilterChain() {
@@ -49,7 +49,7 @@ EIoProcessor* ENioSession::getProcessor() {
 boolean ENioSession::isActive() {
 	//@see: key.isValid();
 	SYNCBLOCK(&keyLock) {
-		return key ? key->isValid() : false;
+		return (key != null) ? key->isValid() : false;
     }}
 }
 
@@ -58,7 +58,7 @@ boolean ENioSession::isDestroyed() {
 }
 
 void ENioSession::destroy() {
-	ESelectionKey* k = null;
+	sp<ESelectionKey> k = null;
 
 	SYNCBLOCK(&keyLock) {
 		if (destroyed) {
@@ -70,15 +70,7 @@ void ENioSession::destroy() {
     }}
 
 	if (k != null) {
-		//@see: key->cancel();
-
-		//! cxxjava@163.com
-		sp<ENioSession>* s = null;
-		SYNCHRONIZED(k) {
-			s = (sp<ENioSession>*)(k->attachment());
-			k->attach(null);
-        }}
-		delete s;
+		k->cancel();
 	}
 	channel->close();
 }

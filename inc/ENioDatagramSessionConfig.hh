@@ -27,7 +27,7 @@ public:
 	 *
 	 * @param channel The associated DatagramChannel
 	 */
-	ENioDatagramSessionConfig(EDatagramChannel* channel);
+	ENioDatagramSessionConfig(sp<EDatagramChannel> channel);
 
 	/**
 	 * Get the Socket receive buffer size for this DatagramChannel.
@@ -115,7 +115,7 @@ public:
 
 private:
 	/** The associated channel */
-	EDatagramChannel* channel;
+	sp<EDatagramChannel> channel;
 };
 
 } /* namespace eio */

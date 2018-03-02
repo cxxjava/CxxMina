@@ -43,7 +43,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 
 	/**
 	 * {@inheritDoc}

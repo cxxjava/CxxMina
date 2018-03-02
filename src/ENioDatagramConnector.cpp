@@ -17,17 +17,17 @@ ENioDatagramConnector::~ENioDatagramConnector() {
 }
 
 ENioDatagramConnector::ENioDatagramConnector():
-		EAbstractPollingIoConnector<EDatagramChannel*>(ddsc = new EDefaultDatagramSessionConfig()) {
+		EAbstractPollingIoConnector<sp<EDatagramChannel> >(ddsc = new EDefaultDatagramSessionConfig()) {
 	this->init();
 }
 
 ENioDatagramConnector::ENioDatagramConnector(int processorCount) :
-		EAbstractPollingIoConnector<EDatagramChannel*>(ddsc = new EDefaultDatagramSessionConfig(), processorCount) {
+		EAbstractPollingIoConnector<sp<EDatagramChannel> >(ddsc = new EDefaultDatagramSessionConfig(), processorCount) {
 	this->init();
 }
 
 ENioDatagramConnector::ENioDatagramConnector(EIoProcessor* processor):
-		EAbstractPollingIoConnector<EDatagramChannel*>(ddsc = new EDefaultDatagramSessionConfig(), processor) {
+		EAbstractPollingIoConnector<sp<EDatagramChannel> >(ddsc = new EDefaultDatagramSessionConfig(), processor) {
 	this->init();
 }
 
@@ -56,9 +56,9 @@ void ENioDatagramConnector::setDefaultRemoteAddress(
 	EAbstractIoConnector::setDefaultRemoteAddress(defaultRemoteAddress);
 }
 
-EDatagramChannel* ENioDatagramConnector::newHandle(
+sp<EDatagramChannel> ENioDatagramConnector::newHandle(
 		EInetSocketAddress* localAddress) {
-	EDatagramChannel* ch = EDatagramChannel::open();
+	sp<EDatagramChannel> ch = EDatagramChannel::open();
 
 	try {
 		if (localAddress != null) {
@@ -90,34 +90,34 @@ EDatagramChannel* ENioDatagramConnector::newHandle(
 	}
 }
 
-bool ENioDatagramConnector::connect(EDatagramChannel* handle,
+bool ENioDatagramConnector::connect(sp<EDatagramChannel> handle,
 		EInetSocketAddress* remoteAddress) {
 	handle->connect(remoteAddress);
 	return true;
 }
 
 sp<EIoSession> ENioDatagramConnector::newSession(EIoProcessor* processor,
-		EDatagramChannel* handle) {
-	sp < EIoSession > session(new ENioDatagramSession(this, processor, handle));
+		sp<EDatagramChannel> handle) {
+	sp <EIoSession> session(new ENioDatagramSession(this, processor, handle));
 	session->getConfig()->setAll(getSessionConfig());
 	return session;
 }
 
-void ENioDatagramConnector::close(EDatagramChannel* handle) {
+void ENioDatagramConnector::close(sp<EDatagramChannel> handle) {
 	handle->disconnect();
 	handle->close();
 }
 
-sp<EAbstractPollingIoConnector<EDatagramChannel*>::ConnectionRequest> ENioDatagramConnector::getConnectionRequest(
-		EDatagramChannel* handle) {
+sp<EAbstractPollingIoConnector<sp<EDatagramChannel> >::ConnectionRequest> ENioDatagramConnector::getConnectionRequest(
+		sp<EDatagramChannel> handle) {
 	throw EUnsupportedOperationException(__FILE__, __LINE__);
 }
 
-bool ENioDatagramConnector::finishConnect(EDatagramChannel* handle) {
+bool ENioDatagramConnector::finishConnect(sp<EDatagramChannel> handle) {
 	throw EUnsupportedOperationException(__FILE__, __LINE__);
 }
 
-void ENioDatagramConnector::register_(EDatagramChannel* handle,
+void ENioDatagramConnector::register_(sp<EDatagramChannel> handle,
 		sp<ConnectionRequest> request) {
 	throw EUnsupportedOperationException(__FILE__, __LINE__);
 }
@@ -161,12 +161,12 @@ sp<EConnectFuture> ENioDatagramConnector::connect(
 	return EAbstractIoConnector::connect(remoteAddress, localAddress, sessionInitializer);
 }
 
-sp<EIterator<EDatagramChannel*> > ENioDatagramConnector::selectedHandles() {
-	return new EEmptyIterator<EDatagramChannel*>();
+sp<EIterator<sp<EDatagramChannel> > > ENioDatagramConnector::selectedHandles() {
+	return new EEmptyIterator<sp<EDatagramChannel> >();
 }
 
-sp<EIterator<EDatagramChannel*> > ENioDatagramConnector::allHandles() {
-	return new EEmptyIterator<EDatagramChannel*>();
+sp<EIterator<sp<EDatagramChannel> > > ENioDatagramConnector::allHandles() {
+	return new EEmptyIterator<sp<EDatagramChannel> >();
 }
 
 } /* namespace eio */

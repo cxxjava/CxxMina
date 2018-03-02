@@ -61,7 +61,7 @@ void ENioDatagramAcceptor::init() {
 		}
 	}
 
-	boundHandles = ECollections::synchronizedMap(new EHashMap<EInetSocketAddress*, EDatagramChannel*>());
+	boundHandles = ECollections::synchronizedMap(new EHashMap<sp<EInetSocketAddress>, sp<EDatagramChannel> >());
 }
 
 EIoSessionRecycler* ENioDatagramAcceptor::getSessionRecycler() {
@@ -124,9 +124,9 @@ sp<ESet<EInetSocketAddress*> > ENioDatagramAcceptor::bindInternal(
 	// because of deadlock.
 	sp<ESet<EInetSocketAddress*> > newLocalAddresses = new EHashSet<EInetSocketAddress*>();
 
-	sp<EIterator<EDatagramChannel*> > iter = boundHandles->values()->iterator();
+	sp<EIterator<sp<EDatagramChannel> > > iter = boundHandles->values()->iterator();
 	while (iter->hasNext()) {
-		EDatagramChannel* handle = iter->next();
+		sp<EDatagramChannel> handle = iter->next();
 		newLocalAddresses->add(new EInetSocketAddress(*(localAddress(handle).get())));
 	}
 
@@ -159,9 +159,9 @@ ETransportMetadata* ENioDatagramAcceptor::getTransportMetadata() {
 	return ENioDatagramSession::METADATA();
 }
 
-sp<EIoSession> ENioDatagramAcceptor::newSession(EIoProcessor* processor, EDatagramChannel* handle,
+sp<EIoSession> ENioDatagramAcceptor::newSession(EIoProcessor* processor, sp<EDatagramChannel> handle,
 	            EInetSocketAddress* remoteAddress) {
-	ESelectionKey* key = handle->keyFor(selector);
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if ((key == null) || (!key->isValid())) {
 		return null;
@@ -207,16 +207,17 @@ int ENioDatagramAcceptor::registerHandles() {
 			break;
 		}
 
-		sp<EHashMap<EInetSocketAddress*, EDatagramChannel*> > newHandles = new EHashMap<EInetSocketAddress*, EDatagramChannel*>();
+		sp<EHashMap<sp<EInetSocketAddress>, sp<EDatagramChannel> > > newHandles =
+				new EHashMap<sp<EInetSocketAddress>, sp<EDatagramChannel> >();
 		EList<EInetSocketAddress*>* localAddresses = req->getLocalAddresses();
 
 		{
 			ON_SCOPE_EXIT(
 				// Roll back if failed to bind all addresses.
 				if (req->getException() != null) {
-					sp<EIterator<EDatagramChannel*> > iter = newHandles->values()->iterator();
+					sp<EIterator<sp<EDatagramChannel> > > iter = newHandles->values()->iterator();
 					while (iter->hasNext()) {
-						EDatagramChannel* handle = iter->next();
+						sp<EDatagramChannel> handle = iter->next();
 						try {
 							this->close(handle);
 						} catch (EException& e) {
@@ -232,20 +233,18 @@ int ENioDatagramAcceptor::registerHandles() {
 				sp<EIterator<EInetSocketAddress*> > iter = localAddresses->iterator();
 				while (iter->hasNext()) {
 					EInetSocketAddress* a = iter->next();
-					EDatagramChannel* handle = this->open(a);
-					newHandles->put(new EInetSocketAddress(*localAddress(handle)), handle);
+					sp<EDatagramChannel> handle = this->open(a);
+					newHandles->put(localAddress(handle), handle);
 				}
 
 				//@see: boundHandles.putAll(newHandles);
 				{
-					sp<ESet<EMapEntry<EInetSocketAddress*, EDatagramChannel*>*> > set = newHandles->entrySet();
-					sp<EIterator<EMapEntry<EInetSocketAddress*, EDatagramChannel*>*> > iter = set->iterator();
+					sp<EIterator<EMapEntry<sp<EInetSocketAddress>, sp<EDatagramChannel> >*> > iter = newHandles->entrySet()->iterator();
 					while(iter->hasNext()) {
-						EMapEntry<EInetSocketAddress*, EDatagramChannel*>* me = iter->next();
+						EMapEntry<sp<EInetSocketAddress>, sp<EDatagramChannel> >* me = iter->next();
 						boundHandles->put(me->getKey(), me->getValue(), null);
 					}
 				}
-				newHandles->setAutoFree(false, false);
 
 				getListeners()->fireServiceActivated();
 				req->setDone();
@@ -273,7 +272,7 @@ int ENioDatagramAcceptor::unregisterHandles() {
 		sp<EIterator<EInetSocketAddress*> > iter = request->getLocalAddresses()->iterator();
 		while (iter->hasNext()) {
 			EInetSocketAddress* a = iter->next();
-			EDatagramChannel* handle = boundHandles->remove(a);
+			sp<EDatagramChannel> handle = boundHandles->remove(a);
 
 			if (handle == null) {
 				continue;
@@ -299,12 +298,12 @@ int ENioDatagramAcceptor::unregisterHandles() {
 	return nHandles;
 }
 
-void ENioDatagramAcceptor::processReadySessions(ESet<ESelectionKey*>* handles) {
-	sp<EIterator<ESelectionKey*> > iterator = handles->iterator();
+void ENioDatagramAcceptor::processReadySessions(ESet<sp<ESelectionKey> >* handles) {
+	sp<EIterator<sp<ESelectionKey> > > iterator = handles->iterator();
 
 	while (iterator->hasNext()) {
-		ESelectionKey* key = iterator->next();
-		EDatagramChannel* handle = dynamic_cast<EDatagramChannel*>(key->channel());
+		sp<ESelectionKey> key = iterator->next();
+		sp<EDatagramChannel> handle = dynamic_pointer_cast<EDatagramChannel>(key->channel());
 		iterator->remove();
 
 		try {
@@ -313,8 +312,7 @@ void ENioDatagramAcceptor::processReadySessions(ESet<ESelectionKey*>* handles) {
 			}
 
 			if (key->isValid() && key->isWritable()) {
-				sp<EConcurrentCollection<EIoSession> > sessions = getManagedSessions()->values();
-				sp<EConcurrentIterator<EIoSession> > i = sessions->iterator();
+				sp<EIterator<sp<EIoSession> > > i = getManagedSessions()->values()->iterator();
 				while (i->hasNext()) {
 					sp<EIoSession> session = i->next();
 					scheduleFlush(session);
@@ -356,7 +354,7 @@ void ENioDatagramAcceptor::notifyIdleSessions(llong currentTime) {
 	if (currentTime - lastIdleCheckTime >= 1000) {
 		lastIdleCheckTime = currentTime;
 		//@see: AbstractIoSession.notifyIdleness(getListeners().getManagedSessions().values().iterator(), currentTime);
-		sp<EConcurrentIterator<EIoSession> > sessions = getListeners()->getManagedSessions()->values()->iterator();
+		sp<EIterator<sp<EIoSession> > > sessions = getListeners()->getManagedSessions()->values()->iterator();
 		while (sessions->hasNext()) {
 			sp<EAbstractIoSession> s = dynamic_pointer_cast<EAbstractIoSession>(sessions->next());
 
@@ -431,7 +429,7 @@ boolean ENioDatagramAcceptor::flush(sp<ENioSession>& session, llong currentTime)
 	return true;
 }
 
-void ENioDatagramAcceptor::readHandle(EDatagramChannel* handle) {
+void ENioDatagramAcceptor::readHandle(sp<EDatagramChannel> handle) {
 	sp<EIoBuffer> readBuf = EIoBuffer::allocate(getSessionConfig()->getReadBufferSize());
 
 	sp<EInetSocketAddress> remoteAddress = receive(handle, readBuf.get());
@@ -448,7 +446,7 @@ void ENioDatagramAcceptor::readHandle(EDatagramChannel* handle) {
 
 sp<EIoSession> ENioDatagramAcceptor::newSessionWithoutLock(
 		EInetSocketAddress* remoteAddress, EInetSocketAddress* localAddress) {
-	EDatagramChannel* handle = boundHandles->get(localAddress);
+	sp<EDatagramChannel> handle = boundHandles->get(localAddress);
 	if (handle == null) {
 		EString msg("Unknown local address: ");
 		msg << localAddress->toString();
@@ -603,8 +601,8 @@ void ENioDatagramAcceptor::write(sp<EIoSession>& is,
     }}
 }
 
-EDatagramChannel* ENioDatagramAcceptor::open(EInetSocketAddress* localAddress) {
-	EDatagramChannel* ch = EDatagramChannel::open();
+sp<EDatagramChannel> ENioDatagramAcceptor::open(EInetSocketAddress* localAddress) {
+	sp<EDatagramChannel> ch = EDatagramChannel::open();
 	boolean success = false;
 
 	ON_FINALLY_NOTHROW (
@@ -649,8 +647,8 @@ void ENioDatagramAcceptor::wakeup() {
 	selector->wakeup();
 }
 
-void ENioDatagramAcceptor::close(EDatagramChannel* handle) {
-	ESelectionKey* key = handle->keyFor(selector);
+void ENioDatagramAcceptor::close(sp<EDatagramChannel> handle) {
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if (key != null) {
 		key->cancel();
@@ -674,8 +672,8 @@ int ENioDatagramAcceptor::select() {
 	return selector->select();
 }
 
-boolean ENioDatagramAcceptor::isReadable(EDatagramChannel* handle) {
-	ESelectionKey* key = handle->keyFor(selector);
+boolean ENioDatagramAcceptor::isReadable(sp<EDatagramChannel> handle) {
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if ((key == null) || (!key->isValid())) {
 		return false;
@@ -684,8 +682,8 @@ boolean ENioDatagramAcceptor::isReadable(EDatagramChannel* handle) {
 	return key->isReadable();
 }
 
-boolean ENioDatagramAcceptor::isWritable(EDatagramChannel* handle) {
-	ESelectionKey* key = handle->keyFor(selector);
+boolean ENioDatagramAcceptor::isWritable(sp<EDatagramChannel> handle) {
+	sp<ESelectionKey> key = handle->keyFor(selector);
 
 	if ((key == null) || (!key->isValid())) {
 		return false;
@@ -694,21 +692,21 @@ boolean ENioDatagramAcceptor::isWritable(EDatagramChannel* handle) {
 	return key->isWritable();
 }
 
-ESet<ESelectionKey*>* ENioDatagramAcceptor::selectedHandles() {
+ESet<sp<ESelectionKey> >* ENioDatagramAcceptor::selectedHandles() {
 	return selector->selectedKeys();
 }
 
-sp<EInetSocketAddress> ENioDatagramAcceptor::receive(EDatagramChannel* handle, EIoBuffer* buffer) {
+sp<EInetSocketAddress> ENioDatagramAcceptor::receive(sp<EDatagramChannel> handle, EIoBuffer* buffer) {
 	return handle->receive(buffer->buf());
 }
 
 int ENioDatagramAcceptor::send(sp<ENioSession>& session, EIoBuffer* buffer, EInetSocketAddress* remoteAddress) {
-	EDatagramChannel* channel = dynamic_cast<EDatagramChannel*>(session->getChannel());
+	sp<EDatagramChannel> channel = dynamic_pointer_cast<EDatagramChannel>(session->getChannel());
 	return channel->send(buffer->buf(), remoteAddress);
 }
 
 void ENioDatagramAcceptor::setInterestedInWrite(sp<ENioSession>& session, boolean isInterested) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	if (key == null) {
 		return;
@@ -811,7 +809,7 @@ bool ENioDatagramAcceptor::scheduleFlush(sp<EIoSession>& s) {
 	}
 }
 
-sp<EInetSocketAddress> ENioDatagramAcceptor::localAddress(EDatagramChannel* handle) {
+sp<EInetSocketAddress> ENioDatagramAcceptor::localAddress(sp<EDatagramChannel> handle) {
 	return handle->socket()->getLocalSocketAddress();
 }
 

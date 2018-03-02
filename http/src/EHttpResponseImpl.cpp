@@ -52,7 +52,7 @@ int EHttpResponseImpl::getStatus() {
 	return status;
 }
 
-EStringBase EHttpResponseImpl::toString() {
+EString EHttpResponseImpl::toString() {
 	EString sb;
 	sb.append("HTTP RESPONSE STATUS: " ).append(EHttpStatus::valueOf(status)->line()).append('\n');
 	sb.append("VERSION: ").append(version).append('\n');

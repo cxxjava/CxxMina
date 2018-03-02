@@ -755,8 +755,8 @@ boolean EDefaultIoFilterChain::contains(EIoFilter* filter) {
 	return getEntry(filter) != null;
 }
 
-EStringBase EDefaultIoFilterChain::toString() {
-	EStringBase buf("{ ");
+EString EDefaultIoFilterChain::toString() {
+	EString buf("{ ");
 
 	boolean empty = true;
 
@@ -964,7 +964,7 @@ EDefaultIoFilterChain::EntryImpl::EntryImpl(
 			ifc->callPreviousFilterClose(nextEntry, session);
 		}
 
-		virtual EStringBase toString() {
+		virtual EString toString() {
 			return ei->nextEntry->name;
 		}
 	};
@@ -1002,8 +1002,8 @@ void EDefaultIoFilterChain::EntryImpl::remove() {
 	owner->remove(getName());
 }
 
-EStringBase EDefaultIoFilterChain::EntryImpl::toString() {
-	EStringBase sb;
+EString EDefaultIoFilterChain::EntryImpl::toString() {
+	EString sb;
 
 	// Add the current filter
 	sb.append("('").append(getName()).append('\'');

@@ -193,7 +193,7 @@ private:
 			executor->aliveThreadCount++;
 			sp<Worker> w = shared_from_this();
 			this->thread = executor->getThreadFactory()->newThread(w);
-			this->thread->setDaemon(true);
+			EThread::setDaemon(this->thread, true);
 			this->thread->injectExitCallback(worker_thread_exit_callback, new sp<Worker>(w));
 		}
 

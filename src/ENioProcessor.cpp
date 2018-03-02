@@ -27,9 +27,9 @@ ENioProcessor::ENioProcessor(EExecutor* executor) : EAbstractPollingIoProcessor(
 }
 
 void ENioProcessor::init(sp<ENioSession>& session) {
-	ESelectableChannel* ch = dynamic_cast<ESelectableChannel*>(session->getChannel());
+	sp<ESelectableChannel> ch = dynamic_pointer_cast<ESelectableChannel>(session->getChannel());
 	ch->configureBlocking(false);
-	session->setSelectionKey(ch->register_(selector, ESelectionKey::OP_READ, new sp<ENioSession>(session)));
+	session->setSelectionKey(ch->register_(selector, ESelectionKey::OP_READ, new wp<ENioSession>(session)));
 }
 
 void ENioProcessor::destroy(sp<ENioSession>& session) {
@@ -79,7 +79,7 @@ ESessionState ENioProcessor::getState(sp<ENioSession>& session) {
 		return  ESessionState::CLOSING;
 	}
 
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	if (key == null) {
 		// The channel is not yet registred to a selector
@@ -96,20 +96,20 @@ ESessionState ENioProcessor::getState(sp<ENioSession>& session) {
 }
 
 boolean ENioProcessor::isWritable(sp<ENioSession>& session) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	return (key != null) && key->isValid() && key->isWritable();
 }
 
 boolean ENioProcessor::isReadable(sp<ENioSession>& session) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	return (key != null) && key->isValid() && key->isReadable();
 }
 
 void ENioProcessor::setInterestedInWrite(sp<ENioSession>& session,
 		boolean isInterested) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	if ((key == null) || !key->isValid()) {
 		return;
@@ -128,7 +128,7 @@ void ENioProcessor::setInterestedInWrite(sp<ENioSession>& session,
 
 void ENioProcessor::setInterestedInRead(sp<ENioSession>& session,
 		boolean isInterested) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	if ((key == null) || !key->isValid()) {
 		return;
@@ -149,19 +149,19 @@ void ENioProcessor::setInterestedInRead(sp<ENioSession>& session,
 }
 
 boolean ENioProcessor::isInterestedInRead(sp<ENioSession>& session) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	return (key != null) && key->isValid() && ((key->interestOps() & ESelectionKey::OP_READ) != 0);
 }
 
 boolean ENioProcessor::isInterestedInWrite(sp<ENioSession>& session) {
-	ESelectionKey* key = session->getSelectionKey();
+	sp<ESelectionKey> key = session->getSelectionKey();
 
 	return (key != null) && key->isValid() && ((key->interestOps() & ESelectionKey::OP_WRITE) != 0);
 }
 
 int ENioProcessor::read(sp<ENioSession>& session, EIoBuffer* buf) {
-	EByteChannel* channel = session->getChannel();
+	sp<EByteChannel> channel = session->getChannel();
 
 	return channel->read(buf->buf());
 }
@@ -198,38 +198,34 @@ int ENioProcessor::transferFile(sp<ENioSession>& session,
 		throw e;
 	}
 	*/
-	return (int) region->getFileChannel()->transferTo(region->getPosition(), length, session->getChannel());
+	return (int) region->getFileChannel()->transferTo(region->getPosition(), length, session->getChannel().get());
 }
 
 void ENioProcessor::registerNewSelector() {
 	ESelector* oldSelector = null;
 	SYNCHRONIZED(selector) {
-		ESet<ESelectionKey*>* keys = selector->keys();
+		ESet<sp<ESelectionKey> >* keys = selector->keys();
 
 		// Open a new selector
 		ESelector* newSelector = ESelector::open();
 
 		// Loop on all the registered keys, and register them on the new selector
-		sp<EIterator<ESelectionKey*> > iter = keys->iterator();
+		sp<EIterator<sp<ESelectionKey> > > iter = keys->iterator();
 		while (iter->hasNext()) {
-			ESelectionKey* key = iter->next();
-			if (!key) continue; //cxxjava@163.com
-			ESelectableChannel* ch = key->channel();
+			sp<ESelectionKey> key = iter->next();
+			if (key == null) continue; //cxxjava@163.com
+			sp<ESelectableChannel> ch = key->channel();
 
 			// Don't forget to attache the session, and back !
 			/*@see:
-			sp<ENioSession>* session = (sp<ENioSession>*)key->attachment();
-			ESelectionKey* newKey = ch->register_(newSelector, key->interestOps(), session);
-			(*session)->setSelectionKey(newKey);
+			NioSession session = (NioSession) key.attachment();
+			SelectionKey newKey = ch.register(newSelector, key.interestOps(), session);
+			session.setSelectionKey(newKey);
 			*/
-			sp<ENioSession>* s = null;
-			sp<ENioSession> session;
-			SYNCHRONIZED(key) {
-				s = (sp<ENioSession>*)key->attachment();
-				if (s) session = (*s);
-            }}
-			if (s) {
-				ESelectionKey* newKey = ch->register_(newSelector, key->interestOps(), s);
+			wp<ENioSession>* s = (wp<ENioSession>*)key->attachment();
+			sp<ENioSession> session = (s) ? (*s).lock() : null;
+			if (session != null) {
+				sp<ESelectionKey> newKey = ch->register_(newSelector, key->interestOps(), new wp<ENioSession>(session));
 				session->setSelectionKey(newKey);
 			}
 		}
@@ -249,17 +245,17 @@ boolean ENioProcessor::isBrokenConnection() {
 
 	SYNCHRONIZED(selector) {
 		// Get the selector keys
-		ESet<ESelectionKey*>* keys = selector->keys();
+		ESet<sp<ESelectionKey> >* keys = selector->keys();
 
 		// Loop on all the keys to see if one of them
 		// has a closed channel
-		sp<EIterator<ESelectionKey*> > iter = keys->iterator();
+		sp<EIterator<sp<ESelectionKey> > > iter = keys->iterator();
 		while (iter->hasNext()) {
-			ESelectionKey* key = iter->next();
-			ESelectableChannel* channel = key->channel();
+			sp<ESelectionKey> key = iter->next();
+			sp<ESelectableChannel> channel = key->channel();
 
-			EDatagramChannel* dc = dynamic_cast<EDatagramChannel*>(channel);
-			ESocketChannel* sc = dynamic_cast<ESocketChannel*>(channel);
+			EDatagramChannel* dc = dynamic_cast<EDatagramChannel*>(channel.get());
+			ESocketChannel* sc = dynamic_cast<ESocketChannel*>(channel.get());
 
 			if ((dc && !dc->isConnected())
 					|| (sc && !sc->isConnected())) {

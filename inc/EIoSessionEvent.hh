@@ -47,7 +47,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 
 	/**
 	 * @return the idle status of the event

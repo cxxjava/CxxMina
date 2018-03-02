@@ -38,7 +38,7 @@ protected:
 	 */
 	class IoSessionIterator: public EIterator<sp<ENioSession> > {
 	private:
-		sp<EIterator<ESelectionKey*> > iterator;
+		sp<EIterator<sp<ESelectionKey> > > iterator;
 
 	public:
 		virtual ~IoSessionIterator() {
@@ -51,7 +51,7 @@ protected:
 		 * @param keys
 		 *            The set of selected sessions
 		 */
-		IoSessionIterator(ESet<ESelectionKey*>* keys) {
+		IoSessionIterator(ESet<sp<ESelectionKey> >* keys) {
 			iterator = keys->iterator();
 		}
 
@@ -66,11 +66,9 @@ protected:
 		 * {@inheritDoc}
 		 */
 		sp<ENioSession> next() {
-			ESelectionKey* key = iterator->next();
-			SYNCHRONIZED(key) { //!
-				sp<ENioSession>* s = (sp<ENioSession>*)(key->attachment());
-				return s ? (*s) : null;
-            }}
+			sp<ESelectionKey> key = iterator->next();
+            wp<ENioSession>* s = dynamic_cast<wp<ENioSession>*>(key->attachment());
+            return s ? (*s).lock() : null;
 		}
 
 		/**
@@ -81,11 +79,9 @@ protected:
 		}
 
 		sp<ENioSession> moveOut() {
-			ESelectionKey* key = iterator->moveOut();
-			SYNCHRONIZED(key) { //!
-				sp<ENioSession>* s = (sp<ENioSession>*)(key->attachment());
-				return s ? (*s) : null;
-            }}
+			sp<ESelectionKey> key = iterator->moveOut();
+            wp<ENioSession>* s = dynamic_cast<wp<ENioSession>*>(key->attachment());
+            return s ? (*s).lock() : null;
 		}
 	};
 

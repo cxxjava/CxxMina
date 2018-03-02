@@ -49,26 +49,26 @@ public:
 	/**
 	 * @return The ByteChannel associated with this {@link IoSession}
 	 */
-	virtual EByteChannel* getChannel() = 0;
+	virtual sp<EByteChannel> getChannel() = 0;
 
 	/**
 	 * @return The {@link SelectionKey} associated with this {@link IoSession}
 	 */
-	ESelectionKey* getSelectionKey();
+	sp<ESelectionKey> getSelectionKey();
 
 	/**
 	 * Sets the {@link SelectionKey} for this {@link IoSession}
 	 *
 	 * @param key The new {@link SelectionKey}
 	 */
-	void setSelectionKey(ESelectionKey* key);
+	void setSelectionKey(sp<ESelectionKey> key);
 
 protected:
 	/** The NioSession processor */
 	EIoProcessor* processor;
 
 	/** The communication channel */
-	EByteChannel* channel;
+	sp<EByteChannel> channel;
 
 	/**
 	 * Creates a new instance of NioSession, with its associated IoProcessor.
@@ -79,11 +79,11 @@ protected:
 	 * @param service The associated {@link IoService}
 	 * @param channel The associated {@link Channel}
 	 */
-	ENioSession(EIoProcessor* processor, EIoService* service, EByteChannel* channel);
+	ENioSession(EIoProcessor* processor, EIoService* service, sp<EByteChannel> channel);
 
 private:
 	/** The SelectionKey used for this session */
-	ESelectionKey* volatile key;
+	sp<ESelectionKey> key;
 	EReentrantLock keyLock;
 
 	/** The FilterChain created for this session */

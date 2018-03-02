@@ -171,7 +171,7 @@ ENioSocketSession::~ENioSocketSession() {
 }
 
 ENioSocketSession::ENioSocketSession(EIoService* service,
-		EIoProcessor* processor, ESocketChannel* channel) :
+		EIoProcessor* processor, sp<ESocketChannel> channel) :
 		ENioSession(processor, service, channel) {
 	config = new SessionConfigImpl(this);
 	this->config->setAll(service->getSessionConfig());
@@ -190,7 +190,7 @@ ESocketSessionConfig* ENioSocketSession::getConfig() {
 	return dynamic_cast<ESocketSessionConfig*>(config);
 }
 
-EByteChannel* ENioSocketSession::getChannel() {
+sp<EByteChannel> ENioSocketSession::getChannel() {
 	return channel;
 }
 
@@ -244,7 +244,7 @@ boolean ENioSocketSession::isSecured() {
 }
 
 ESocket* ENioSocketSession::getSocket() {
-	return (dynamic_cast<ESocketChannel*>(channel))->socket();
+	return (dynamic_pointer_cast<ESocketChannel>(channel))->socket();
 }
 
 } /* namespace eio */

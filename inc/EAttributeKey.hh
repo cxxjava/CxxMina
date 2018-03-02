@@ -48,7 +48,7 @@ public:
 	/**
 	 * The String representation of this object.
 	 */
-	virtual EStringBase toString();
+	virtual EString toString();
 
 	virtual int hashCode();
 

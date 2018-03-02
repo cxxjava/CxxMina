@@ -143,7 +143,7 @@ interface EIoSessionAttributeMap : virtual public EObject {
 	 *
 	 * @param session the session for which we want the set of attributes
 	 */
-	virtual sp<EConcurrentSet<EObject> > getAttributeKeys(EIoSession* session) = 0;
+	virtual ESet<sp<EObject> >* getAttributeKeys(EIoSession* session) = 0;
 
 	/**
 	 * Disposes any releases associated with the specified session.

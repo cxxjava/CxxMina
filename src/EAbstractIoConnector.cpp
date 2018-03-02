@@ -193,8 +193,8 @@ sp<EConnectFuture> EAbstractIoConnector::connect(const char* rhostname, int rpor
 	return this->connect(&risa, &lisa, sessionInitializer);
 }
 
-EStringBase EAbstractIoConnector::toString() {
-	return EStringBase::formatOf("(nio connector: managedSessionCount: %d)", getManagedSessionCount());
+EString EAbstractIoConnector::toString() {
+	return EString::formatOf("(nio connector: managedSessionCount: %d)", getManagedSessionCount());
 }
 
 EAbstractIoConnector::EAbstractIoConnector(EIoSessionConfig* sessionConfig,

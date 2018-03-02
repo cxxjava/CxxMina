@@ -84,7 +84,7 @@ public:
 	virtual boolean contains(const char* name);
 	virtual boolean contains(EIoFilter* filter);
 
-	virtual EStringBase toString();
+	virtual EString toString();
 
 private:
 	class EntryImpl : public virtual Entry {
@@ -99,7 +99,7 @@ private:
 		virtual void addAfter(const char* name, EIoFilter* filter);
 		virtual void replace(EIoFilter* newFilter);
 		virtual void remove();
-		virtual EStringBase toString();
+		virtual EString toString();
 
 		void setFilter(EIoFilter* filter);
 	public:

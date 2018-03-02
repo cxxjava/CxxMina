@@ -69,7 +69,7 @@ public:
 	 * @throws SaslException if either the key or the value is null or
 	 * if the key already has a value.
 	 */
-	static void extractDirective(sp<EHashMap<EString*, EString*> >& map, EStringBase key, EStringBase value) THROWS(ESaslException);
+	static void extractDirective(sp<EHashMap<EString*, EString*> >& map, EString key, EString value) THROWS(ESaslException);
 
 	/**
 	 * Parses digest-challenge string, extracting each token and value(s). Each token
