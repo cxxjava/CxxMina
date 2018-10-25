@@ -34,7 +34,7 @@ EDefaultWriteFuture::EDefaultWriteFuture(sp<EIoSession> session) : EDefaultIoFut
 
 boolean EDefaultWriteFuture::isWritten() {
 	if (isDone()) {
-		EObject* v = getValue();
+		EObject* v = getValue().get();
 
 		EBoolean* b = dynamic_cast<EBoolean*>(v);
 		if (b) {
@@ -47,7 +47,7 @@ boolean EDefaultWriteFuture::isWritten() {
 
 EThrowable* EDefaultWriteFuture::getException() {
 	if (isDone()) {
-		EObject* v = getValue();
+		EObject* v = getValue().get();
 
 		EThrowableObject<EThrowable>* t = dynamic_cast<EThrowableObject<EThrowable>*>(v);
 		if (t) {
@@ -60,8 +60,8 @@ EThrowable* EDefaultWriteFuture::getException() {
 
 void EDefaultWriteFuture::tryThrowException() {
 	if (isDone()) {
-		EObject* obj = getValue();
-		EThrowableType* tt = dynamic_cast<EThrowableType*>(obj);
+		sp<EObject> obj = getValue();
+		EThrowableType* tt = dynamic_cast<EThrowableType*>(obj.get());
 		if (tt) {
 			tt->throwException();
 		}
@@ -72,7 +72,7 @@ void EDefaultWriteFuture::setWritten() {
 	setValue(new EBoolean(true));
 }
 
-void EDefaultWriteFuture::setException(EObject* cause) {
+void EDefaultWriteFuture::setException(sp<EObject> cause) {
 	if (cause == null) {
 		throw EIllegalArgumentException(__FILE__, __LINE__, "exception");
 	}

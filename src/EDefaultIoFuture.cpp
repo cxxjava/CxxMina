@@ -12,7 +12,7 @@ namespace efc {
 namespace eio {
 
 EDefaultIoFuture::~EDefaultIoFuture() {
-	delete result;
+	//
 }
 
 sp<EIoFuture> EDefaultIoFuture::tosp() {
@@ -92,11 +92,10 @@ boolean EDefaultIoFuture::isDone() {
     }}
 }
 
-boolean EDefaultIoFuture::setValue(EObject* newValue) {
+boolean EDefaultIoFuture::setValue(sp<EObject> newValue) {
 	SYNCHRONIZED(this) {
 		// Allowed only once.
 		if (ready) {
-			delete newValue; //!!!
 			return false;
 		}
 
@@ -157,7 +156,7 @@ void EDefaultIoFuture::removeListener(EIoFutureListener* listener) {
     }}
 }
 
-EObject* EDefaultIoFuture::getValue() {
+sp<EObject> EDefaultIoFuture::getValue() {
 	SYNCHRONIZED(this) {
 		return result;
     }}

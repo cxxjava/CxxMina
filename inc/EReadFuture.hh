@@ -76,7 +76,7 @@ interface EReadFuture : virtual public EIoFuture {
 	 * this future.  This method is invoked by MINA internally.  Please do
 	 * not call this method directly.
 	 */
-	virtual void setRead(EObject* message) = 0;
+	virtual void setRead(sp<EObject> message) = 0;
 
 	/**
 	 * Sets the associated {@link IoSession} is closed.  This method is invoked
@@ -89,7 +89,7 @@ interface EReadFuture : virtual public EIoFuture {
 	 * for this future.  This method is invoked by MINA internally.  Please
 	 * do not call this method directly.
 	 */
-	virtual void setException(EObject* cause) = 0;
+	virtual void setException(sp<EObject> cause) = 0;
 };
 
 }

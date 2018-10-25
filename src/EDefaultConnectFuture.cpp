@@ -19,7 +19,7 @@ EDefaultConnectFuture::EDefaultConnectFuture() :
 }
 
 sp<EIoSession> EDefaultConnectFuture::getSession() {
-	EObject* v = getValue();
+	EObject* v = getValue().get();
 
 	/* @see:
 	if (v instanceof IoSession) {
@@ -54,7 +54,7 @@ sp<EIoSession> EDefaultConnectFuture::getSession() {
 }
 
 EThrowable* EDefaultConnectFuture::getException() {
-	EObject* v = getValue();
+	EObject* v = getValue().get();
 
 	EThrowableType* tt = dynamic_cast<EThrowableType*>(v);
 	if (tt) {
@@ -65,7 +65,7 @@ EThrowable* EDefaultConnectFuture::getException() {
 }
 
 void EDefaultConnectFuture::tryThrowException() {
-	EObject* obj = getValue();
+	EObject* obj = getValue().get();
 	EThrowableType* tt = dynamic_cast<EThrowableType*>(obj);
 	if (tt) {
 		tt->throwException();
@@ -73,11 +73,11 @@ void EDefaultConnectFuture::tryThrowException() {
 }
 
 boolean EDefaultConnectFuture::isConnected() {
-	return instanceof<sp<EIoSession> >(getValue());
+	return instanceof<sp<EIoSession> >(getValue().get());
 }
 
 boolean EDefaultConnectFuture::isCanceled() {
-	EObject* v = getValue();
+	EObject* v = getValue().get();
 	return (instanceof<CanceledObject>(v));
 }
 
@@ -89,7 +89,7 @@ void EDefaultConnectFuture::setSession(sp<EIoSession> session) {
 	setValue(new sp<EIoSession>(session));
 }
 
-void EDefaultConnectFuture::setException(EObject* exception) {
+void EDefaultConnectFuture::setException(sp<EObject> exception) {
 	if (exception == null) {
 		throw EIllegalArgumentException(__FILE__, __LINE__, "session");
 	}
@@ -101,7 +101,7 @@ boolean EDefaultConnectFuture::cancel() {
 	return setValue(new CanceledObject());
 }
 
-EConnectFuture* EDefaultConnectFuture::newFailedFuture(EObject* exception) {
+EConnectFuture* EDefaultConnectFuture::newFailedFuture(sp<EObject> exception) {
 	EDefaultConnectFuture* failedFuture = new EDefaultConnectFuture();
 	failedFuture->setException(exception);
 

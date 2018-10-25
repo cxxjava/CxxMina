@@ -83,7 +83,7 @@ public:
 	 * @return {@code true} if the value has been set, {@code false} if
 	 * the future already has a value (thus is in ready state)
 	 */
-	virtual boolean setValue(EObject* newValue);
+	virtual boolean setValue(sp<EObject> newValue);
 
 	/**
 	 * {@inheritDoc}
@@ -101,7 +101,7 @@ protected:
 	 *
 	 * @return The stored value
 	 */
-	EObject* getValue();
+	sp<EObject> getValue();
 
 private:
 	/** A number of milliseconds to wait between two deadlock controls ( 5 seconds ) */
@@ -117,7 +117,7 @@ private:
 	/** All the other listeners, in case we have more than one */
 	EArrayList<sp<EIoFutureListener> > otherListeners;
 
-	EObject* result;
+	sp<EObject> result;
 
 	/** The flag used to determinate if the Future is completed or not */
 	boolean ready;

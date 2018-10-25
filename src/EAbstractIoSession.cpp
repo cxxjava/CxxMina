@@ -253,11 +253,11 @@ sp<EReadFuture> EAbstractIoSession::read() {
 	return future;
 }
 
-void EAbstractIoSession::offerReadFuture(EObject* message) {
+void EAbstractIoSession::offerReadFuture(sp<EObject> message) {
 	newReadFuture()->setRead(message);
 }
 
-void EAbstractIoSession::offerFailedReadFuture(EObject* exception) {
+void EAbstractIoSession::offerFailedReadFuture(sp<EObject> exception) {
 	newReadFuture()->setException(exception);
 }
 

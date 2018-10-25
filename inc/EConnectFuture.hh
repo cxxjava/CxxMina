@@ -77,7 +77,7 @@ interface EConnectFuture : virtual public EIoFuture {
 	 * threads waiting for this future.  This method is invoked by MINA
 	 * internally.  Please do not call this method directly.
 	 */
-	virtual void setException(EObject* exception) = 0;
+	virtual void setException(sp<EObject> exception) = 0;
 
 	/**
 	 * Cancels the connection attempt and notifies all threads waiting for

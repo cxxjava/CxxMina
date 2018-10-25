@@ -156,14 +156,14 @@ public:
 	 * @param message the message to associate to the ReadFuture
 	 *
 	 */
-	void offerReadFuture(EObject* message);
+	void offerReadFuture(sp<EObject> message);
 
 	/**
 	 * Associates a failure to a ReadFuture
 	 *
 	 * @param exception the exception to associate to the ReadFuture
 	 */
-	void offerFailedReadFuture(EObject* exception);
+	void offerFailedReadFuture(sp<EObject> exception);
 
 	/**
 	 * Inform the ReadFuture that the session has been closed

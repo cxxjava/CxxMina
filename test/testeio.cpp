@@ -235,37 +235,37 @@ static void test_niosocketacceptor() {
 	ErrHandler handle;
 	EThread::setDefaultUncaughtExceptionHandler(&handle);
 
-	ENioSocketAcceptor *nsa = new ENioSocketAcceptor();
-	EExecutorFilter* ef = new EExecutorFilter();
-	ELoggingFilter* lf = new ELoggingFilter();
-	EBlacklistFilter* bf = new EBlacklistFilter();
-	EWhitelistFilter* wf = new EWhitelistFilter();
-	EProfilerTimerFilter *ptf = new EProfilerTimerFilter();
-	ETextLineCodecFactory* tlcf = new ETextLineCodecFactory("\n");
-	EProtocolCodecFilter* pcf1 = new EProtocolCodecFilter(tlcf);
+	ENioSocketAcceptor nsa;
+	EExecutorFilter ef;
+	ELoggingFilter lf;
+	EBlacklistFilter bf;
+	EWhitelistFilter wf;
+	EProfilerTimerFilter ptf;
+	ETextLineCodecFactory tlcf("\n");
+	EProtocolCodecFilter pcf1(&tlcf);
 	EHttpServerEncoder hse;
 	EHttpServerDecoder hsd;
-	EProtocolCodecFilter* pcf2 = new EProtocolCodecFilter(&hse, &hsd);
-	DemoIoHandler* dih = new DemoIoHandler();
-	EExecutorService* pool = EExecutors::newCachedThreadPool();
-	StreamIoHandler* sih = new StreamIoHandler(pool);
+	EProtocolCodecFilter pcf2(&hse, &hsd);
+	DemoIoHandler dih;
+	sp<EExecutorService> pool = EExecutors::newCachedThreadPool();
+	StreamIoHandler sih(pool.get());
 	EInetSocketAddress isa(8888);
-	nsa->setReuseAddress(true);
+	nsa.setReuseAddress(true);
 //	EInetAddress ia = EInetAddress::getByName("192.168.2.111");
 	EInetAddress ia = EInetAddress::getByName("127.0.0.1");
-//	bf->block(&ia);
-	bf->block("127.0.0.1");
-	wf->allow(&ia);
-//	nsa->getFilterChain()->addLast("executor", ef);
-	nsa->getFilterChain()->addLast("logger", lf);
-//	nsa->getFilterChain()->addLast("black", bf);
-//	nsa->getFilterChain()->addLast("white", wf);
-	nsa->getFilterChain()->addLast("profile", ptf);
-//	nsa->getFilterChain()->addLast("codec", pcf1);
-	nsa->getFilterChain()->addLast("codec", pcf2);
-	nsa->setHandler(dih);
-//	nsa->setHandler(sih);
-	nsa->bind(&isa);
+//	bf.block(&ia);
+	bf.block("127.0.0.1");
+	wf.allow(&ia);
+//	nsa.getFilterChain()->addLast("executor", &ef);
+	nsa.getFilterChain()->addLast("logger", &lf);
+//	nsa.getFilterChain()->addLast("black", &bf);
+//	nsa.getFilterChain()->addLast("white", &wf);
+	nsa.getFilterChain()->addLast("profile", &ptf);
+//	nsa.getFilterChain()->addLast("codec", &pcf1);
+	nsa.getFilterChain()->addLast("codec", &pcf2);
+	nsa.setHandler(&dih);
+//	nsa.setHandler(&sih);
+	nsa.bind(&isa);
 
 	while (0) {
 
@@ -273,12 +273,12 @@ static void test_niosocketacceptor() {
 		EIoBuffer *ib = EIoBuffer::allocate(1024);
 		ib->buf()->put("0123456789\n", 11);
 		ib->flip();
-		nsa->broadcast(ib);
+		nsa.broadcast(ib);
 
 		//profile
-		double averageTime = ptf->getAverageTime(EIoEventType::MESSAGE_RECEIVED);
+		double averageTime = ptf.getAverageTime(EIoEventType::MESSAGE_RECEIVED);
 //		LOG("AverageTime=%lf", averageTime);
-		llong totalCalls = ptf->getTotalCalls(EIoEventType::MESSAGE_RECEIVED);
+		llong totalCalls = ptf.getTotalCalls(EIoEventType::MESSAGE_RECEIVED);
 //		LOG("TotalCalls=%ld", totalCalls);
 
 		EThread::sleep(1000);
@@ -286,35 +286,10 @@ static void test_niosocketacceptor() {
 	EThread::sleep(10000000);
 
 	pool->shutdown();
-	delete pool;
+	pool.reset();
 
-	nsa->dispose(true);
+	nsa.dispose(true);
 	LOG("nsa->dispose(true)");
-
-	delete ef;
-	LOG("delete ef");
-	delete lf;
-	LOG("delete lf");
-	delete bf;
-	LOG("delete bf");
-	delete wf;
-	LOG("delete wf");
-	delete ptf;
-	LOG("delete ptf");
-	delete pcf1;
-	LOG("delete pcf1");
-	delete pcf2;
-	LOG("delete pcf2");
-	delete tlcf;
-	LOG("delete tlcf");
-
-	delete dih;
-	LOG("delete dih");
-	delete sih;
-	LOG("delete sih");
-
-	delete nsa;
-	LOG("delete nsa");
 }
 
 //=============================================================================
@@ -416,35 +391,30 @@ static void test_proxy() {
 	EThread::setDefaultUncaughtExceptionHandler(&handle);
 
 	// Create TCP/IP acceptor.
-	ENioSocketAcceptor *nsa = new ENioSocketAcceptor();
+	ENioSocketAcceptor nsa;
 
 	// Create TCP/IP connector.
-	EIoConnector* connector = new ENioSocketConnector();
+	ENioSocketConnector connector;
 
 	// Set connect timeout.
-	connector->setConnectTimeoutMillis( 30 * 1000L );
+	connector.setConnectTimeoutMillis( 30 * 1000L );
 
-	ClientToProxyIoHandler* handler = new ClientToProxyIoHandler( connector,
+	ClientToProxyIoHandler handler(&connector,
 //            new EInetSocketAddress("192.168.2.173", 8888) );
     		new EInetSocketAddress("localhost", 8096) );
 
-	ELoggingFilter* lf = new ELoggingFilter();
+	ELoggingFilter lf;
 	EInetSocketAddress isa(8888);
-	nsa->setReuseAddress(true);
+	nsa.setReuseAddress(true);
 	EInetAddress ia = EInetAddress::getByName("127.0.0.1");
-	nsa->getFilterChain()->addLast("logger", lf);
-	nsa->setHandler(handler);
-	nsa->bind(&isa);
+	nsa.getFilterChain()->addLast("logger", &lf);
+	nsa.setHandler(&handler);
+	nsa.bind(&isa);
 
 	EThread::sleep(10000000);
 
-	nsa->dispose(true);
-	connector->dispose(true);
-
-	delete nsa;
-	delete connector;
-	delete handler;
-	delete lf;
+	nsa.dispose(true);
+	connector.dispose(true);
 }
 
 //=============================================================================
@@ -457,11 +427,11 @@ public:
 		session->closeNow();
 	}
 
-	void messageReceived(sp<EIoSession>& session, const void* message)THROWS(EException) {
+	void messageReceived(sp<EIoSession>& session, sp<EObject>& message)THROWS(EException) {
 		LOG("messageReceived");
 	}
 
-	void messageSent(sp<EIoSession>& session, const void* message) THROWS(EException) {
+	void messageSent(sp<EIoSession>& session, sp<EObject>& message) THROWS(EException) {
 		LOG("messageSent");
 	}
 
@@ -489,14 +459,14 @@ public:
 };
 
 static void test_niosocketconnector() {
-	EIoConnector* conn = new ENioSocketConnector();
-	MinaClientHandler* mch = new MinaClientHandler();
+	sp<EIoConnector> conn(new ENioSocketConnector());
+	MinaClientHandler mch;
 	conn->setConnectTimeoutMillis(30000L);
-//	conn.getFilterChain().addLast("codec",
+//	conn->getFilterChain().addLast("codec",
 //					new ProtocolCodecFilter(new TextLineCodecFactory(Charset
 //					.forName("UTF-8"), LineDelimiter.WINDOWS.getValue(),
 //					LineDelimiter.WINDOWS.getValue())));
-	conn->setHandler(mch);
+	conn->setHandler(&mch);
 	sp<EIoSession> session =null;
 	try {
 		EInetSocketAddress isa("localhost", 8888);
@@ -524,9 +494,6 @@ static void test_niosocketconnector() {
 	conn->dispose(true);
 
 //	EThread::sleep(10000);
-
-	delete conn;
-	delete mch;
 }
 
 static void test_niodatagramserver() {
@@ -534,32 +501,30 @@ static void test_niodatagramserver() {
 	EInetSocketAddress isa(9001);
 	DemoIoHandler handler;
 
-	ENioDatagramAcceptor* acceptor = new ENioDatagramAcceptor();
-	acceptor->setHandler(&handler);
-	acceptor->setSessionRecycler(&esr);
+	ENioDatagramAcceptor acceptor;
+	acceptor.setHandler(&handler);
+	acceptor.setSessionRecycler(&esr);
 
-	EDatagramSessionConfig* dcfg = acceptor->getSessionConfig();
+	EDatagramSessionConfig* dcfg = acceptor.getSessionConfig();
 	dcfg->setReuseAddress(true);
 	dcfg->setReceiveBufferSize(1024);
 	dcfg->setSendBufferSize(1024);
 
-	acceptor->bind(&isa);
+	acceptor.bind(&isa);
 
 	while (1) {
 		//broadcast is't work on udp mode.
 		EIoBuffer *ib = EIoBuffer::allocate(1024);
 		ib->buf()->put("0123456789\n", 11);
 		ib->flip();
-		acceptor->broadcast(ib);
+		acceptor.broadcast(ib);
 
 		EThread::sleep(1000);
 	}
 
 	EThread::sleep(10000000);
 
-	acceptor->dispose(true);
-
-	delete acceptor;
+	acceptor.dispose(true);
 }
 
 static void test_niodatagramclient() {
@@ -640,11 +605,11 @@ MAIN_IMPL(testeio) {
 			LOG("===========begin=============");
 
 //			test_niosocketacceptor();
-//			test_niosocketconnector();
+			test_niosocketconnector();
 //			test_proxy();
 //			test_niodatagramserver();
 //			test_niodatagramclient();
-			test_multi_niodatagramclient();
+//			test_multi_niodatagramclient();
 
 //			EThread::sleep(100);
 

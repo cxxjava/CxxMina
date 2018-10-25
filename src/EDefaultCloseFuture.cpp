@@ -20,7 +20,7 @@ EDefaultCloseFuture::EDefaultCloseFuture(sp<EIoSession> session) :
 
 boolean EDefaultCloseFuture::isClosed() {
 	if (isDone()) {
-		return (dynamic_cast<EBoolean*>(getValue()))->booleanValue();
+		return (dynamic_pointer_cast<EBoolean>(getValue()))->booleanValue();
 	} else {
 		return false;
 	}

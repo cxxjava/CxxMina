@@ -73,7 +73,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void setException(EObject* cause);
+	virtual void setException(sp<EObject> cause);
 };
 
 } /* namespace eio */

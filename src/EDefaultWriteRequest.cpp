@@ -74,7 +74,7 @@ public:
 		return null;
 	}
 
-	void setException(EObject* cause) {
+	void setException(sp<EObject> cause) {
 		// Do nothing
 	}
     

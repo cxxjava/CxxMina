@@ -62,7 +62,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void setRead(EObject* message);
+	virtual void setRead(sp<EObject> message);
 
 	/**
 	 * {@inheritDoc}
@@ -72,7 +72,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void setException(EObject* cause);
+	virtual void setException(sp<EObject> cause);
 
 //private:
 //	/** A static object used when the session is closed */

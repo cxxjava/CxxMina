@@ -174,7 +174,7 @@ ENioSocketSession::ENioSocketSession(EIoService* service,
 		EIoProcessor* processor, sp<ESocketChannel> channel) :
 		ENioSession(processor, service, channel) {
 	config = new SessionConfigImpl(this);
-	this->config->setAll(service->getSessionConfig());
+	this->config->setAll(reinterpret_cast<ESocketSessionConfig*>(service->getSessionConfig()));
 }
 
 ETransportMetadata* ENioSocketSession::METADATA() {

@@ -144,7 +144,7 @@ int EIoBuffer::compareTo(EIoBuffer* that) {
 
 EIoBuffer* EIoBuffer::autoExpand(int expectedRemaining) {
 	if (isAutoExpand()) {
-		expand(expectedRemaining, true);
+		expand(position(), expectedRemaining, true);
 	}
 	return this;
 }

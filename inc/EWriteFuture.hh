@@ -70,7 +70,7 @@ interface EWriteFuture : virtual public EIoFuture {
 	 * for this future.  This method is invoked by MINA internally.  Please
 	 * do not call this method directly.
 	 */
-	virtual void setException(EObject* cause) = 0;
+	virtual void setException(sp<EObject> cause) = 0;
 };
 
 }

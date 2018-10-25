@@ -61,7 +61,7 @@ public:
 	/**
 	 * {@inheritDoc}
 	 */
-	virtual void setException(EObject* exception);
+	virtual void setException(sp<EObject> exception);
 
 	/**
 	 * {@inheritDoc}
@@ -74,7 +74,7 @@ public:
 	 * @param exception The exception that caused the failure
 	 * @return a new {@link ConnectFuture} which is already marked as 'failed to connect'.
 	 */
-	static EConnectFuture* newFailedFuture(EObject* exception);
+	static EConnectFuture* newFailedFuture(sp<EObject> exception);
 };
 
 } /* namespace eio */

@@ -146,7 +146,7 @@ protected:
 		}
 
 		boolean isDone() {
-			EBoolean *b = dynamic_cast<EBoolean*>(getValue());
+			EBoolean *b = dynamic_cast<EBoolean*>(getValue().get());
 			return b ? b->booleanValue() : false;
 		}
 
@@ -155,8 +155,8 @@ protected:
 		}
 
 		EThrowable* getException() {
-			EObject* obj = getValue();
-			EThrowableType* tt = dynamic_cast<EThrowableType*>(obj);
+			sp<EObject> obj = getValue();
+			EThrowableType* tt = dynamic_cast<EThrowableType*>(obj.get());
 			if (tt) {
 				return tt->getThrowable();
 			}
@@ -164,14 +164,14 @@ protected:
 		}
         
         void tryThrowException() {
-            EObject* obj = getValue();
-            EThrowableType* tt = dynamic_cast<EThrowableType*>(obj);
+            sp<EObject> obj = getValue();
+            EThrowableType* tt = dynamic_cast<EThrowableType*>(obj.get());
             if (tt) {
                 tt->throwException();
             }
         }
 
-		void setException(EObject* exception) {
+		void setException(sp<EObject> exception) {
 			if (exception == null) {
 				throw EIllegalArgumentException(__FILE__, __LINE__, "exception");
 			}

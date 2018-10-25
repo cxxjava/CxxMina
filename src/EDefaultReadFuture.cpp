@@ -23,7 +23,7 @@ EDefaultReadFuture::EDefaultReadFuture(sp<EIoSession> session) : EDefaultIoFutur
 
 EObject* EDefaultReadFuture::getMessage() {
 	if (EDefaultIoFuture::isDone()) {
-		EObject* v = getValue();
+		EObject* v = getValue().get();
 
 		if (instanceof<CloseObject>(v)) {
 			return null;
@@ -69,7 +69,7 @@ EObject* EDefaultReadFuture::getMessage() {
 
 boolean EDefaultReadFuture::isRead() {
 	if (EDefaultIoFuture::isDone()) {
-		EObject* v = getValue();
+		EObject* v = getValue().get();
 
 		EThrowable* t = dynamic_cast<EThrowable*>(v);
 		return (!instanceof<CloseObject>(v) && !t);
@@ -80,7 +80,7 @@ boolean EDefaultReadFuture::isRead() {
 
 boolean EDefaultReadFuture::isClosed() {
 	if (EDefaultIoFuture::isDone()) {
-		EObject* v = getValue();
+		EObject* v = getValue().get();
 		return (instanceof<CloseObject>(v));
 	}
 
@@ -89,7 +89,7 @@ boolean EDefaultReadFuture::isClosed() {
 
 EThrowable* EDefaultReadFuture::getException() {
 	if (isDone()) {
-		EObject* obj = getValue();
+		EObject* obj = getValue().get();
 		EThrowableType* tt = dynamic_cast<EThrowableType*>(obj);
 		if (tt) {
 			return tt->getThrowable();
@@ -101,15 +101,15 @@ EThrowable* EDefaultReadFuture::getException() {
 
 void EDefaultReadFuture::tryThrowException() {
 	if (isDone()) {
-		EObject* obj = getValue();
-		EThrowableType* tt = dynamic_cast<EThrowableType*>(obj);
+		sp<EObject> obj = getValue();
+		EThrowableType* tt = dynamic_cast<EThrowableType*>(obj.get());
 		if (tt) {
 			tt->throwException();
 		}
 	}
 }
 
-void EDefaultReadFuture::setRead(EObject* message) {
+void EDefaultReadFuture::setRead(sp<EObject> message) {
 	if (message == null) {
 		throw EIllegalArgumentException(__FILE__, __LINE__, "message");
 	}
@@ -121,7 +121,7 @@ void EDefaultReadFuture::setClosed() {
 	setValue(new CloseObject());
 }
 
-void EDefaultReadFuture::setException(EObject* cause) {
+void EDefaultReadFuture::setException(sp<EObject> cause) {
 	if (cause == null) {
 		throw EIllegalArgumentException(__FILE__, __LINE__, "exception");
 	}

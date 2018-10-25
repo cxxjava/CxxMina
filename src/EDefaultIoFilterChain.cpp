@@ -174,7 +174,7 @@ public:
 		// Propagate the message
 		ON_FINALLY_NOTHROW(
 			if (s->getConfig()->isUseReadOperation()) {
-				s->offerReadFuture(message.get()); //!!!
+				s->offerReadFuture(message); //!!!
 			}
 		) {
 			session->getHandler()->messageReceived(session, message);
